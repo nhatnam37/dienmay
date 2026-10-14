@@ -38,4 +38,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
                          @Param("brandId") Long brandId,
                          @Param("status") ProductStatus status,
                          Pageable pageable);
+    @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
+    @Query("select p from Product p where p.id in :ids order by p.id")
+    java.util.List<Product> findAllLockedByIdIn(@Param("ids") java.util.Collection<Long> ids);
 }

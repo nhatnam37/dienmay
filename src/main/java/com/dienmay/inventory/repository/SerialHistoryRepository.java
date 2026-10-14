@@ -8,5 +8,6 @@ import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.repository.query.Param;
 
 public interface SerialHistoryRepository extends JpaRepository<SerialHistory, Long> {
+    @org.springframework.data.jpa.repository.EntityGraph(attributePaths = {"fromBranch", "toBranch"})
     java.util.List<SerialHistory> findAllBySerialItemIdOrderByChangedAtAscIdAsc(Long serialItemId);
 }

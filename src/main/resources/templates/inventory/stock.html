@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Tồn kho')}"></head>
+<body><nav th:replace="~{fragments/layout :: nav}"></nav>
+<main class="container pb-5"><div th:replace="~{fragments/layout :: messages}"></div>
+<h1 class="h3 mb-3">Tồn kho theo chi nhánh</h1>
+<form method="get" th:action="@{/inventory/stock}" class="row g-2 mb-4"><div class="col-md-3" th:if="${isAdmin}"><label for="branchId" class="form-label">Chi nhánh</label><select id="branchId" name="branchId" class="form-select"><option value="">Tất cả</option><option th:each="b : ${branches}" th:value="${b.id}" th:text="${b.name}" th:selected="${b.id == branchId}"></option></select></div>
+<div class="col-md-3"><label for="categoryId" class="form-label">Danh mục</label><select id="categoryId" name="categoryId" class="form-select"><option value="">Tất cả</option><option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}" th:selected="${c.id == categoryId}"></option></select></div>
+<div class="col-md-4"><label for="keyword" class="form-label">Tên / SKU</label><input id="keyword" name="keyword" th:value="${keyword}" class="form-control"></div><div class="col-md-2 d-flex align-items-end"><button class="btn btn-primary">Lọc</button></div></form>
+<p class="text-muted">Hàng Serial hiển thị theo trạng thái; số có thể bán là IN_STOCK. Hàng số lượng: khả dụng = tổng tồn − lượng giữ.</p>
+<div class="table-responsive"><table class="table table-striped table-bordered align-middle"><thead><tr><th>Chi nhánh</th><th>SKU / Sản phẩm</th><th>Danh mục</th><th>Loại</th><th>Tổng bản ghi / tồn SL</th><th>Giữ</th><th>Khả dụng</th><th th:each="status : ${statuses}" th:text="${status}"></th></tr></thead><tbody>
+<tr th:each="row : ${rows}"><td th:text="${row.branchName}"></td><td><b th:text="${row.sku}"></b><br><span th:text="${row.productName}"></span></td><td th:text="${row.categoryName}"></td><td th:text="${row.tracksSerial ? 'Serial' : 'Số lượng'}"></td><td th:text="${row.quantity}"></td><td th:text="${row.reservedQty}"></td><td th:text="${row.available()}"></td><td th:each="status : ${statuses}" th:text="${row.tracksSerial ? row.count(status) : '—'}"></td></tr>
+<tr th:if="${#lists.isEmpty(rows)}"><td colspan="13" class="text-center text-muted">Chưa có tồn kho phù hợp.</td></tr></tbody></table></div>
+</main></body></html>

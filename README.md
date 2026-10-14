@@ -126,3 +126,19 @@ Xem [thiết kế, test và hướng dẫn kiểm tra thủ công](docs/catalog-
 Đã có V3, Serial state machine/history, tồn số lượng/movement, actor đa loại
 và guard khóa thay đổi cấu hình Serial. Chưa có controller/UI kho.
 Xem [thiết kế, lệnh chạy và danh sách test](docs/inventory-4a.md).
+
+## Inventory nhập kho (bước 4B)
+
+Đã có nhà cung cấp, phiếu nhập nhiều dòng, kiểm tra Serial theo lô, phân quyền
+chi nhánh và màn hình tồn kho. Xem [luồng nghiệp vụ, kết quả test và checklist trình duyệt](docs/inventory-4b.md).
+
+## Inventory chuyển kho và tra Serial (bước 4C)
+
+Đã có V4, phiếu nháp/xuất/nhận/hủy, khóa Serial theo ID, test đồng thời
+và tra vòng đời Serial xuyên chi nhánh cho bảo hành.
+Xem [thiết kế, giải thích khóa và checklist kiểm tra](docs/inventory-4c.md).
+
+## Quản lý chi nhánh
+
+ADMIN vào **Chi nhánh → Thêm chi nhánh** để tạo đích chuyển kho ngay trên giao diện.
+Xem [hướng dẫn thử chuyển kho từ đầu](docs/organization-branches.md).

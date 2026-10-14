@@ -9,5 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface GoodsReceiptItemRepository extends JpaRepository<GoodsReceiptItem, Long> {
     boolean existsByProductId(Long productId);
-    java.util.List<GoodsReceiptItem> findAllByReceiptId(Long receiptId);
+    @org.springframework.data.jpa.repository.EntityGraph(attributePaths = "product")
+    java.util.List<GoodsReceiptItem> findAllByReceiptIdOrderByIdAsc(Long receiptId);
+    default java.util.List<GoodsReceiptItem> findAllByReceiptId(Long receiptId) { return findAllByReceiptIdOrderByIdAsc(receiptId); }
 }

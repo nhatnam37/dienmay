@@ -25,6 +25,12 @@ public class Branch {
     @Column(nullable = false)
     private boolean active = true;
 
+    public void setCode(String code) { this.code = code; }
+    public void setName(String name) { this.name = name; }
+    public void setAddress(String address) { this.address = address; }
+    public void setPhone(String phone) { this.phone = phone; }
+    public void setActive(boolean active) { this.active = active; }
+
     public Long getId() { return id; }
     public String getCode() { return code; }
     public String getName() { return name; }
