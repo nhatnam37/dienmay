@@ -35,6 +35,10 @@ public class Product {
     @Column(name = "tracks_serial", nullable = false)
     private boolean tracksSerial;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "serial_type", length = 10)
+    private SerialType serialType;
+
     @Column(name = "warranty_months", nullable = false)
     private int warrantyMonths;
 
@@ -78,6 +82,8 @@ public class Product {
     public void setPrice(BigDecimal price) { this.price = price; }
     public boolean isTracksSerial() { return tracksSerial; }
     public void setTracksSerial(boolean tracksSerial) { this.tracksSerial = tracksSerial; }
+    public SerialType getSerialType() { return serialType; }
+    public void setSerialType(SerialType serialType) { this.serialType = serialType; }
     public int getWarrantyMonths() { return warrantyMonths; }
     public void setWarrantyMonths(int warrantyMonths) { this.warrantyMonths = warrantyMonths; }
     public String getImageUrl() { return imageUrl; }

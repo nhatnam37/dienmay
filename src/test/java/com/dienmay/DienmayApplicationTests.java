@@ -1,10 +1,9 @@
 package com.dienmay;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import com.dienmay.support.MySqlIntegrationTestBase;
 
-@SpringBootTest
-class DienmayApplicationTests {
+class DienmayApplicationTests extends MySqlIntegrationTestBase {
 
 	@Test
 	void contextLoads() {

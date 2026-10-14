@@ -25,6 +25,7 @@ class ProductServiceTest {
     @Mock private ProductRepository products;
     @Mock private CategoryRepository categories;
     @Mock private BrandRepository brands;
+    @Mock private ProductInventoryGuard inventoryGuard;
     private ProductService service;
     private static ValidatorFactory validatorFactory;
     private CatalogFormValidator validator;
@@ -38,7 +39,7 @@ class ProductServiceTest {
     @BeforeEach
     void setUp() {
         validator = new CatalogFormValidator(validatorFactory.getValidator());
-        service = new ProductService(products, categories, brands, new ProductMapper(), validator);
+        service = new ProductService(products, categories, brands, new ProductMapper(), validator, inventoryGuard);
     }
 
     @Test
@@ -82,7 +83,7 @@ class ProductServiceTest {
     void update_serialFlagChanged_checksGuardAndPreservesStatus() {
         Product product = product();
         product.setStatus(ProductStatus.DISCONTINUED);
-        when(products.findById(3L)).thenReturn(Optional.of(product));
+        when(products.findForUpdate(3L)).thenReturn(Optional.of(product));
         when(categories.findById(1L)).thenReturn(Optional.of(product.getCategory()));
         when(brands.findById(2L)).thenReturn(Optional.of(product.getBrand()));
         when(products.saveAndFlush(any())).thenAnswer(call -> call.getArgument(0));
@@ -164,5 +165,46 @@ class ProductServiceTest {
         form.setWarrantyMonths(61);
         assertThatThrownBy(() -> service.create(form)).isInstanceOf(BusinessException.class)
                 .hasMessageContaining("60");
+    }
+    @Test
+    void update_trackingChangedWithInventory_rejectsRequest() {
+        Product product = product();
+        when(products.findForUpdate(3L)).thenReturn(Optional.of(product));
+        when(categories.findById(1L)).thenReturn(Optional.of(product.getCategory()));
+        when(brands.findById(2L)).thenReturn(Optional.of(product.getBrand()));
+        when(inventoryGuard.hasInventoryData(3L)).thenReturn(true);
+        assertThatThrownBy(() -> service.update(3L, productForm())).isInstanceOf(BusinessException.class)
+                .hasMessageContaining("dữ liệu kho");
+        verify(products, never()).saveAndFlush(any());
+    }
+
+    @Test
+    void update_serialTypeChangedWithInventory_rejectsRequest() {
+        Product product = product(); product.setTracksSerial(true); product.setSerialType(SerialType.IMEI);
+        when(products.findForUpdate(3L)).thenReturn(Optional.of(product));
+        when(categories.findById(1L)).thenReturn(Optional.of(product.getCategory()));
+        when(brands.findById(2L)).thenReturn(Optional.of(product.getBrand()));
+        when(inventoryGuard.hasInventoryData(3L)).thenReturn(true);
+        assertThatThrownBy(() -> service.update(3L, productForm())).isInstanceOf(BusinessException.class);
+        verify(products, never()).saveAndFlush(any());
+    }
+
+    @Test
+    void create_serialTrackingWithoutType_rejectsRequest() {
+        ProductForm form = productForm(); form.setSerialType(null);
+        assertThatThrownBy(() -> service.create(form)).isInstanceOf(BusinessException.class)
+                .hasMessageContaining("chọn IMEI hoặc GENERIC");
+    }
+    @Test
+    void update_unchangedSerialConfiguration_allowsOtherChanges() {
+        Product product = product();
+        when(products.findForUpdate(3L)).thenReturn(Optional.of(product));
+        when(categories.findById(1L)).thenReturn(Optional.of(product.getCategory()));
+        when(brands.findById(2L)).thenReturn(Optional.of(product.getBrand()));
+        when(products.saveAndFlush(any())).thenAnswer(call -> call.getArgument(0));
+        ProductForm form = productForm();
+        form.setTracksSerial(false); form.setSerialType(null); form.setName("Tên mới");
+        assertThat(service.update(3L, form).getName()).isEqualTo("Tên mới");
+        verifyNoInteractions(inventoryGuard);
     }
 }

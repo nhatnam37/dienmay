@@ -1,6 +1,7 @@
 package com.dienmay.catalog.dto;
 
 import java.time.LocalDateTime;
+import com.dienmay.catalog.entity.SerialType;
 import java.math.BigDecimal;
 import com.dienmay.catalog.entity.ProductStatus;
 
@@ -16,13 +17,14 @@ public class ProductView {
     private final String description;
     private final BigDecimal price;
     private final boolean tracksSerial;
+    private final SerialType serialType;
     private final int warrantyMonths;
     private final String imageUrl;
     private final ProductStatus status;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
-    public ProductView(Long id, Long categoryId, String categoryName, Long brandId, String brandName, String sku, String name, String description, BigDecimal price, boolean tracksSerial, int warrantyMonths, String imageUrl, ProductStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public ProductView(Long id, Long categoryId, String categoryName, Long brandId, String brandName, String sku, String name, String description, BigDecimal price, boolean tracksSerial, SerialType serialType, int warrantyMonths, String imageUrl, ProductStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.categoryId = categoryId;
         this.categoryName = categoryName;
@@ -33,6 +35,7 @@ public class ProductView {
         this.description = description;
         this.price = price;
         this.tracksSerial = tracksSerial;
+        this.serialType = serialType;
         this.warrantyMonths = warrantyMonths;
         this.imageUrl = imageUrl;
         this.status = status;
@@ -59,6 +62,8 @@ public class ProductView {
     public BigDecimal getPrice() { return price; }
 
     public boolean isTracksSerial() { return tracksSerial; }
+
+    public SerialType getSerialType() { return serialType; }
 
     public int getWarrantyMonths() { return warrantyMonths; }
 

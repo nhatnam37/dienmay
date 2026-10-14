@@ -20,6 +20,7 @@
             <dt class="col-sm-4">Thương hiệu</dt><dd class="col-sm-8" th:text="${product.brandName}"></dd>
             <dt class="col-sm-4">Giá</dt><dd class="col-sm-8" th:text="${#numbers.formatDecimal(product.price, 1, 'POINT', 0, 'COMMA') + ' đ'}"></dd>
             <dt class="col-sm-4">Theo dõi serial</dt><dd class="col-sm-8" th:text="${product.tracksSerial ? 'Có' : 'Không'}"></dd>
+            <dt class="col-sm-4">Loại Serial</dt><dd class="col-sm-8" th:text="${product.serialType ?: 'Không theo dõi'}"></dd>
             <dt class="col-sm-4">Bảo hành</dt><dd class="col-sm-8" th:text="${product.warrantyMonths + ' tháng'}"></dd>
             <dt class="col-sm-4">Trạng thái</dt><dd class="col-sm-8"><span class="badge"
                 th:classappend="${product.status.name() == 'ACTIVE' ? 'text-bg-success' : 'text-bg-secondary'}"

@@ -1,6 +1,7 @@
 package com.dienmay.catalog.dto;
 
 import jakarta.validation.constraints.*;
+import com.dienmay.catalog.entity.SerialType;
 import java.math.BigDecimal;
 
 public class ProductForm {
@@ -32,6 +33,8 @@ public class ProductForm {
     @NotNull(message = "Vui lòng chọn chế độ quản lý serial")
     private Boolean tracksSerial = false;
 
+    private SerialType serialType;
+
     @NotNull(message = "Thời hạn bảo hành không được để trống")
     @Min(value = 0, message = "Bảo hành tối thiểu 0 tháng")
     @Max(value = 60, message = "Bảo hành tối đa 60 tháng")
@@ -60,6 +63,14 @@ public class ProductForm {
 
     public Boolean getTracksSerial() { return tracksSerial; }
     public void setTracksSerial(Boolean tracksSerial) { this.tracksSerial = tracksSerial; }
+
+    public SerialType getSerialType() { return serialType; }
+    public void setSerialType(SerialType serialType) { this.serialType = serialType; }
+
+    @AssertTrue(message = "Bật theo dõi Serial phải chọn IMEI hoặc GENERIC; không theo dõi thì loại Serial phải để trống.")
+    public boolean isSerialConfigurationValid() {
+        return tracksSerial == null || (tracksSerial ? serialType != null : serialType == null);
+    }
 
     public Integer getWarrantyMonths() { return warrantyMonths; }
     public void setWarrantyMonths(Integer warrantyMonths) { this.warrantyMonths = warrantyMonths; }

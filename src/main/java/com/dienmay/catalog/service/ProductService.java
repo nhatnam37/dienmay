@@ -22,14 +22,16 @@ public class ProductService {
     private final BrandRepository brandRepository;
     private final ProductMapper mapper;
     private final CatalogFormValidator formValidator;
+    private final ProductInventoryGuard inventoryGuard;
 
     public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository,
-                          BrandRepository brandRepository, ProductMapper mapper, CatalogFormValidator formValidator) {
+                          BrandRepository brandRepository, ProductMapper mapper, CatalogFormValidator formValidator, ProductInventoryGuard inventoryGuard) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.brandRepository = brandRepository;
         this.mapper = mapper;
         this.formValidator = formValidator;
+        this.inventoryGuard = inventoryGuard;
     }
 
     @Transactional
@@ -47,14 +49,17 @@ public class ProductService {
 
     @Transactional
     public ProductView update(Long id, ProductForm form) {
-        Product product = find(id);
+        // Cùng khóa product như nghiệp vụ nhập kho: không đổi loại theo dõi
+        // sau khi request nhập hàng khác đã kiểm tra loại sản phẩm.
+        Product product = productRepository.findForUpdate(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy sản phẩm: " + id));
         normalizeAndValidate(form);
         if (productRepository.existsBySkuAndIdNot(form.getSku(), id)) {
             throw new BusinessException("SKU đã tồn tại.");
         }
         Category category = findCategory(form.getCategoryId());
         Brand brand = findBrand(form.getBrandId());
-        if (product.isTracksSerial() != form.getTracksSerial()) {
+        if (product.isTracksSerial() != form.getTracksSerial() || product.getSerialType() != form.getSerialType()) {
             assertTracksSerialChangeAllowed(id);
         }
         mapper.update(form, product, category, brand);
@@ -101,8 +106,10 @@ public class ProductService {
     }
 
     public void assertTracksSerialChangeAllowed(Long productId) {
-        // Hiện cho phép đổi tracksSerial.
-        // TODO: Bước 4 chặn nếu sản phẩm đã có Serial hoặc tồn kho.
+        // Catalog chỉ phụ thuộc interface; inventory quyết định dữ liệu nào là dữ liệu kho.
+        if (inventoryGuard.hasInventoryData(productId)) {
+            throw new BusinessException("Không được đổi theo dõi Serial hoặc loại Serial khi sản phẩm đã có dữ liệu kho.");
+        }
     }
 
     private void normalizeAndValidate(ProductForm form) {

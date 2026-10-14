@@ -35,7 +35,7 @@ class CatalogWebTest {
 
     private ProductView product() {
         return new ProductView(1L, 2L, "Điện thoại", 3L, "Apple", "IP-15", "iPhone 15", "Mô tả",
-                new BigDecimal("1000000"), true, 12, null, ProductStatus.ACTIVE, null, null);
+                new BigDecimal("1000000"), true, com.dienmay.catalog.entity.SerialType.GENERIC, 12, null, ProductStatus.ACTIVE, null, null);
     }
 
     @Test
@@ -85,7 +85,7 @@ class CatalogWebTest {
     void createProduct_validForm_redirectsWithSuccess() throws Exception {
         mvc.perform(post("/admin/catalog/products").with(csrf()).param("sku", "ip-15").param("name", "iPhone")
                         .param("categoryId", "2").param("brandId", "3").param("price", "1000000")
-                        .param("tracksSerial", "true").param("warrantyMonths", "12"))
+                        .param("tracksSerial", "true").param("serialType", "GENERIC").param("warrantyMonths", "12"))
                 .andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/admin/catalog/products"))
                 .andExpect(flash().attributeExists("success"));
         verify(admin).create(any(ProductEditForm.class), isNull());
