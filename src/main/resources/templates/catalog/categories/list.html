@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Quản lý danh mục')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: nav}"></nav>
+<main class="container pb-5">
+<div th:replace="~{fragments/layout :: messages}"></div>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3">Quản lý danh mục</h1>
+    <a th:href="@{/admin/catalog/categories/new}" class="btn btn-primary">Thêm danh mục</a>
+</div>
+<div class="table-responsive">
+<table class="table table-striped align-middle">
+    <thead><tr><th>ID</th><th>Tên danh mục</th><th>Danh mục cha</th><th>Thao tác</th></tr></thead>
+    <tbody>
+    <tr th:each="item : ${items}">
+        <td th:text="${item.id}"></td><td th:text="${item.name}"></td><td th:text="${item.parentName ?: '—'}"></td>
+        <td>
+            <a th:href="@{/admin/catalog/categories/{id}/edit(id=${item.id})}" class="btn btn-sm btn-outline-primary"
+               onclick="return confirm('Bạn muốn sửa thông tin này?')">Sửa</a>
+            <form th:action="@{/admin/catalog/categories/{id}/delete(id=${item.id})}" method="post" class="d-inline"
+                  onsubmit="return confirm('Bạn chắc chắn muốn xóa?')">
+                <button type="submit" class="btn btn-sm btn-outline-danger">Xóa</button>
+            </form>
+        </td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(items)}"><td colspan="4" class="text-center text-muted">Chưa có dữ liệu.</td></tr>
+    </tbody>
+</table>
+</div>
+</main>
+</body>
+</html>

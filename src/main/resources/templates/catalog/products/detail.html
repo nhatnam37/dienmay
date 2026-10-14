@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Chi tiết sản phẩm')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: nav}"></nav>
+<main class="container pb-5">
+<div th:replace="~{fragments/layout :: messages}"></div>
+<div class="d-flex justify-content-between mb-4">
+    <h1 class="h3" th:text="${product.name}"></h1>
+    <a th:href="@{/admin/catalog/products/{id}/edit(id=${product.id})}" class="btn btn-primary"
+       onclick="return confirm('Bạn muốn sửa sản phẩm này?')">Sửa</a>
+</div>
+<div class="row g-4">
+    <div class="col-md-4"><img th:if="${product.imageUrl}" th:src="${product.imageUrl}" th:alt="${product.name}" class="img-fluid rounded border">
+        <p th:unless="${product.imageUrl}" class="text-muted">Chưa có ảnh.</p></div>
+    <div class="col-md-8">
+        <dl class="row">
+            <dt class="col-sm-4">SKU</dt><dd class="col-sm-8" th:text="${product.sku}"></dd>
+            <dt class="col-sm-4">Danh mục</dt><dd class="col-sm-8" th:text="${product.categoryName}"></dd>
+            <dt class="col-sm-4">Thương hiệu</dt><dd class="col-sm-8" th:text="${product.brandName}"></dd>
+            <dt class="col-sm-4">Giá</dt><dd class="col-sm-8" th:text="${#numbers.formatDecimal(product.price, 1, 'POINT', 0, 'COMMA') + ' đ'}"></dd>
+            <dt class="col-sm-4">Theo dõi serial</dt><dd class="col-sm-8" th:text="${product.tracksSerial ? 'Có' : 'Không'}"></dd>
+            <dt class="col-sm-4">Bảo hành</dt><dd class="col-sm-8" th:text="${product.warrantyMonths + ' tháng'}"></dd>
+            <dt class="col-sm-4">Trạng thái</dt><dd class="col-sm-8"><span class="badge"
+                th:classappend="${product.status.name() == 'ACTIVE' ? 'text-bg-success' : 'text-bg-secondary'}"
+                th:text="${product.status.name() == 'ACTIVE' ? 'Đang kinh doanh' : 'Ngừng kinh doanh'}"></span></dd>
+        </dl>
+        <h2 class="h5">Mô tả</h2><p th:text="${product.description ?: 'Chưa có mô tả.'}" style="white-space:pre-wrap"></p>
+    </div>
+</div>
+<a th:href="@{/admin/catalog/products}" class="btn btn-secondary mt-3">Về danh sách</a>
+</main>
+</body>
+</html>

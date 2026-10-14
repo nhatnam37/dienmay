@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Thông tin danh mục')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: nav}"></nav>
+<main class="container pb-5">
+<div th:replace="~{fragments/layout :: messages}"></div>
+<h1 class="h3 mb-4" th:text="${id == null ? 'Thêm danh mục' : 'Sửa danh mục'}"></h1>
+<form th:action="@{${id == null ? '/admin/catalog/categories' : '/admin/catalog/categories/' + id}}"
+      th:object="${form}" method="post" class="card card-body shadow-sm" style="max-width: 650px">
+    <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+        <div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Tên danh mục *</label>
+        <input id="name" th:field="*{name}" class="form-control" th:errorclass="is-invalid" maxlength="100" required>
+        <div class="invalid-feedback" th:errors="*{name}"></div>
+    </div>
+    <div class="mb-3">
+    <label for="parentId" class="form-label">Danh mục cha</label>
+    <select id="parentId" th:field="*{parentId}" class="form-select">
+        <option value="">Không có (danh mục gốc)</option>
+        <option th:each="parent : ${parents}" th:if="${id == null or parent.id != id}"
+                th:value="${parent.id}" th:text="${parent.name}"></option>
+    </select>
+    <div class="text-danger small" th:errors="*{parentId}"></div>
+    <div class="form-text">Hệ thống sẽ từ chối chọn danh mục con/cháu làm cha.</div>
+</div>
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <a th:href="@{/admin/catalog/categories}" class="btn btn-secondary">Hủy</a>
+    </div>
+</form>
+</main>
+</body>
+</html>

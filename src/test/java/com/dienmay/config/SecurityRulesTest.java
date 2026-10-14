@@ -12,7 +12,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 // Chỉ nạp tầng web và SecurityConfig, không cần MySQL.
-@WebMvcTest
+@WebMvcTest(controllers = {com.dienmay.web.HomeController.class,
+        com.dienmay.web.LoginController.class, com.dienmay.web.AdminController.class})
 @Import(SecurityConfig.class)
 class SecurityRulesTest {
 

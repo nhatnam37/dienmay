@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Thông tin sản phẩm')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: nav}"></nav>
+<main class="container pb-5">
+<div th:replace="~{fragments/layout :: messages}"></div>
+<h1 class="h3 mb-4" th:text="${id == null ? 'Thêm sản phẩm' : 'Sửa sản phẩm'}"></h1>
+<form th:action="@{${id == null ? '/admin/catalog/products' : '/admin/catalog/products/' + id}}"
+      th:object="${form}" method="post" enctype="multipart/form-data" class="card card-body shadow-sm">
+    <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+        <div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+    </div>
+    <div class="row g-3">
+<div class="col-md-6"><label for="sku" class="form-label">SKU *</label>
+    <input id="sku" type="text" th:field="*{sku}" class="form-control" th:errorclass="is-invalid" maxlength="50" required>
+    <div class="invalid-feedback" th:errors="*{sku}"></div></div>
+<div class="col-md-6"><label for="name" class="form-label">Tên sản phẩm *</label>
+    <input id="name" type="text" th:field="*{name}" class="form-control" th:errorclass="is-invalid" maxlength="200" required>
+    <div class="invalid-feedback" th:errors="*{name}"></div></div>
+<div class="col-md-6"><label for="price" class="form-label">Giá (đ) *</label>
+    <input id="price" type="number" th:field="*{price}" class="form-control" th:errorclass="is-invalid" min="0" step="0.01" required>
+    <div class="invalid-feedback" th:errors="*{price}"></div></div>
+<div class="col-md-6"><label for="warrantyMonths" class="form-label">Bảo hành (tháng) *</label>
+    <input id="warrantyMonths" type="number" th:field="*{warrantyMonths}" class="form-control" th:errorclass="is-invalid" min="0" max="60" required>
+    <div class="invalid-feedback" th:errors="*{warrantyMonths}"></div></div>
+<div class="col-md-6"><label for="categoryId" class="form-label">Danh mục *</label>
+    <select id="categoryId" th:field="*{categoryId}" class="form-select" th:errorclass="is-invalid" required>
+        <option value="">-- Chọn --</option><option th:each="item : ${categories}" th:value="${item.id}" th:text="${item.name}"></option>
+    </select><div class="invalid-feedback" th:errors="*{categoryId}"></div></div>
+<div class="col-md-6"><label for="brandId" class="form-label">Thương hiệu *</label>
+    <select id="brandId" th:field="*{brandId}" class="form-select" th:errorclass="is-invalid" required>
+        <option value="">-- Chọn --</option><option th:each="item : ${brands}" th:value="${item.id}" th:text="${item.name}"></option>
+    </select><div class="invalid-feedback" th:errors="*{brandId}"></div></div>
+<div class="col-12"><label for="description" class="form-label">Mô tả</label>
+    <textarea id="description" th:field="*{description}" rows="4" class="form-control" th:errorclass="is-invalid"></textarea>
+    <div class="invalid-feedback" th:errors="*{description}"></div></div>
+<div class="col-md-6"><label for="tracksSerial" class="form-label">Quản lý số serial *</label>
+    <select id="tracksSerial" th:field="*{tracksSerial}" class="form-select" th:errorclass="is-invalid">
+        <option value="false">Không</option><option value="true">Có</option>
+    </select><div class="invalid-feedback" th:errors="*{tracksSerial}"></div></div>
+<div class="col-md-6"><label for="image" class="form-label">Ảnh sản phẩm</label>
+    <input id="image" name="image" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" class="form-control">
+    <div class="text-danger small" th:errors="*{image}"></div>
+    <div class="form-text">JPG, PNG, WEBP, tối đa 2MB. Để trống để giữ ảnh cũ khi sửa.</div>
+    <img th:if="${currentImage}" th:src="${currentImage}" alt="Ảnh hiện tại" class="mt-2" width="100" height="100" style="object-fit:contain">
+</div>
+</div>
+<div class="mt-4 d-flex gap-2"><button type="submit" class="btn btn-primary">Lưu</button>
+    <a th:href="@{/admin/catalog/products}" class="btn btn-secondary">Hủy</a></div>
+</form>
+</main>
+</body>
+</html>

@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ảnh upload nằm ngoài classpath, không đưa dữ liệu người dùng vào Git.
+/uploads/
