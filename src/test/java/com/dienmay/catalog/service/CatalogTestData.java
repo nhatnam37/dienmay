@@ -57,6 +57,7 @@ final class CatalogTestData {
         form.setName(" iPhone 15 ");
         form.setPrice(new BigDecimal("15000000.00"));
         form.setTracksSerial(true);
+        form.setSerialType(SerialType.GENERIC);
         form.setWarrantyMonths(12);
         return form;
     }

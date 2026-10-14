@@ -99,7 +99,7 @@ Chạy riêng 6 test mới (không cần MySQL):
 ./mvnw -Dtest=AppUserDetailsServiceTest,SecurityRulesTest test
 ```
 
-Chạy toàn bộ test sau khi bật MySQL:
+Chạy toàn bộ test (Docker Desktop phải hoạt động; test DB dùng Testcontainers):
 
 ```sh
 docker compose up -d
@@ -120,3 +120,9 @@ Xem [luồng xử lý, lệnh chạy và danh sách test](docs/catalog-3a.md).
 
 Đã có giao diện danh mục, thương hiệu, sản phẩm và upload ảnh.
 Xem [thiết kế, test và hướng dẫn kiểm tra thủ công](docs/catalog-3b.md).
+
+## Inventory nền tảng (bước 4A)
+
+Đã có V3, Serial state machine/history, tồn số lượng/movement, actor đa loại
+và guard khóa thay đổi cấu hình Serial. Chưa có controller/UI kho.
+Xem [thiết kế, lệnh chạy và danh sách test](docs/inventory-4a.md).

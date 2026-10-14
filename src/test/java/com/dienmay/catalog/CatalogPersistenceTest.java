@@ -14,7 +14,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.stat.Statistics;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import com.dienmay.support.MySqlIntegrationTestBase;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,10 +26,9 @@ import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.*;
 
-// Test tích hợp cần MySQL Docker. Các insert sản phẩm được rollback sau test.
-@SpringBootTest
+// Test tích hợp trên MySQL Testcontainers, không phụ thuộc dữ liệu dev.
 @Transactional
-class CatalogPersistenceTest {
+class CatalogPersistenceTest extends MySqlIntegrationTestBase {
     @Autowired private JdbcTemplate jdbc;
     @Autowired private ProductService products;
     @Autowired private CategoryService categories;

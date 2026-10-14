@@ -19,6 +19,7 @@ public class ProductEditForm extends ProductForm {
         form.setDescription(view.getDescription());
         form.setPrice(view.getPrice());
         form.setTracksSerial(view.isTracksSerial());
+        form.setSerialType(view.getSerialType());
         form.setWarrantyMonths(view.getWarrantyMonths());
         form.setImageUrl(view.getImageUrl());
         return form;

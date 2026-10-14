@@ -39,6 +39,16 @@
     <select id="tracksSerial" th:field="*{tracksSerial}" class="form-select" th:errorclass="is-invalid">
         <option value="false">Không</option><option value="true">Có</option>
     </select><div class="invalid-feedback" th:errors="*{tracksSerial}"></div></div>
+<div class="col-md-6" id="serialTypeGroup" th:style="${form.tracksSerial == true ? '' : 'display:none'}">
+    <label for="serialType" class="form-label">Loại Serial *</label>
+    <select id="serialType" th:field="*{serialType}" class="form-select" th:disabled="${form.tracksSerial != true}">
+        <option value="">-- Chọn loại Serial --</option>
+        <option th:each="type : ${serialTypes}" th:value="${type}"
+                th:text="${type.name() == 'IMEI' ? 'IMEI (15 chữ số, Luhn)' : 'Serial thường (GENERIC)'}"></option>
+    </select>
+    <div class="text-danger small" th:errors="*{serialType}"></div>
+</div>
+<div class="col-12 text-danger small" th:errors="*{serialConfigurationValid}"></div>
 <div class="col-md-6"><label for="image" class="form-label">Ảnh sản phẩm</label>
     <input id="image" name="image" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" class="form-control">
     <div class="text-danger small" th:errors="*{image}"></div>
@@ -50,5 +60,18 @@
     <a th:href="@{/admin/catalog/products}" class="btn btn-secondary">Hủy</a></div>
 </form>
 </main>
+<script>
+    const tracking = document.getElementById('tracksSerial');
+    const serialType = document.getElementById('serialType');
+    function toggleSerialType() {
+        const enabled = tracking.value === 'true';
+        document.getElementById('serialTypeGroup').style.display = enabled ? '' : 'none';
+        serialType.disabled = !enabled;
+        serialType.required = enabled;
+        if (!enabled) serialType.value = '';
+    }
+    tracking.addEventListener('change', toggleSerialType);
+    toggleSerialType();
+</script>
 </body>
 </html>

@@ -112,6 +112,7 @@ public class ProductController {
         model.addAttribute("categories", categories.list());
         model.addAttribute("brands", brands.list());
         model.addAttribute("statuses", ProductStatus.values());
+        model.addAttribute("serialTypes", com.dienmay.catalog.entity.SerialType.values());
     }
 
     private String prepareForm(Long id, String currentImage, Model model) {

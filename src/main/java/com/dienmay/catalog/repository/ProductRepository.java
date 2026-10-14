@@ -14,6 +14,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p where p.id = :id")
     java.util.Optional<Product> findForUpdate(@Param("id") Long id);
 
+    @Query("select p.tracksSerial from Product p where p.id = :id")
+    java.util.Optional<Boolean> findTracksSerialById(@Param("id") Long id);
+
     boolean existsBySku(String sku);
     boolean existsBySkuAndIdNot(String sku, Long id);
     long countByCategoryId(Long categoryId);
