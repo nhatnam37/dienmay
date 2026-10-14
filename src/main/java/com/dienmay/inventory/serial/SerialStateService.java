@@ -39,6 +39,11 @@ public class SerialStateService {
 
     public SerialItem register(Long productId, Long branchId, Long receiptId, String serialNo,
                                BigDecimal costPrice, TransitionContext context) {
+        return register(productId, branchId, receiptId, serialNo, costPrice, context, false);
+    }
+
+    public SerialItem register(Long productId, Long branchId, Long receiptId, String serialNo,
+                               BigDecimal costPrice, TransitionContext context, boolean duplicateCheckedInBatch) {
         contexts.validate(context);
         Product product = products.findForUpdate(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy sản phẩm: " + productId));
@@ -58,7 +63,7 @@ public class SerialStateService {
         if (context.toBranchId() != null && !context.toBranchId().equals(branchId)) {
             throw new BusinessException("Chi nhánh đích phải trùng chi nhánh đăng ký Serial.");
         }
-        if (serials.existsBySerialNo(result.normalized())) { throw new BusinessException("Serial đã tồn tại trong hệ thống."); }
+        if (!duplicateCheckedInBatch && serials.existsBySerialNo(result.normalized())) { throw new BusinessException("Serial đã tồn tại trong hệ thống."); }
         SerialItem item = new SerialItem();
         item.setProduct(product);
         item.setBranch(branch);

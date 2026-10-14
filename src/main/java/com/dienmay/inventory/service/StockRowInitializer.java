@@ -20,6 +20,12 @@ public class StockRowInitializer {
     }
 
     public void ensureExists(Long branchId, Long productId) {
+        if (org.springframework.transaction.support.TransactionSynchronizationManager.isActualTransactionActive()) {
+            // StockService đã khóa product. UPSERT joins transaction của phiếu:
+            // lỗi ở dòng sau phải rollback cả dòng tồn 0, không commit phụ bằng REQUIRES_NEW.
+            jdbc.update("INSERT INTO stock_quantity (branch_id, product_id, quantity, reserved_qty, version) VALUES (?, ?, 0, 0, 0) ON DUPLICATE KEY UPDATE id = id", branchId, productId);
+            return;
+        }
         // Không bắt lỗi unique rồi tiếp tục trên transaction đã rollback-only.
         // Chỉ transaction tạo dòng 0 là REQUIRES_NEW; tăng/trừ và movement vẫn
         // cùng transaction ngoài (ví dụ phiếu nhập ở bước sau).

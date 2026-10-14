@@ -22,6 +22,10 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**", "/images/**", "/login", "/error", "/uploads/**").permitAll()
+                        // UC10 chỉ đọc xuyên chi nhánh cho bảo hành; không mở quyền ghi inventory.
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/inventory/serials").hasAnyRole("ADMIN", "BRANCH_MANAGER", "WAREHOUSE", "WARRANTY_STAFF")
+                        .requestMatchers("/inventory/suppliers", "/inventory/suppliers/**").hasAnyRole("ADMIN", "WAREHOUSE")
+                        .requestMatchers("/inventory/**").hasAnyRole("ADMIN", "BRANCH_MANAGER", "WAREHOUSE")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form

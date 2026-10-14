@@ -14,4 +14,16 @@ public interface StockQuantityRepository extends JpaRepository<StockQuantity, Lo
     @Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
     @Query("select s from StockQuantity s where s.branch.id = :branchId and s.product.id = :productId")
     java.util.Optional<StockQuantity> findLocked(@Param("branchId") Long branchId, @Param("productId") Long productId);
+    @Query("""
+        select s.branch.id as branchId, s.branch.name as branchName, s.product.id as productId,
+               s.product.sku as sku, s.product.name as productName, s.product.category.name as categoryName,
+               s.quantity as quantity, s.reservedQty as reservedQty
+        from StockQuantity s
+        where s.product.tracksSerial = false and (:branchId is null or s.branch.id = :branchId)
+          and (:categoryId is null or s.product.category.id = :categoryId)
+          and (:keyword is null or lower(s.product.name) like lower(:keyword) escape '!' or lower(s.product.sku) like lower(:keyword) escape '!')
+        order by s.branch.name, s.product.name
+        """)
+    java.util.List<QuantityStockProjection> summarize(@Param("branchId") Long branchId,
+        @Param("categoryId") Long categoryId, @Param("keyword") String keyword);
 }

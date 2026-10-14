@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Lập phiếu chuyển')}"></head>
+<body><nav th:replace="~{fragments/layout :: nav}"></nav>
+<main class="container pb-5"><div th:replace="~{fragments/layout :: messages}"></div>
+<h1 class="h3">Lập phiếu chuyển nháp</h1><div th:if="${isAdmin and #lists.size(branches) < 2}" class="alert alert-warning">Cần ít nhất hai chi nhánh hoạt động để chuyển kho. <a th:href="@{/admin/organization/branches/new}">Thêm chi nhánh nhận tại đây</a>.</div><p class="text-muted">Nháp không giữ hàng. Khi xuất kho, hệ thống kiểm tra lại toàn bộ hàng.</p>
+<div th:if="${transferErrors}" class="alert alert-danger"><ul class="mb-0"><li th:each="err : ${transferErrors}" th:text="${err}"></li></ul></div>
+<form method="post" th:action="@{/inventory/transfers}" th:object="${form}">
+<div class="row g-3 mb-3"><div class="col-md-6"><label class="form-label" for="fromBranchId">Chi nhánh xuất</label><select th:if="${isAdmin}" id="fromBranchId" class="form-select" th:field="*{fromBranchId}" required><option value="">-- Chọn chi nhánh --</option><option th:each="b : ${branches}" th:value="${b.id}" th:text="${b.name}"></option></select><th:block th:unless="${isAdmin}"><input type="hidden" th:field="*{fromBranchId}"><p class="form-control-plaintext" th:each="b : ${branches}" th:if="${b.id == actor.branchId}" th:text="${b.name}"></p></th:block></div>
+<div class="col-md-6"><label for="toBranchId" class="form-label">Chi nhánh nhận</label><select id="toBranchId" class="form-select" th:field="*{toBranchId}" required><option value="">-- Chọn chi nhánh --</option><option th:each="b : ${branches}" th:value="${b.id}" th:text="${b.name}"></option></select></div>
+<div class="col-12"><label for="serialText" class="form-label">Danh sách Serial</label><textarea id="serialText" th:field="*{serialText}" class="form-control" rows="5" placeholder="Mỗi Serial một dòng hoặc cách nhau bằng dấu phẩy"></textarea></div></div>
+<h2 class="h5">Hàng không Serial</h2><div id="quantity-lines"><th:block th:each="line,stat : *{lines}"><div th:replace="~{inventory/transfers/row :: row(${line},${stat.index})}"></div></th:block></div><button type="button" id="add-line" class="btn btn-outline-primary mb-3">+ Thêm dòng</button>
+<div class="mb-3"><label for="note" class="form-label">Ghi chú</label><textarea id="note" th:field="*{note}" class="form-control" rows="2"></textarea></div>
+<button class="btn btn-primary" type="submit">Lưu nháp</button> <a th:href="@{/inventory/transfers}" class="btn btn-secondary">Quay lại</a></form>
+<template id="line-template"><div th:replace="~{inventory/transfers/row :: row(${blankLine},0)}"></div></template>
+<script>
+const lines = document.getElementById('quantity-lines');
+function renumber() { lines.querySelectorAll('.quantity-line').forEach((row,index) => row.querySelectorAll('[data-field]').forEach(field => field.name = 'lines['+index+'].'+field.dataset.field)); }
+document.getElementById('add-line').addEventListener('click', () => {lines.append(document.getElementById('line-template').content.cloneNode(true)); renumber();});
+lines.addEventListener('click', event => {if(event.target.matches('.remove-line')) {event.target.closest('.quantity-line').remove(); renumber();}});
+</script>
+</main></body></html>

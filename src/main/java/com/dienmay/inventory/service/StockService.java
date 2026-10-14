@@ -62,11 +62,10 @@ public class StockService {
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy sản phẩm: " + productId));
         if (serial) { throw new BusinessException("Sản phẩm có Serial không dùng tồn kho số lượng."); }
         Branch branch = findBranch(branchId);
-        // Tạo dòng trước khi khóa, tránh giữ gap-lock/product-lock rồi tự chờ transaction tạo dòng.
-        initializer.ensureExists(branchId, productId);
         Product product = products.findForUpdate(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy sản phẩm: " + productId));
         requireNonSerial(product); // Kiểm tra lại sau khóa: catalog có thể vừa đổi chế độ.
+        initializer.ensureExists(branchId, productId); // Tham gia cùng transaction; không tự commit dòng 0.
         StockQuantity stock = stocks.findLocked(branchId, productId)
                 .orElseThrow(() -> new BusinessException("Không thể đọc dòng tồn kho đã khởi tạo."));
         if (decrease && amount > stock.getQuantity() - stock.getReservedQty()) {

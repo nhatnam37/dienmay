@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Thông tin nhà cung cấp')}"></head>
+<body><nav th:replace="~{fragments/layout :: nav}"></nav>
+<main class="container pb-5"><div th:replace="~{fragments/layout :: messages}"></div>
+<h1 class="h3 mb-4" th:text="${id == null ? 'Thêm nhà cung cấp' : 'Sửa nhà cung cấp'}"></h1>
+<form method="post" th:action="@{${id == null ? '/inventory/suppliers' : '/inventory/suppliers/' + id}}" th:object="${form}" class="card card-body" style="max-width:700px">
+<div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger"><div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div></div>
+<label for="name" class="form-label">Tên *</label><input id="name" th:field="*{name}" class="form-control" maxlength="150" required><div class="text-danger" th:errors="*{name}"></div>
+<label for="phone" class="form-label mt-3">Điện thoại</label><input id="phone" th:field="*{phone}" class="form-control" maxlength="20"><div class="text-danger" th:errors="*{phone}"></div>
+<label for="address" class="form-label mt-3">Địa chỉ</label><input id="address" th:field="*{address}" class="form-control" maxlength="255"><div class="text-danger" th:errors="*{address}"></div>
+<div class="form-check my-3"><input id="active" type="checkbox" th:field="*{active}" class="form-check-input"><label for="active" class="form-check-label">Đang hoạt động</label></div>
+<div><button class="btn btn-primary">Lưu</button> <a th:href="@{/inventory/suppliers}" class="btn btn-secondary">Hủy</a></div></form>
+</main></body></html>

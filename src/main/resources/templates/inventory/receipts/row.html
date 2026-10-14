@@ -1,0 +1,9 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><body>
+<div th:fragment="row(line,index)" class="receipt-line card card-body mb-3">
+<div class="d-flex justify-content-between"><h2 class="h6 row-label" th:text="${'Dòng ' + (index+1)}"></h2><button type="button" class="remove-line btn btn-sm btn-outline-danger">Xóa dòng</button></div>
+<div class="row g-3"><div class="col-md-6"><label class="form-label">Sản phẩm ACTIVE *</label>
+<select data-field="productId" class="form-select product-select" th:name="${'lines['+index+'].productId'}" required><option value="">-- Chọn sản phẩm --</option><option th:each="p : ${products}" th:value="${p.id}" th:text="${p.sku + ' — ' + p.name}" th:attr="data-serial=${p.tracksSerial},data-type=${p.serialType}" th:selected="${p.id == line.productId}"></option></select></div>
+<div class="col-md-3"><label class="form-label">Đơn giá nhập (đ) *</label><input data-field="unitCost" type="number" min="0" step="0.01" th:name="${'lines['+index+'].unitCost'}" th:value="${line.unitCost}" class="form-control" required></div>
+<div class="col-md-3 quantity-group"><label class="form-label">Số lượng *</label><input data-field="quantity" type="number" min="1" step="1" th:name="${'lines['+index+'].quantity'}" th:value="${line.quantity}" class="form-control"></div>
+<div class="col-12 serial-group"><label class="form-label">Danh sách Serial *</label><textarea data-field="serialText" th:name="${'lines['+index+'].serialText'}" th:text="${line.serialText}" rows="4" class="form-control" placeholder="Mỗi dòng một Serial hoặc ngăn bằng dấu phẩy"></textarea><div class="form-text serial-help">Tối đa 500 Serial/dòng. Số lượng tự tính theo Serial hợp lệ.</div></div></div></div>
+</body></html>
