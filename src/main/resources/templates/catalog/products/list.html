@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Sản phẩm')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: nav}"></nav>
+<main class="container pb-5">
+<div th:replace="~{fragments/layout :: messages}"></div>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3">Quản lý sản phẩm</h1>
+    <a th:href="@{/admin/catalog/products/new}" class="btn btn-primary">Thêm sản phẩm</a>
+</div>
+<form th:action="@{/admin/catalog/products}" method="get" class="row g-2 mb-4">
+    <div class="col-md-3"><label for="keyword" class="form-label">Từ khóa</label>
+        <input id="keyword" name="keyword" th:value="${keyword}" class="form-control" placeholder="Tên hoặc SKU"></div>
+    <div class="col-md-2"><label for="categoryId" class="form-label">Danh mục</label>
+        <select id="categoryId" name="categoryId" class="form-select">
+            <option value="">Tất cả</option><option th:each="c : ${categories}" th:value="${c.id}"
+                th:text="${c.name}" th:selected="${c.id == categoryId}"></option>
+        </select></div>
+    <div class="col-md-2"><label for="brandId" class="form-label">Thương hiệu</label>
+        <select id="brandId" name="brandId" class="form-select">
+            <option value="">Tất cả</option><option th:each="b : ${brands}" th:value="${b.id}"
+                th:text="${b.name}" th:selected="${b.id == brandId}"></option>
+        </select></div>
+    <div class="col-md-3"><label for="status" class="form-label">Trạng thái</label>
+        <select id="status" name="status" class="form-select">
+            <option value="">Tất cả</option><option th:each="s : ${statuses}" th:value="${s}"
+                th:text="${s.name() == 'ACTIVE' ? 'Đang kinh doanh' : 'Ngừng kinh doanh'}" th:selected="${s == status}"></option>
+        </select></div>
+    <div class="col-md-2 d-flex align-items-end gap-2"><button class="btn btn-primary">Lọc</button>
+        <a th:href="@{/admin/catalog/products}" class="btn btn-outline-secondary">Xóa lọc</a></div>
+</form>
+<p class="text-muted" th:text="${'Tổng: ' + products.totalElements + ' sản phẩm'}"></p>
+<div class="table-responsive">
+<table class="table table-striped align-middle">
+    <thead><tr><th>Ảnh</th><th>SKU / Tên</th><th>Danh mục</th><th>Thương hiệu</th><th>Giá</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+    <tbody>
+    <tr th:each="p : ${products.content}">
+        <td><img th:if="${p.imageUrl}" th:src="${p.imageUrl}" th:alt="${p.name}" width="64" height="64" style="object-fit:contain">
+            <span th:unless="${p.imageUrl}" class="text-muted">Chưa có ảnh</span></td>
+        <td><small th:text="${p.sku}"></small><br><a th:href="@{/admin/catalog/products/{id}(id=${p.id})}" th:text="${p.name}"></a></td>
+        <td th:text="${p.categoryName}"></td><td th:text="${p.brandName}"></td>
+        <td class="text-nowrap" th:text="${#numbers.formatDecimal(p.price, 1, 'POINT', 0, 'COMMA') + ' đ'}"></td>
+        <td><span class="badge" th:classappend="${p.status.name() == 'ACTIVE' ? 'text-bg-success' : 'text-bg-secondary'}"
+                  th:text="${p.status.name() == 'ACTIVE' ? 'Đang kinh doanh' : 'Ngừng kinh doanh'}"></span></td>
+        <td class="text-nowrap">
+            <a th:href="@{/admin/catalog/products/{id}/edit(id=${p.id})}" class="btn btn-sm btn-outline-primary"
+               onclick="return confirm('Bạn muốn sửa sản phẩm này?')">Sửa</a>
+            <form th:action="@{${'/admin/catalog/products/' + p.id + (p.status.name() == 'ACTIVE' ? '/discontinue' : '/reactivate')}}"
+                  method="post" class="d-inline" onsubmit="return confirm('Bạn chắc chắn muốn đổi trạng thái kinh doanh?')">
+                <button type="submit" class="btn btn-sm btn-outline-secondary"
+                        th:text="${p.status.name() == 'ACTIVE' ? 'Ngừng kinh doanh' : 'Kinh doanh lại'}"></button>
+            </form>
+        </td>
+    </tr>
+    <tr th:if="${products.empty}"><td colspan="7" class="text-center text-muted">Không có sản phẩm phù hợp.</td></tr>
+    </tbody>
+</table>
+</div>
+<nav th:if="${products.totalPages > 1}" aria-label="Phân trang sản phẩm">
+    <ul class="pagination flex-wrap">
+        <li class="page-item" th:if="${products.hasPrevious()}"><a class="page-link"
+            th:href="@{/admin/catalog/products(page=${products.number - 1},keyword=${keyword},categoryId=${categoryId},brandId=${brandId},status=${status})}">Trước</a></li>
+        <li class="page-item disabled"><span class="page-link" th:text="${'Trang ' + (products.number + 1) + ' / ' + products.totalPages}"></span></li>
+        <li class="page-item" th:if="${products.hasNext()}"><a class="page-link"
+            th:href="@{/admin/catalog/products(page=${products.number + 1},keyword=${keyword},categoryId=${categoryId},brandId=${brandId},status=${status})}">Sau</a></li>
+    </ul>
+</nav>
+</main>
+</body>
+</html>

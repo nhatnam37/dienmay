@@ -109,3 +109,14 @@ docker compose up -d
 Xem kết quả trong terminal và các file `target/surefire-reports/*.txt`.
 Trong VS Code, mở file test và dùng nút Run Test phía trên phương thức
 nếu đã bật extension Test Runner for Java.
+
+## Catalog (bước 3A)
+
+Đã có schema V2, entity/repository, Form/View DTO, mapper viết tay và service
+cho danh mục, thương hiệu, sản phẩm; chưa có controller/giao diện catalog.
+Xem [luồng xử lý, lệnh chạy và danh sách test](docs/catalog-3a.md).
+
+## Catalog web ADMIN (bước 3B)
+
+Đã có giao diện danh mục, thương hiệu, sản phẩm và upload ảnh.
+Xem [thiết kế, test và hướng dẫn kiểm tra thủ công](docs/catalog-3b.md).

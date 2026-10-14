@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Thông tin thương hiệu')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: nav}"></nav>
+<main class="container pb-5">
+<div th:replace="~{fragments/layout :: messages}"></div>
+<h1 class="h3 mb-4" th:text="${id == null ? 'Thêm thương hiệu' : 'Sửa thương hiệu'}"></h1>
+<form th:action="@{${id == null ? '/admin/catalog/brands' : '/admin/catalog/brands/' + id}}"
+      th:object="${form}" method="post" class="card card-body shadow-sm" style="max-width: 650px">
+    <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+        <div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Tên thương hiệu *</label>
+        <input id="name" th:field="*{name}" class="form-control" th:errorclass="is-invalid" maxlength="100" required>
+        <div class="invalid-feedback" th:errors="*{name}"></div>
+    </div>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <a th:href="@{/admin/catalog/brands}" class="btn btn-secondary">Hủy</a>
+    </div>
+</form>
+</main>
+</body>
+</html>
