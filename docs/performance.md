@@ -144,6 +144,10 @@ Loader từ chối DB có tên khác `dienmay_report_perf` hoặc DB đã có pr
 Để tái hiện chính xác phép so sánh trước/sau ban đầu trên **DB perf mới**, có thể thêm `--spring.flyway.target=12 --app.report.perf.experiment-indexes=true` vào arguments của lệnh perf. Runner sẽ đo V12 trước, thử ba index trên DB biệt lập rồi đo lại. DB thí nghiệm này phải bỏ sau khi đo, không dùng tiếp cho migration V13. Lệnh thường ở trên không bật chế độ thí nghiệm và áp V13 chính thức ngay từ đầu. Chạy lại runner sẽ ghi lại các file kết quả đo; lưu bản hiện tại nếu cần so sánh lịch sử.
 
 
+## TC-RPT-22: phép đo HTTP riêng
+
+Maven `./mvnw -Pperf verify` chạy test có `@Tag("performance")` trên MySQL Testcontainers riêng, 100.000 Serial và 20.000 hóa đơn. `verify` mặc định loại test này. Kết quả mới, cấu hình máy và giới hạn phép đo nằm trong [test-results.md](test-results.md); XML ở `target/performance-reports/`, số đo từng trang và SQL ở `target/performance-results/report-pages.md`. Các số service/SQL lịch sử phía trên không được dùng thay kết quả HTTP này. Tham khảo [testing.md](testing.md) để phân biệt Maven profile với runner Spring `perf` cũ.
+
 ## Bổ sung 10B: audit 12 bất biến
 
 Lượt clean verify thành công 23/10/2026, manifest `docs/evidence/automated/20261023T091715Z`. MySQL 8.0.46 Testcontainers trên máy macOS; không phải DB demo hoặc DB làm việc. 100.001 Serial, 120.001 lịch sử, 20.000 hóa đơn/dòng/thanh toán/bảo hành. 12 kiểm tra đều 0 vi phạm. Đây là một lượt SELECT/JDBC, không phải HTTP/p95 hay kiểm thử tải; EXPLAIN JSON giữ riêng từng INV tại [bằng chứng audit](evidence/demo-10b/audit-performance/results.md).

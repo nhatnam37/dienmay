@@ -58,7 +58,7 @@ Tệp chỉnh sửa: requirements-proposals.tsv. UC10 giữ nghĩa đã tìm đ�
 | UC04 | FR-04 | Quản lý sản phẩm và ảnh | TC-PRD-01 (tự động); TC-PRD-02 (tự động); TC-PRD-05 (tự động); TC-UPL-01 (tự động); TC-UPL-02 (tự động); TC-UPL-03 (tự động) | ĐỀ XUẤT CHỜ DUYỆT |
 | UC05 | FR-05 | Quản lý chi nhánh/nhân viên | Test mở rộng không mã TC; cần duyệt bổ sung danh mục | ĐỀ XUẤT CHỜ DUYỆT |
 | UC06 | FR-06 | Quản lý nhà cung cấp | Test mở rộng không mã TC; cần duyệt bổ sung danh mục | ĐỀ XUẤT CHỜ DUYỆT |
-| UC07 | FR-07 | Nhập kho Serial và hàng số lượng | TC-INV-03 (tự động); TC-INV-06 (tự động); TC-INV-07 (tự động); TC-INV-08 (tự động); TC-INV-09 (chưa có test gắn mã); TC-INV-10 (tự động) | ĐỀ XUẤT CHỜ DUYỆT |
+| UC07 | FR-07 | Nhập kho Serial và hàng số lượng | TC-INV-03 (tự động); TC-INV-06 (tự động); TC-INV-07 (tự động); TC-INV-08 (tự động); TC-INV-09 (tự động); TC-INV-10 (tự động) | ĐỀ XUẤT CHỜ DUYỆT |
 | UC08 | FR-08 | Chuyển kho giữa chi nhánh | TC-INV-13 (tự động); TC-INV-14 (tự động); TC-INV-15 (tự động) | ĐỀ XUẤT CHỜ DUYỆT |
 | UC09 | FR-09 | Kiểm kê và điều chỉnh tồn | Test mở rộng không mã TC; cần duyệt bổ sung danh mục | ĐỀ XUẤT CHỜ DUYỆT |
 | UC10 | FR-10 | Tra cứu lịch sử Serial | TC-INV-17 (tự động) | ĐỀ XUẤT CHỜ DUYỆT |
@@ -73,7 +73,7 @@ Tệp chỉnh sửa: requirements-proposals.tsv. UC10 giữ nghĩa đã tìm đ�
 | UC19 | FR-19 | Theo dõi/hủy đơn và nhả hàng hết hạn | TC-WEB-15 (tự động); TC-WEB-16 (tự động); TC-WEB-17 (tự động); TC-WEB-22 (tự động); TC-WEB-29 (tự động); TC-WEB-30 (tự động) | ĐỀ XUẤT CHỜ DUYỆT |
 | UC20 | FR-20 | Nhân viên xử lý đơn thành hóa đơn | TC-WEB-23 (tự động); TC-WEB-24 (tự động); TC-WEB-25 (tự động); TC-WEB-27 (tự động); TC-WEB-31 (tự động); TC-WEB-32 (tự động); TC-WEB-33 (tự động); TC-WEB-34 (tự động); TC-WEB-35 (tự động) | ĐỀ XUẤT CHỜ DUYỆT |
 | UC21 | FR-21 | Kích hoạt/tra cứu bảo hành | TC-WAR-01 (tự động); TC-WAR-02 (tự động); TC-WAR-03 (tự động); TC-WAR-04 (tự động); TC-WAR-05 (tự động); TC-WAR-23 (tự động) | ĐỀ XUẤT CHỜ DUYỆT |
-| UC22 | FR-22 | Tiếp nhận và xử lý bảo hành | TC-WAR-07 (tự động); TC-WAR-08 (tự động); TC-WAR-10 (tự động); TC-WAR-11 (tự động); TC-WAR-12 (tự động); TC-WAR-14 (chưa có test gắn mã) | ĐỀ XUẤT CHỜ DUYỆT |
+| UC22 | FR-22 | Tiếp nhận và xử lý bảo hành | TC-WAR-07 (tự động); TC-WAR-08 (tự động); TC-WAR-10 (tự động); TC-WAR-11 (tự động); TC-WAR-12 (tự động); TC-WAR-14 (tự động) | ĐỀ XUẤT CHỜ DUYỆT |
 | UC23 | FR-23 | Báo cáo doanh thu/tồn/cảnh báo | TC-RPT-01 (tự động); TC-RPT-03 (tự động); TC-RPT-04 (tự động); TC-RPT-09 (tự động); TC-RPT-10 (tự động); TC-RPT-13 (tự động); TC-RPT-23 (tự động) | ĐỀ XUẤT CHỜ DUYỆT |
 | UC24 | FR-24 | Xuất Excel báo cáo | TC-RPT-17 (tự động); TC-RPT-18 (tự động); TC-RPT-19 (tự động); TC-RPT-20 (tự động) | ĐỀ XUẤT CHỜ DUYỆT |
 

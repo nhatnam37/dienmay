@@ -1,8 +1,8 @@
 # Test mở rộng không có mã TC
 
-Theo quyết định của người dùng: giữ các test này, không đặt mã mới và không dùng lại TC-WEB-26. Danh sách sinh từ XML của lần verify hiện có; tham số hóa/lặp chỉ tính một method nhưng giữ đủ số lượt thực thi.
+Theo quyết định của người dùng: giữ các test này, không đặt mã mới và không dùng lại TC-WEB-26. Danh sách sinh từ các bộ XML được gộp trong test-results.md (mặc định và performance đã xác minh, nếu có); tham số hóa/lặp chỉ tính một method nhưng giữ đủ số lượt thực thi.
 
-Tổng: **422 method**, **545 lượt thực thi**. Con số 388 trong trao đổi trước là số liệu cũ, trước khi bổ sung test công cụ báo cáo.
+Tổng: **433 method**, **556 lượt thực thi**. Con số 388 trong trao đổi trước là số liệu cũ, trước khi bổ sung test công cụ báo cáo.
 
 | Nhóm | Method | Lượt thực thi |
 |---|---:|---:|
@@ -10,7 +10,7 @@ Tổng: **422 method**, **545 lượt thực thi**. Con số 388 trong trao đ�
 | Chi nhánh / nhà cung cấp | 18 | 18 |
 | Luật kiến trúc ArchUnit | 7 | 7 |
 | Concurrency / chaos | 15 | 15 |
-| Edge case khác | 344 | 462 |
+| Edge case khác | 355 | 473 |
 
 Mỗi method thuộc đúng một nhóm. Kiểm kê, chi nhánh/nhà cung cấp và ArchUnit được ưu tiên; nhóm concurrency/chaos còn lại gồm test đồng thời, xung đột phiên bản, lỗi được tiêm và rollback. Nhóm cuối gồm ca biên nghiệp vụ, render, bảo mật và tự kiểm tra công cụ báo cáo/quy ước.
 
@@ -180,7 +180,6 @@ Hai test `OrderFulfillmentIT#change_twoStaffSameVersion_onlyOneWinsRepeated20Tim
 - [WholeMoneyInvariantIT#receipt_fractionalOrNegativeCost_rejectsWithoutSaving](../src/test/java/com/dienmay/integrity/WholeMoneyInvariantIT.java): 2 lượt.
 - [WholeMoneyInvariantIT#receipt_wholeCost_preservesExactValue](../src/test/java/com/dienmay/integrity/WholeMoneyInvariantIT.java): 3 lượt.
 - [WholeMoneyInvariantIT#register_fractionalCost_rejectsDirectEntry](../src/test/java/com/dienmay/integrity/WholeMoneyInvariantIT.java): 1 lượt.
-- [GoodsReceiptWorkflowIT#create_validMixedReceipt_persistsItemsHistoryAndQuantity](../src/test/java/com/dienmay/inventory/GoodsReceiptWorkflowIT.java): 1 lượt.
 - [GoodsReceiptWorkflowIT#stock_mixedReceipt_usesTwoQueriesWithoutNPlusOne](../src/test/java/com/dienmay/inventory/GoodsReceiptWorkflowIT.java): 1 lượt.
 - [GoodsReceiptWorkflowIT#supplier_usedByReceipt_isDeactivatedWithoutLosingReceipt](../src/test/java/com/dienmay/inventory/GoodsReceiptWorkflowIT.java): 1 lượt.
 - [InventoryPersistenceIT#insert_invalidActorShape_databaseCheckRejectsRow](../src/test/java/com/dienmay/inventory/InventoryPersistenceIT.java): 1 lượt.
@@ -422,17 +421,29 @@ Hai test `OrderFulfillmentIT#change_twoStaffSameVersion_onlyOneWinsRepeated20Tim
 - [StorefrontServiceTest#search_blankKeyword_usesNullPattern](../src/test/java/com/dienmay/storefront/service/StorefrontServiceTest.java): 3 lượt.
 - [StorefrontServiceTest#search_filteredQuery_passesEscapedKeywordAndStableSort](../src/test/java/com/dienmay/storefront/service/StorefrontServiceTest.java): 3 lượt.
 - [StorefrontServiceTest#search_invalidPriceBounds_rejectsBeforeQuery](../src/test/java/com/dienmay/storefront/service/StorefrontServiceTest.java): 5 lượt.
+- [PerformanceRunManifestMainTest#finish_failedAssertion_keepsRealFailureManifestBeforeFailsafeVerify](../src/test/java/com/dienmay/support/PerformanceRunManifestMainTest.java): 1 lượt.
+- [PerformanceRunManifestMainTest#finish_freshXmlAndArtifact_createsManifestAcceptedByReportGenerator](../src/test/java/com/dienmay/support/PerformanceRunManifestMainTest.java): 1 lượt.
+- [PerformanceRunManifestMainTest#finish_outputCopiedFromEarlierRun_refusesStaleMeasurement](../src/test/java/com/dienmay/support/PerformanceRunManifestMainTest.java): 1 lượt.
+- [PerformanceRunManifestMainTest#start_previousPerformanceOutputs_removesThemAndPreservesDefaultEvidence](../src/test/java/com/dienmay/support/PerformanceRunManifestMainTest.java): 1 lượt.
+- [PerformanceRunManifestMainTest#start_targetSymlink_refusesWithoutDeletingExternalData](../src/test/java/com/dienmay/support/PerformanceRunManifestMainTest.java): 1 lượt.
 - [TestConventionsTest#tests_namesAndDisabledAnnotations_explainIntent](../src/test/java/com/dienmay/support/TestConventionsTest.java): 1 lượt.
 - [TestReportMainTest#annotation_repeatable_preservesBothIds](../src/test/java/com/dienmay/support/TestReportMainTest.java): 1 lượt.
 - [TestReportMainTest#catalog_authoritativeMarkdown_excludesRetiredId](../src/test/java/com/dienmay/support/TestReportMainTest.java): 1 lượt.
 - [TestReportMainTest#catalog_duplicateOrUnmappedCase_rejectsDuplicateAndReportsMissing](../src/test/java/com/dienmay/support/TestReportMainTest.java): 1 lượt.
 - [TestReportMainTest#parse_externalEntity_rejectsDocument](../src/test/java/com/dienmay/support/TestReportMainTest.java): 1 lượt.
 - [TestReportMainTest#parse_failureErrorAndSkip_preservesStatusesAndReasons](../src/test/java/com/dienmay/support/TestReportMainTest.java): 1 lượt.
+- [TestReportMainTest#readResults_threeReportFolders_keepsScopesAndDoesNotCountUnverifiedPerformance](../src/test/java/com/dienmay/support/TestReportMainTest.java): 1 lượt.
 - [TestReportMainTest#render_mixedResults_reportsFailureMissingAndSkipped](../src/test/java/com/dienmay/support/TestReportMainTest.java): 1 lượt.
 - [TestReportMainTest#render_multipleIds_countsOneExecutionPerCase](../src/test/java/com/dienmay/support/TestReportMainTest.java): 1 lượt.
+- [TestingDocumentationTest#coverageSummary_verifiedArtifact_readsOnlyRootCountersAndDoesNotLoadExternalDtd](../src/test/java/com/dienmay/support/TestingDocumentationTest.java): 1 lượt.
+- [TestingDocumentationTest#enrich_defaultAndPerformanceRuns_keepsMetadataIndependentAndFullCatalog](../src/test/java/com/dienmay/support/TestingDocumentationTest.java): 1 lượt.
 - [TestingDocumentationTest#generateTraceability_missingRequirements_rejectsIncompleteMatrix](../src/test/java/com/dienmay/support/TestingDocumentationTest.java): 1 lượt.
 - [TestingDocumentationTest#generateTraceability_pendingDefinitions_preservesGapsAndMissingTests](../src/test/java/com/dienmay/support/TestingDocumentationTest.java): 1 lượt.
 - [TestingDocumentationTest#generateTraceability_unknownOrRetiredCase_rejectsMapping](../src/test/java/com/dienmay/support/TestingDocumentationTest.java): 1 lượt.
+- [TestingDocumentationTest#matchesEvidence_hashManifest_checksExactXmlSetAndCoverageWithoutRawSnapshot](../src/test/java/com/dienmay/support/TestingDocumentationTest.java): 1 lượt.
+- [TestingDocumentationTest#performanceEvidence_matchedManifest_preservesSeparateMetadataAndMeasuredArtifact](../src/test/java/com/dienmay/support/TestingDocumentationTest.java): 1 lượt.
+- [TestingDocumentationTest#performanceEvidence_missingArtifact_orMissingXml_isNotAccepted](../src/test/java/com/dienmay/support/TestingDocumentationTest.java): 1 lượt.
+- [TestingDocumentationTest#performanceEvidence_staleXmlOrArtifact_isRejectedEvenWhenOneHashStillMatches](../src/test/java/com/dienmay/support/TestingDocumentationTest.java): 1 lượt.
 - [WarrantyMapperTest#create_january31_clampsToLastDayOfFebruary](../src/test/java/com/dienmay/warranty/WarrantyMapperTest.java): 1 lượt.
 - [WarrantyMapperTest#create_leapYear_keepsFebruary29](../src/test/java/com/dienmay/warranty/WarrantyMapperTest.java): 1 lượt.
 - [WarrantyStatusPolicyTest#evaluate_beforeEnd_countsCalendarDays](../src/test/java/com/dienmay/warranty/WarrantyStatusPolicyTest.java): 1 lượt.

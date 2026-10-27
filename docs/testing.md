@@ -11,7 +11,7 @@ cd /Users/dinhnhatnam/NhatNam/dienmay
 
 Phải đứng ở thư mục có `pom.xml` và `mvnw`; lỗi “no such file ./mvnw” hoặc “no configuration file” thường do đứng ở thư mục cha. Windows dùng `mvnw.cmd`; script shell dùng Git Bash/WSL.
 
-`test` chạy unit/web/ArchUnit bằng Surefire, không cần Docker. `verify` chạy thêm Failsafe với MySQL Testcontainers, merge JaCoCo và kiểm coverage. Docker Desktop phải chạy; không cần bật MySQL dev bằng Compose cho test. Không skip khi Docker lỗi. Integration dùng DB riêng/cổng ngẫu nhiên, một singleton/container trong JVM tích hợp, không chạm DB dev cổng 3307.
+`test` chạy unit/web/ArchUnit bằng Surefire, không cần Docker. `verify` chạy thêm Failsafe với MySQL Testcontainers, merge JaCoCo và kiểm coverage; cả hai đều loại trừ test có `@Tag("performance")`. Docker Desktop phải chạy; không cần bật MySQL dev bằng Compose cho test. Không skip khi Docker lỗi. Integration dùng DB riêng/cổng ngẫu nhiên, một singleton/container trong JVM tích hợp, không chạm DB dev cổng 3307.
 
 ## Lượt kiểm chứng có bằng chứng
 
@@ -40,7 +40,19 @@ Script lặp dừng ngay ở lần lỗi đầu, giữ log/XML từng lần ở 
 
 **Chưa có profile Maven `stress`, chưa có ChaosWorkloadIT; stress 10 phút chưa thực hiện.** Không coi `./mvnw -Pstress verify` là lệnh hoạt động: Maven có thể chỉ cảnh báo profile không tồn tại rồi chạy suite thường. Khi bổ sung profile, phải chốt workload, thời lượng, seed, timeout và tiêu chí trước; chưa có số liệu để ghi đạt.
 
-Benchmark service đã có runner/profile Spring `perf`: dùng DB riêng và lệnh đầy đủ tại [performance.md](performance.md), không phải Maven stress profile. Runner có thể ghi đè performance.md/performance-explain.md; lưu bản lịch sử trước khi đo lại. Không chạy seed perf trên dev/prod. NFR-04 toàn trang cần đo bổ sung HTTP/Network theo manual-tests.md; số service/SQL không thay thế thời gian trình duyệt.
+Maven profile `perf` chạy riêng TC-RPT-22, được gắn `@Tag("performance")`, không chạy trong `verify` mặc định:
+
+```bash
+./mvnw -Pperf verify
+```
+
+Profile này bỏ suite mặc định và JaCoCo để phép đo không bị instrumentation độ phủ ảnh hưởng; không dùng nó để kết luận coverage đạt. Test khởi động ứng dụng HTTP trên cổng ngẫu nhiên và MySQL Testcontainers riêng, nạp 100.000 Serial cùng 20.000 hóa đơn. Mỗi trang `/reports/dashboard`, `/reports/revenue`, `/reports/products`, `/reports/inventory`, `/reports/low-stock` được đo ba lượt, giữ cả lượt đầu, kiểm tra max < 2.000 ms. Phép đo gồm HTML, các API biểu đồ và `app.css`/`reports.js` cùng ứng dụng; không gồm CDN, layout/paint/canvas của trình duyệt, Internet, TLS hoặc tải đồng thời nhiều người dùng. Login và seed nằm ngoài thời gian đo.
+
+Đọc XML tại `target/performance-reports/` và thời gian từng trang, cấu hình máy, truy vấn chậm tại `target/performance-results/report-pages.md`. Test giữ kết quả nếu vượt ngưỡng; báo trang/SQL liên quan, chưa tự sửa truy vấn. Kết quả thực tế và giới hạn phép đo được tổng hợp riêng trong [test-results.md](test-results.md). Chạy Maven tuần tự, không dùng `clean` trước khi đã lưu bản đo cần giữ.
+
+Profile tự xóa riêng hai thư mục output perf cũ trước khi chạy, rồi ghi `target/performance-results/run.properties` chứa thời điểm và SHA-256 của XML/số đo. Hook kết thúc chạy trước `failsafe:verify`; trường `exitCodeScope` phân biệt kết quả test với mã thoát cả Maven. Bộ sinh báo cáo chỉ gộp performance khi XML, số đo và manifest cùng lượt khớp nhau; nếu thiếu hoặc cũ thì không tính RPT-22 là Đạt. Chạy `./mvnw exec:java@test-report` sau khi đã có cả verify mặc định và perf. `clean` sẽ xóa cả hai bộ output; khi đó phải chạy lại cả hai, không lấy số đo cũ để điền.
+
+Benchmark service/SQL cũ vẫn dùng runner với **profile Spring `perf`**, tách khỏi Maven `-Pperf`: dùng DB riêng và lệnh đầy đủ tại [performance.md](performance.md). Runner có thể ghi đè performance.md/performance-explain.md; lưu bản lịch sử trước khi đo lại. Không chạy seed perf trên dev/prod. Thời gian service/SQL không thay thế thời gian HTTP của TC-RPT-22 hoặc thời gian giao diện trình duyệt trong manual-tests.md.
 
 ## Quét phụ thuộc
 
@@ -58,6 +70,8 @@ Lệnh đó **không phải** quét CVE. Sau khi cài/cấu hình và duyệt ph
 |---|---|
 | target/surefire-reports/TEST-*.xml | Unit/web; failures/errors/skipped là kết quả, không chỉ nhìn chữ ERROR trong log |
 | target/failsafe-reports/TEST-*.xml | Tích hợp/đồng thời trên MySQL thật |
+| target/performance-reports/TEST-*.xml | Kết quả riêng suite `-Pperf`, không trộn vào verify mặc định |
+| target/performance-results/report-pages.md | TC-RPT-22: ba lượt mỗi trang, cấu hình máy và SQL chậm |
 | target/site/jacoco/index.html | Mở package/lớp, xem dòng đỏ/vàng và nhánh chưa chạy |
 | target/site/jacoco/jacoco.xml | covered/(covered+missed) cho LINE/BRANCH ở cấp report; không cộng counter cấp con lần nữa |
 | docs/test-results.md | Mã TC, số method/lượt, module, mã thiếu; một test có nhiều TC vẫn chỉ một lượt vật lý |

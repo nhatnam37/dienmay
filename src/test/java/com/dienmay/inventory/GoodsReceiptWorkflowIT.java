@@ -79,14 +79,19 @@ class GoodsReceiptWorkflowIT extends MySqlIntegrationTestBase {
         jdbc.update("DELETE FROM employee WHERE id IN (?,?)",employeeId,employeeBId);
         jdbc.update("DELETE FROM branch WHERE id=?",branchBId);
     }
-    @Test void create_validMixedReceipt_persistsItemsHistoryAndQuantity(){
-        GoodsReceiptForm form=validForm();form.getLines().get(1).setQuantity("99999");
+    @Test @com.dienmay.support.TestCase("TC-INV-09")
+    void create_validMixedReceipt_persistsItemsHistoryAndQuantity(){
+        GoodsReceiptForm form=validForm();
+        form.getLines().get(1).setSerialText("WORK-001,work-002\nWORK-003, WORK-004\nWORK-005");
+        form.getLines().get(1).setQuantity("99999");
         Long id=receipts.create(form,actor);
         assertThat(jdbc.queryForObject("SELECT code FROM goods_receipt WHERE id=?",String.class,id)).matches("PN-[0-9]{8}-[0-9]{5,}");
-        assertThat(jdbc.queryForObject("SELECT COUNT(*) FROM serial_item WHERE receipt_id=? AND status='IN_STOCK'",Integer.class,id)).isEqualTo(2);
-        assertThat(jdbc.queryForObject("SELECT COUNT(*) FROM serial_history WHERE ref_type='GOODS_RECEIPT' AND ref_id=?",Integer.class,id)).isEqualTo(2);
+        assertThat(jdbc.queryForObject("SELECT COUNT(*) FROM serial_item WHERE receipt_id=?",Integer.class,id)).isEqualTo(5);
+        assertThat(jdbc.queryForObject("SELECT COUNT(*) FROM serial_item WHERE receipt_id=? AND status='IN_STOCK'",Integer.class,id)).isEqualTo(5);
+        assertThat(jdbc.queryForObject("SELECT COUNT(*) FROM serial_history WHERE ref_type='GOODS_RECEIPT' AND ref_id=?",Integer.class,id)).isEqualTo(5);
+        assertThat(jdbc.queryForList("SELECT h.serial_item_id FROM serial_history h JOIN serial_item s ON s.id=h.serial_item_id WHERE s.receipt_id=? AND h.ref_type='GOODS_RECEIPT' AND h.ref_id=? AND h.from_status IS NULL AND h.to_status='IN_STOCK' ORDER BY h.serial_item_id",Long.class,id,id)).hasSize(5).doesNotHaveDuplicates();
         assertThat(jdbc.queryForObject("SELECT quantity FROM stock_quantity WHERE product_id=? AND branch_id=?",Integer.class,quantityProduct,branchId)).isEqualTo(3);
-        assertThat(jdbc.queryForObject("SELECT quantity FROM goods_receipt_item WHERE receipt_id=? AND product_id=?",Integer.class,id,serialProduct)).isEqualTo(2);
+        assertThat(jdbc.queryForObject("SELECT quantity FROM goods_receipt_item WHERE receipt_id=? AND product_id=?",Integer.class,id,serialProduct)).isEqualTo(5);
         assertThat(receipts.getById(id,actor).items()).hasSize(2);
     }
     @Test @com.dienmay.support.TestCase("TC-INV-10")

@@ -14,15 +14,33 @@ public final class TestReportMain {
         String key(){return className+"#"+name.split("[\\[(]",2)[0];}
         String label(){return className+"#"+name;}
     }
+    /** Perf được chạy bằng profile riêng; không gán các invocation đó cho verify mặc định. */
+    record RunResults(List<Result> standardResults,List<Result> performanceResults) {
+        RunResults {standardResults=List.copyOf(standardResults);performanceResults=List.copyOf(performanceResults);}
+        List<Result> acceptedResults(boolean performanceVerified){
+            return Stream.concat(standardResults.stream(),performanceVerified?performanceResults.stream():Stream.empty()).toList();
+        }
+    }
     public static void main(String[] args)throws Exception{
         Path root=Path.of(args.length==0?".":args[0]).toAbsolutePath().normalize();
         var mapping=discover(root.resolve("target/test-classes"));
         Map<String,String> registry=catalog(root.resolve("docs/test-cases.md"));
         for(var ids:mapping.values())for(String id:ids)if(!registry.containsKey(id))throw new IllegalStateException("Mã ca chưa có trong bảng gốc: "+id);
-        List<Result> results=new ArrayList<>();
-        for(String folder:List.of("surefire-reports","failsafe-reports")){Path dir=root.resolve("target/"+folder);if(Files.isDirectory(dir))try(var files=Files.list(dir)){for(Path file:files.filter(p->p.getFileName().toString().startsWith("TEST-")&&p.toString().endsWith(".xml")).sorted().toList())results.addAll(parse(file));}}
+        var runs=readResults(root);
+        var performance=TestingDocumentation.performanceEvidence(root,runs.performanceResults());
+        List<Result> results=runs.acceptedResults(performance.verified());
         if(results.isEmpty())throw new IllegalStateException("Chưa có XML kết quả. Hãy chạy ./mvnw verify trước.");
-        String text=TestingDocumentation.enrich(root,render(registry,mapping,results),registry,mapping,results);Path out=root.resolve("docs/test-results.md");Files.createDirectories(out.getParent());Files.writeString(out,text);Files.writeString(root.resolve("docs/tests-not-in-catalog.md"),renderExtensions(mapping,results));System.out.println(text.substring(0,text.indexOf("## Chi tiết")));
+        String text=TestingDocumentation.enrich(root,render(registry,mapping,results),registry,mapping,results,runs,performance);Path out=root.resolve("docs/test-results.md");Files.createDirectories(out.getParent());Files.writeString(out,text);Files.writeString(root.resolve("docs/tests-not-in-catalog.md"),renderExtensions(mapping,results));System.out.println(text.substring(0,text.indexOf("## Chi tiết")));
+    }
+    static RunResults readResults(Path root)throws Exception {
+        List<Result> standard=new ArrayList<>();
+        for(String folder:List.of("surefire-reports","failsafe-reports"))standard.addAll(readFolder(root.resolve("target/"+folder)));
+        return new RunResults(standard,readFolder(root.resolve("target/performance-reports")));
+    }
+    private static List<Result> readFolder(Path dir)throws Exception {
+        List<Result> results=new ArrayList<>();
+        if(Files.isDirectory(dir))try(var files=Files.list(dir)){for(Path file:files.filter(p->p.getFileName().toString().startsWith("TEST-")&&p.toString().endsWith(".xml")).sorted().toList())results.addAll(parse(file));}
+        return results;
     }
     /** Danh mục Markdown do người dùng chốt là nguồn duy nhất; mã đã thay không còn là ca đang chạy. */
     static Map<String,String> catalog(Path file)throws java.io.IOException {
@@ -90,7 +108,7 @@ public final class TestReportMain {
     static String renderExtensions(Map<String,List<String>> mapping,List<Result> results){
         List<String> groups=List.of("Kiểm kê","Chi nhánh / nhà cung cấp","Luật kiến trúc ArchUnit","Concurrency / chaos","Edge case khác");
         Map<String,List<Result>> methods=results.stream().filter(r->!mapping.containsKey(r.key())).collect(Collectors.groupingBy(Result::key,TreeMap::new,Collectors.toList()));
-        StringBuilder out=new StringBuilder("# Test mở rộng không có mã TC\n\nTheo quyết định của người dùng: giữ các test này, không đặt mã mới và không dùng lại TC-WEB-26. Danh sách sinh từ XML của lần verify hiện có; tham số hóa/lặp chỉ tính một method nhưng giữ đủ số lượt thực thi.\n\n");
+        StringBuilder out=new StringBuilder("# Test mở rộng không có mã TC\n\nTheo quyết định của người dùng: giữ các test này, không đặt mã mới và không dùng lại TC-WEB-26. Danh sách sinh từ các bộ XML được gộp trong test-results.md (mặc định và performance đã xác minh, nếu có); tham số hóa/lặp chỉ tính một method nhưng giữ đủ số lượt thực thi.\n\n");
         out.append("Tổng: **").append(methods.size()).append(" method**, **").append(methods.values().stream().mapToInt(List::size).sum()).append(" lượt thực thi**. Con số 388 trong trao đổi trước là số liệu cũ, trước khi bổ sung test công cụ báo cáo.\n\n| Nhóm | Method | Lượt thực thi |\n|---|---:|---:|\n");
         for(String group:groups){var rows=methods.entrySet().stream().filter(e->extensionGroup(e.getKey()).equals(group)).toList();out.append("| ").append(group).append(" | ").append(rows.size()).append(" | ").append(rows.stream().mapToInt(e->e.getValue().size()).sum()).append(" |\n");}
         out.append("\nMỗi method thuộc đúng một nhóm. Kiểm kê, chi nhánh/nhà cung cấp và ArchUnit được ưu tiên; nhóm concurrency/chaos còn lại gồm test đồng thời, xung đột phiên bản, lỗi được tiêm và rollback. Nhóm cuối gồm ca biên nghiệp vụ, render, bảo mật và tự kiểm tra công cụ báo cáo/quy ước.\n");

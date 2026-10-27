@@ -95,12 +95,15 @@ Muốn dev với dữ liệu demo: dùng DB demo đã chuẩn bị, profile `dem
 ```bash
 ./mvnw test
 ./mvnw clean verify
+./mvnw -Pperf verify
 ./mvnw exec:java@test-report
 ```
 
-Verify cần Docker, dùng MySQL Testcontainers/cổng ngẫu nhiên, không cần bật DB dev. Đừng chạy hai Maven build vào cùng target đồng thời; JaCoCo có thể không khớp class ID. HTML JaCoCo tại target/site/jacoco/index.html.
+Verify cần Docker, dùng MySQL Testcontainers/cổng ngẫu nhiên, không cần bật DB dev. Đừng chạy hai Maven build vào cùng target đồng thời; JaCoCo có thể không khớp class ID. HTML JaCoCo tại target/site/jacoco/index.html. `verify` mặc định không chạy test có `@Tag("performance")`.
 
-Perf là **profile Spring** với DB đúng tên `dienmay_report_perf`, cổng riêng 3308; mẫu đã có tại [performance.md](performance.md). Không chạy `-Pperf` vì pom không có profile Maven đó. Benchmark dùng SQL tổng hợp; không phải dữ liệu demo, không phải kiểm tra thời gian toàn trình duyệt.
+Maven `-Pperf` chạy riêng TC-RPT-22 qua HTTP với ứng dụng và MySQL Testcontainers trên cổng ngẫu nhiên, dữ liệu tổng hợp 100.000 Serial và 20.000 hóa đơn. Nó không chạy suite mặc định và không đo JaCoCo. XML ở `target/performance-reports/`; thời gian từng trang, cấu hình máy và SQL ở `target/performance-results/report-pages.md`. Ba lượt mỗi trang gồm lượt đầu; lượt nào vượt 2 giây sẽ làm test thất bại. Đọc [test-results.md](test-results.md) để biết kết quả thật và các giới hạn: chưa bao gồm tải CDN/vẽ giao diện trong trình duyệt.
+
+**Profile Spring `perf`** của benchmark service/SQL cũ là cách chạy riêng: DB đúng tên `dienmay_report_perf`, cổng riêng 3308; mẫu tại [performance.md](performance.md). Không nhầm `-Dspring-boot.run.profiles=perf` với Maven `-Pperf`. Cả hai dùng dữ liệu tổng hợp tách khỏi dữ liệu demo và không được trỏ vào DB dev/prod.
 
 ## 7. Sao lưu và khôi phục cả DB lẫn ảnh
 

@@ -1,0 +1,30 @@
+{
+  "counts": {
+    "surefire-reports": {
+      "files": 72,
+      "tests": 809,
+      "failures": 0,
+      "skipped": 0
+    },
+    "failsafe-reports": {
+      "files": 23,
+      "tests": 779,
+      "failures": 0,
+      "skipped": 0
+    }
+  },
+  "jacoco": {
+    "BRANCH": {
+      "covered": 1790,
+      "missed": 797
+    },
+    "LINE": {
+      "covered": 2315,
+      "missed": 479
+    }
+  },
+  "failures": 0,
+  "skipped": 0,
+  "mavenBuild": "BUILD SUCCESS",
+  "mavenReportedTotalTime": "02:05 min"
+}

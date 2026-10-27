@@ -55,7 +55,7 @@ Sinh bởi TestingDocumentation từ `requirements-test-map.tsv`, annotation @Te
 | NFR-01 | Không bán trùng một Serial kể cả thao tác đồng thời — cẩm nang PDF trang 5 | TC-POS-14,TC-POS-15,TC-POS-16,TC-WEB-18,TC-WEB-19 | Tự động; lịch chạy hữu hạn; TC-POS-14: có test tự động; TC-POS-15: có test tự động; TC-POS-16: có test tự động; TC-WEB-18: có test tự động; TC-WEB-19: có test tự động | ĐÃ CÓ ĐỊNH NGHĨA |
 | NFR-02 | Bán hàng nguyên tử: hoàn tất toàn bộ hoặc rollback — cẩm nang PDF trang 5 | TC-POS-11,TC-WEB-25 | Tự động MySQL Testcontainers; TC-POS-11: có test tự động; TC-WEB-25: có test tự động | ĐÃ CÓ ĐỊNH NGHĨA |
 | NFR-03 | BCrypt, chống CSRF/XSS, kiểm tra quyền ở service — cẩm nang PDF trang 5 | TC-AUTH-10,TC-SEC-03,TC-SEC-04,TC-SEC-13,TC-WEB-06 | Tự động một phần; chưa audit XSS đầy đủ; TC-AUTH-10: có test tự động; TC-SEC-03: có test tự động; TC-SEC-04: có test tự động; TC-SEC-13: có test tự động; TC-WEB-06: có test tự động | ĐÃ CÓ ĐỊNH NGHĨA |
-| NFR-04 | Trang danh sách dưới 2 giây với 10.000 sản phẩm và 100.000 Serial — cẩm nang PDF trang 5 | TC-RPT-22 | Benchmark service lịch sử; HTTP toàn trang chưa thực hiện; TC-RPT-22: chưa có test tự động | ĐÃ CÓ ĐỊNH NGHĨA |
+| NFR-04 | Trang danh sách dưới 2 giây với 10.000 sản phẩm và 100.000 Serial — cẩm nang PDF trang 5 | TC-RPT-22 | Benchmark service lịch sử; HTTP toàn trang chưa thực hiện; TC-RPT-22: có test tự động | ĐÃ CÓ ĐỊNH NGHĨA |
 | NFR-05 | Mọi thao tác kho/bán/bảo hành ghi người thực hiện và thời điểm — cẩm nang PDF trang 5 | TC-INV-01,TC-INV-13,TC-POS-01,TC-WAR-12 | Tự động các luồng đại diện; chưa chứng minh mọi đường ghi; TC-INV-01: có test tự động; TC-INV-13: có test tự động; TC-POS-01: có test tự động; TC-WAR-12: có test tự động | ĐÃ CÓ ĐỊNH NGHĨA |
 | NFR-06 | Module hóa, Flyway quản lý schema, độ phủ service trên 70% — cẩm nang PDF trang 5 |  | ArchUnit + Failsafe migration + JaCoCo; test kỹ thuật không mã TC; Chưa có ánh xạ TC; xem bằng chứng kỹ thuật nếu có | ĐÃ CÓ ĐỊNH NGHĨA |
 | NFR-07 | Chạy được bằng docker compose up — cẩm nang PDF trang 5 |  | Kiểm triển khai 10A: Compose app+MySQL trên volume trống, health/login đạt; docs/docker-10a.md; chưa gắn mã TC; Chưa có ánh xạ TC; xem bằng chứng kỹ thuật nếu có | ĐÃ CÓ ĐỊNH NGHĨA |
@@ -67,12 +67,6 @@ Sinh bởi TestingDocumentation từ `requirements-test-map.tsv`, annotation @Te
 
 ## Khoảng trống ca tự động đã xác định
 
-- TC-AUTH-07: Đăng nhập sai mật khẩu. Đề xuất bổ sung test xác định đúng dữ liệu/đường dẫn của ca; NFR-04 cần đo HTTP toàn trang trên bộ perf.
-- TC-AUTH-08: POST không có CSRF token. Đề xuất bổ sung test xác định đúng dữ liệu/đường dẫn của ca; NFR-04 cần đo HTTP toàn trang trên bộ perf.
-- TC-AUTH-09: Đường dẫn không tồn tại. Đề xuất bổ sung test xác định đúng dữ liệu/đường dẫn của ca; NFR-04 cần đo HTTP toàn trang trên bộ perf.
-- TC-INV-09: Nhập kho hợp lệ. Đề xuất bổ sung test xác định đúng dữ liệu/đường dẫn của ca; NFR-04 cần đo HTTP toàn trang trên bộ perf.
-- TC-RPT-22: Hiệu năng (NFR-04). Đề xuất bổ sung test xác định đúng dữ liệu/đường dẫn của ca; NFR-04 cần đo HTTP toàn trang trên bộ perf.
-- TC-WAR-14: Từ chối bảo hành. Đề xuất bổ sung test xác định đúng dữ liệu/đường dẫn của ca; NFR-04 cần đo HTTP toàn trang trên bộ perf.
 
 ## Cách duyệt và cập nhật
 

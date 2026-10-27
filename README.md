@@ -82,12 +82,15 @@ Spring Boot chạy Maven **không tự đọc `.env`**. Dev không tự nạp de
 ```bash
 ./mvnw test                    # unit/web, không cần DB dev
 ./mvnw clean verify            # thêm MySQL Testcontainers + JaCoCo; cần Docker
+./mvnw -Pperf verify           # riêng TC-RPT-22: HTTP trang báo cáo, MySQL Testcontainers
 ./mvnw exec:java@test-report   # sinh tài liệu từ XML lần chạy hiện có
 ```
 
-Testcontainers dùng DB/cổng ngẫu nhiên riêng. JaCoCo: `target/site/jacoco/index.html`; kết quả đã ghi nhận ở [test-results.md](docs/test-results.md). Lưu cả metadata bằng `./scripts/verify-with-evidence.sh`.
+Testcontainers dùng DB/cổng ngẫu nhiên riêng. JaCoCo: `target/site/jacoco/index.html`; kết quả đã ghi nhận ở [test-results.md](docs/test-results.md). Lưu cả metadata bằng `./scripts/verify-with-evidence.sh`. `verify` mặc định loại `@Tag("performance")`; Maven `-Pperf` chạy riêng phép đo này, không gộp vào số test/coverage mặc định. XML nằm trong `target/performance-reports/`; thời gian từng trang, cấu hình máy và SQL chậm nằm trong `target/performance-results/report-pages.md`.
 
-Benchmark dùng **profile Spring `perf`**, không phải Maven `-Pperf`. Cần DB riêng đúng tên `dienmay_report_perf`; không trỏ DB demo/dev/prod:
+TC-RPT-22 đo HTTP HTML, API biểu đồ và tài nguyên cùng ứng dụng trên 100.000 Serial, 20.000 hóa đơn, ba lượt mỗi trang gồm lượt đầu. Chưa đo thời gian tải CDN hay vẽ giao diện trong trình duyệt. Nếu vượt 2 giây, test báo lỗi và giữ số đo/SQL để xem trước khi sửa; kết quả thực tế được ghi tại [test-results.md](docs/test-results.md).
+
+Benchmark service/SQL cũ dùng **profile Spring `perf`**, là lệnh riêng với Maven `-Pperf` ở trên. Nó cần DB riêng đúng tên `dienmay_report_perf`; không trỏ DB demo/dev/prod:
 
 ```bash
 # Đặt PERF_JDBC_URL, PERF_DB_USER, PERF_DB_PASSWORD, FLYWAY_USER/PASSWORD cho DB benchmark.

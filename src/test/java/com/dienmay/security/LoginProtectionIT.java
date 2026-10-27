@@ -48,10 +48,23 @@ class LoginProtectionIT extends MySqlIntegrationTestBase {
     }
     private void wrong(String path,String name,String address)throws Exception{assertThat(attempt(path,name,"wrong-password",address).getResponse().getRedirectedUrl()).isEqualTo(path+"?error");}
     private void blocked(String path,String name,String address)throws Exception{var response=attempt(path,name,PASSWORD,address).getResponse();assertThat(response.getStatus()).isEqualTo(429);assertThat(response.getContentAsString(java.nio.charset.StandardCharsets.UTF_8)).isEqualTo(com.dienmay.auth.login.LoginProtection.BLOCKED_MESSAGE);}
-    @ParameterizedTest @ValueSource(strings={"/login","/customer/login"}) @TestCase("TC-SEC-05")
-    @DisplayName("Sai năm lần: mật khẩu đúng ở lần sáu vẫn bị chặn")
-    void login_fiveFailures_rejectsCorrectPasswordUntilUnblocked(String path)throws Exception{
-        for(int i=0;i<5;i++)wrong(path,name(path),ip);blocked(path,name(path),ip);
+    private void fiveFailuresThenBlocked(String path)throws Exception{
+        for(int i=0;i<5;i++)wrong(path,name(path),ip);
+        mvc.perform(get(path).param("error",""))
+                .andExpect(status().isOk())
+                .andExpect(content().string(org.hamcrest.Matchers.containsString(path.equals("/login")
+                        ? "Sai tài khoản hoặc mật khẩu." : "Email hoặc mật khẩu không đúng")));
+        blocked(path,name(path),ip);
+    }
+    @Test @TestCase("TC-SEC-05") @TestCase("TC-AUTH-07")
+    @DisplayName("Nhân viên ADMIN sai mật khẩu: quay lại trang báo lỗi; sai năm lần chặn cả mật khẩu đúng")
+    void login_staffWrongPassword_rendersErrorAndBlocksAfterFiveFailures()throws Exception{
+        fiveFailuresThenBlocked("/login");
+    }
+    @Test @TestCase("TC-SEC-05")
+    @DisplayName("Khách sai năm lần: mật khẩu đúng ở lần sáu vẫn bị chặn")
+    void login_customerFiveFailures_rejectsCorrectPasswordUntilUnblocked()throws Exception{
+        fiveFailuresThenBlocked("/customer/login");
     }
     @ParameterizedTest @ValueSource(strings={"/login","/customer/login"}) @TestCase("TC-SEC-06")
     @DisplayName("Clock giả tiến năm phút: đăng nhập đúng được chấp nhận")

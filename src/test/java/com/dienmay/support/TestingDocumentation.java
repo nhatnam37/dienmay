@@ -1,6 +1,8 @@
 package com.dienmay.support;
 
 import java.nio.file.*;
+import java.security.MessageDigest;
+import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -8,29 +10,76 @@ import java.util.stream.Collectors;
 final class TestingDocumentation {
     private TestingDocumentation() {}
     static String enrich(Path root, String report, Map<String,String> catalog,
-                         Map<String,List<String>> mapping, List<TestReportMain.Result> results) throws Exception {
+                         Map<String,List<String>> mapping, List<TestReportMain.Result> results,
+                         TestReportMain.RunResults runs,PerformanceEvidence performance) throws Exception {
         Properties run=new Properties();
         Path metadata=root.resolve("docs/evidence/automated/latest-run.properties");
         if(Files.exists(metadata))try(var input=Files.newInputStream(metadata)){run.load(input);}
         // Không gắn metadata lượt cũ vào XML mới khi người dùng vừa chạy test ngoài script bằng chứng.
         if(!matchesEvidence(root,run))run.clear();
-        StringBuilder header=new StringBuilder("## Thông tin lần chạy\n\n");
+        StringBuilder header=new StringBuilder("## Thông tin lần chạy verify mặc định\n\n");
         for(String key:List.of("started","finished","commit","dirty","command","exitCode","elapsedSeconds","evidence"))
             header.append("- ").append(key).append(": ").append(run.getProperty(key,"chưa ghi nhận")).append("\n");
-        header.append("\nCommit là mốc HEAD; dirty=true nghĩa là kết quả áp dụng cho working tree có sửa đổi, không phải riêng commit đó. Manifest và XML được lưu tại đường dẫn bằng chứng. Không cộng thời gian từng test để suy ra thời gian build.\n\n");
+        header.append("\nMetadata trên chỉ thuộc bộ mặc định (Surefire + Failsafe), không thuộc lần chạy performance riêng. Commit là mốc HEAD; dirty=true nghĩa là kết quả áp dụng cho working tree có sửa đổi, không phải riêng commit đó. Không cộng thời gian từng test để suy ra thời gian build.\n\n");
+        if(run.getProperty("format","").equals("hashes-v1"))header.append("Bằng chứng mặc định dùng manifest SHA-256 + metadata; XML thô ở target/ không được chép vào repository. Hash của toàn bộ XML và JaCoCo hiện có đã được đối chiếu trước khi gắn metadata.\n\n");
+        else if(!run.isEmpty())header.append("Bằng chứng mặc định dùng bản chụp XML và JaCoCo đã đối chiếu byte.\n\n");
+        header.append(coverageSummary(root,!run.isEmpty()));
+        header.append(renderRunScopes(runs,mapping,performance));
         StringBuilder modules=new StringBuilder("## Tổng hợp theo module\n\nĐếm lượt thực thi theo package của lớp test; đây không phải số use case. Một test chỉ nằm trong một module.\n\n| Module | Lượt | Hỏng/lỗi | Bỏ qua |\n|---|---:|---:|---:|\n");
         var groups=results.stream().collect(Collectors.groupingBy(r->module(r.className()),TreeMap::new,Collectors.toList()));
         groups.forEach((name,rows)->modules.append("| ").append(name).append(" | ").append(rows.size()).append(" | ").append(rows.stream().filter(TestReportMain.Result::failed).count()).append(" | ").append(rows.stream().filter(TestReportMain.Result::skipped).count()).append(" |\n"));
         Set<String> executed=results.stream().flatMap(r->mapping.getOrDefault(r.key(),List.of()).stream()).collect(Collectors.toSet());
         modules.append("\n## Các ca không tự động hóa\n\nCác mã dưới đây chưa có invocation gắn mã trong XML. Điều này không khẳng định chức năng chưa tồn tại; không thay bằng kết quả thủ công chưa chạy.\n\n");
         catalog.forEach((id,description)->{if(!executed.contains(id))modules.append("- ").append(id).append(": ").append(description).append(" — chưa có test gắn mã; xem manual-tests.md.\n");});
-        modules.append("\nKiểm thử trình duyệt, in giấy, demo hai người mua và NFR-04 toàn trang: chưa thực hiện trong 9D. Mẫu ghi kết quả và ảnh ở [manual-tests.md](manual-tests.md).\n\n");
+        modules.append("\nCác trường kết quả thủ công chưa có bằng chứng vẫn để trống; không dùng kết quả tự động để điền thay kiểm thử trình duyệt, in giấy hay demo hai người mua. Hiệu năng HTTP HTML + API + tài nguyên nội bộ, nếu đã đo, được ghi riêng trong phần performance ở đầu báo cáo; chưa đo CDN, JavaScript thực thi hay dựng layout trong trình duyệt. Mẫu ghi kết quả và ảnh ở [manual-tests.md](manual-tests.md).\n\n");
         generateTraceability(root,catalog,mapping,executed);
         return report.replace("## Tổng hợp\n",header+"## Tổng hợp\n").replace("## Chi tiết\n",modules+"## Chi tiết\n");
+    }
+    record PerformanceEvidence(boolean verified,String reason,String artifact,Properties metadata) {}
+
+    /** Chỉ nhập số đo khi cùng bộ XML, artifact và khoảng thời gian đều khớp manifest riêng. */
+    static PerformanceEvidence performanceEvidence(Path root,List<TestReportMain.Result> results)throws Exception {
+        if(results.isEmpty())return new PerformanceEvidence(false,"Chưa thực hiện: không có XML trong target/performance-reports.","",new Properties());
+        Path artifact=root.resolve("target/performance-results/report-pages.md"),manifest=root.resolve("target/performance-results/run.properties");
+        if(!Files.isRegularFile(artifact)||!Files.isRegularFile(manifest))return unverifiedPerformance("Thiếu artifact report-pages.md hoặc manifest run.properties riêng.");
+        Properties run=new Properties();try(var in=Files.newInputStream(manifest)){run.load(in);}
+        if(!sha256(artifact).equals(run.getProperty("artifactSha256")))return unverifiedPerformance("Hash artifact không khớp manifest; có thể là số đo của lượt cũ.");
+        List<Path> xml=xmlFiles(root.resolve("target/performance-reports"));
+        if(xml.isEmpty())return unverifiedPerformance("Không có XML performance để đối chiếu manifest.");
+        Set<String> expected=xml.stream().map(p->"xml."+p.getFileName()+".sha256").collect(Collectors.toSet());
+        Set<String> recorded=run.stringPropertyNames().stream().filter(k->k.startsWith("xml.")&&k.endsWith(".sha256")).collect(Collectors.toSet());
+        if(!expected.equals(recorded))return unverifiedPerformance("Danh sách XML performance không khớp manifest.");
+        for(Path file:xml)if(!sha256(file).equals(run.getProperty("xml."+file.getFileName()+".sha256")))return unverifiedPerformance("Hash XML performance không khớp manifest; không gộp kết quả cũ.");
+        try {
+            Instant start=Instant.parse(run.getProperty("started","")),finish=Instant.parse(run.getProperty("finished",""));
+            if(finish.isBefore(start))return unverifiedPerformance("Khoảng thời gian performance không hợp lệ.");
+            // Cho phép sai khác dưới một giây do manifest shell ghi timestamp đến giây.
+            List<Path> files=new ArrayList<>(xml);files.add(artifact);
+            for(Path file:files){Instant time=Files.getLastModifiedTime(file).toInstant();if(time.isBefore(start.minusSeconds(1))||time.isAfter(finish.plusSeconds(1)))return unverifiedPerformance("XML hoặc artifact nằm ngoài khoảng thời gian performance; không dùng bằng chứng stale.");}
+        } catch(java.time.format.DateTimeParseException invalid){return unverifiedPerformance("Manifest performance thiếu started/finished ISO-8601 hợp lệ.");}
+        if(run.getProperty("command","").isBlank()||run.getProperty("exitCode","").isBlank())return unverifiedPerformance("Manifest performance thiếu lệnh chạy hoặc exitCode.");
+        return new PerformanceEvidence(true,"Hash XML/artifact và khoảng thời gian khớp manifest performance riêng.",Files.readString(artifact),run);
+    }
+    private static PerformanceEvidence unverifiedPerformance(String reason){return new PerformanceEvidence(false,"Chưa xác minh: "+reason,"",new Properties());}
+    static String renderRunScopes(TestReportMain.RunResults runs,Map<String,List<String>> mapping,PerformanceEvidence performance) {
+        StringBuilder out=new StringBuilder("## Phạm vi từng bộ test\n\nTổng và bảng TC phía dưới gộp các lượt mặc định với performance đã xác minh; đây là hai lệnh chạy riêng, không phải một lượt verify mặc định.\n\n| Bộ test | Lượt XML | Có mã TC | Mở rộng | Hỏng/lỗi | Bỏ qua | Gộp vào bảng TC |\n|---|---:|---:|---:|---:|---:|---|\n");
+        appendScope(out,"Mặc định: Surefire + Failsafe",runs.standardResults(),mapping,true);
+        appendScope(out,"Performance: profile perf",runs.performanceResults(),mapping,performance.verified());
+        out.append("\n## Performance — lần chạy riêng\n\n").append(performance.reason()).append("\n\n");
+        if(!performance.verified())return out.append("Các invocation performance chưa xác minh không được tính Đạt hoặc gộp vào tổng TC. Chạy ./mvnw -Pperf verify để tạo XML, artifact và manifest tự động của chính lượt đó; không lấy metadata mặc định thay thế.\n\n").toString();
+        Properties run=performance.metadata();
+        for(String key:List.of("started","finished","commit","dirty","command","commandKind","exitCode","exitCodeScope","metadataOrigin","elapsedSeconds","evidence"))out.append("- ").append(key).append(": ").append(run.getProperty(key,"chưa ghi nhận")).append("\n");
+        out.append("- artifact SHA-256: ").append(run.getProperty("artifactSha256")).append("\n- Ngày XML performance: ").append(runs.performanceResults().stream().map(TestReportMain.Result::timestamp).distinct().collect(Collectors.joining(", "))).append("\n\nSố đo dưới đây đọc nguyên văn từ target/performance-results/report-pages.md đã khớp manifest: HTTP HTML + API + tài nguyên nội bộ trên môi trường nêu trong artifact, không suy ra từ thời gian query hoặc thời gian build. Chưa đo tải CDN, thực thi JavaScript, dựng layout hay cảm nhận tốc độ trong trình duyệt.\n\n");
+        return out.append(performance.artifact()).append("\n\n").toString();
+    }
+    private static void appendScope(StringBuilder out,String name,List<TestReportMain.Result> rows,Map<String,List<String>> mapping,boolean accepted){
+        long tagged=rows.stream().filter(r->mapping.containsKey(r.key())).count();
+        out.append("| ").append(name).append(" | ").append(rows.size()).append(" | ").append(tagged).append(" | ").append(rows.size()-tagged).append(" | ").append(rows.stream().filter(TestReportMain.Result::failed).count()).append(" | ").append(rows.stream().filter(TestReportMain.Result::skipped).count()).append(" | ").append(accepted?"Có":"Không").append(" |\n");
     }
     static boolean matchesEvidence(Path root,Properties run)throws java.io.IOException {
         String path=run.getProperty("evidence","");if(path.isBlank())return false;
         Path saved=root.resolve(path).normalize();if(!saved.startsWith(root.normalize()))return false;
+        if(run.getProperty("format","").equals("hashes-v1"))return matchesHashEvidence(root,run);
         for(String folder:List.of("surefire-reports","failsafe-reports")){
             Path current=root.resolve("target/"+folder),snapshot=saved.resolve(folder);
             if(!Files.isDirectory(current)||!Files.isDirectory(snapshot))return false;
@@ -43,6 +92,40 @@ final class TestingDocumentation {
         }
         Path coverage=root.resolve("target/site/jacoco/jacoco.xml"),snapshot=saved.resolve("jacoco.xml");
         return Files.isRegularFile(coverage)&&Files.isRegularFile(snapshot)&&Files.mismatch(coverage,snapshot)==-1;
+    }
+    private static boolean matchesHashEvidence(Path root,Properties run)throws java.io.IOException {
+        Set<String> expected=new HashSet<>();
+        for(String folder:List.of("surefire-reports","failsafe-reports")){
+            List<Path> files=xmlFiles(root.resolve("target/"+folder));if(files.isEmpty())return false;
+            for(Path file:files){String key="sha256."+folder+"/"+file.getFileName();expected.add(key);if(!sha256(file).equals(run.getProperty(key)))return false;}
+        }
+        Path coverage=root.resolve("target/site/jacoco/jacoco.xml");expected.add("sha256.jacoco.xml");
+        Set<String> recorded=run.stringPropertyNames().stream().filter(k->k.startsWith("sha256.")).collect(Collectors.toSet());
+        return expected.equals(recorded)&&Files.isRegularFile(coverage)&&sha256(coverage).equals(run.getProperty("sha256.jacoco.xml"));
+    }
+    private static List<Path> xmlFiles(Path dir)throws java.io.IOException {
+        if(!Files.isDirectory(dir))return List.of();
+        try(var files=Files.list(dir)){return files.filter(p->p.getFileName().toString().startsWith("TEST-")&&p.toString().endsWith(".xml")).sorted().toList();}
+    }
+    static String sha256(Path file)throws java.io.IOException {
+        try(var in=Files.newInputStream(file)){
+            MessageDigest digest=MessageDigest.getInstance("SHA-256");byte[] buffer=new byte[8192];for(int n;(n=in.read(buffer))!=-1;)digest.update(buffer,0,n);
+            return HexFormat.of().formatHex(digest.digest());
+        } catch(java.security.NoSuchAlgorithmException impossible){throw new IllegalStateException(impossible);}
+    }
+    static String coverageSummary(Path root,boolean evidenceVerified)throws Exception {
+        if(!evidenceVerified)return "### JaCoCo của bộ mặc định\n\nChưa xác minh: không gắn độ phủ từ artifact chưa khớp bằng chứng mặc định.\n\n";
+        var factory=javax.xml.parsers.DocumentBuilderFactory.newInstance();
+        factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd",false);
+        factory.setFeature("http://xml.org/sax/features/external-general-entities",false);factory.setFeature("http://xml.org/sax/features/external-parameter-entities",false);
+        factory.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING,true);factory.setXIncludeAware(false);factory.setExpandEntityReferences(false);
+        var document=factory.newDocumentBuilder().parse(root.resolve("target/site/jacoco/jacoco.xml").toFile());
+        StringBuilder out=new StringBuilder("### JaCoCo của bộ mặc định\n\nNguồn: root counter trong target/site/jacoco/jacoco.xml đã khớp bằng chứng. Phạm vi loại trừ và cổng chất lượng theo pom.xml; tỷ lệ tổng không thay thế cổng theo service/lớp lõi.\n\n| Chỉ số | Đã phủ | Tổng | Tỷ lệ |\n|---|---:|---:|---:|\n");
+        for(var node=document.getDocumentElement().getFirstChild();node!=null;node=node.getNextSibling())if(node instanceof org.w3c.dom.Element e&&e.getTagName().equals("counter")&&List.of("LINE","BRANCH").contains(e.getAttribute("type"))){
+            long covered=Long.parseLong(e.getAttribute("covered")),total=covered+Long.parseLong(e.getAttribute("missed"));
+            out.append("| ").append(e.getAttribute("type")).append(" | ").append(covered).append(" | ").append(total).append(" | ").append(total==0?"chưa có dữ liệu":String.format(Locale.ROOT,"%.2f%%",100.0*covered/total)).append(" |\n");
+        }
+        return out.append("\n").toString();
     }
     static String module(String className){String[] parts=className.split("\\.");return parts.length>3?parts[2]:"application";}
     static void generateTraceability(Path root,Map<String,String> catalog,Map<String,List<String>> mapping,Set<String> executed)throws Exception{

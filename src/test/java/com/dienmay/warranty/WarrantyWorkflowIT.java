@@ -129,6 +129,21 @@ class WarrantyWorkflowIT extends MySqlIntegrationTestBase {
     @Test void receive_cashierDenied_evenWithForgedAuthority(){sell();assertThatThrownBy(()->service.receive(receiveRequest(),new SalesActor(employee,branch,Set.of("ROLE_ADMIN")))).isInstanceOf(org.springframework.security.access.AccessDeniedException.class);assertThat(warrantyCount()).isZero();assertThat(serialStatus()).isEqualTo("SOLD");}
     @Test @com.dienmay.support.TestCase("TC-WAR-13")
     void cancel_receivedTicket_returnsSerialToSold(){sell();var ticket=receive();service.cancel(ticket.id(),ticket.version(),"Khách đổi ý",admin());assertThat(serialStatus()).isEqualTo("SOLD");assertThat(receive().status()).isEqualTo(WarrantyTicketStatus.RECEIVED);}
+    @Test @com.dienmay.support.TestCase("TC-WAR-14")
+    void reject_withReasonThenReturn_returnsSerialToSoldAndRecordsBothSteps(){
+        sell();var ticket=receive();String reason="Hư hỏng do vào nước, từ chối bảo hành miễn phí";
+        var rejected=service.reject(ticket.id(),ticket.version(),reason,admin());
+        assertThat(rejected.status()).isEqualTo(WarrantyTicketStatus.REJECTED);
+        assertThat(rejected.rejectReason()).isEqualTo(reason);
+        assertThat(serialStatus()).isEqualTo("IN_WARRANTY_REPAIR");
+        var returned=service.returnToCustomer(ticket.id(),rejected.version(),admin());
+        assertThat(returned.status()).isEqualTo(WarrantyTicketStatus.RETURNED);
+        assertThat(returned.rejectReason()).isEqualTo(reason);
+        assertThat(serialStatus()).isEqualTo("SOLD");
+        assertThat(jdbc.queryForList("SELECT to_status FROM warranty_ticket_history WHERE ticket_id=? ORDER BY id",String.class,ticket.id())).containsExactly("RECEIVED","REJECTED","RETURNED");
+        assertThat(jdbc.queryForObject("SELECT note FROM warranty_ticket_history WHERE ticket_id=? AND to_status='REJECTED'",String.class,ticket.id())).isEqualTo(reason);
+        assertThat(jdbc.queryForList("SELECT to_status FROM serial_history WHERE serial_item_id=? ORDER BY id",String.class,ticket.serialItemId())).containsExactly("IN_STOCK","SOLD","IN_WARRANTY_REPAIR","SOLD");
+    }
     @Test @com.dienmay.support.TestCase("TC-POS-21")
     @com.dienmay.support.TestCase("TC-WAR-15")
     void salesReturn_whileRepairing_rejected(){var invoice=sell();receive();assertThatThrownBy(()->returns.cancelInvoice(invoice.id(),"Khách trả",admin())).isInstanceOf(BusinessException.class).hasMessageContaining("bảo hành");assertThat(serialStatus()).isEqualTo("IN_WARRANTY_REPAIR");}

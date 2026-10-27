@@ -39,4 +39,20 @@ class TestReportMainTest {
         assertThat(TestReportMain.extensionGroup("com.dienmay.organization.BranchWorkflowIT#create_concurrent_failure")).isEqualTo("Chi nhánh / nhà cung cấp");
         assertThat(TestReportMain.extensionGroup("com.dienmay.architecture.ArchitectureTest#controllers_rule")).isEqualTo("Luật kiến trúc ArchUnit");
     }
+    @Test @DisplayName("Gộp XML ba thư mục nhưng giữ performance là lần chạy riêng")
+    void readResults_threeReportFolders_keepsScopesAndDoesNotCountUnverifiedPerformance()throws Exception {
+        for(String folder:List.of("surefire-reports","failsafe-reports","performance-reports"))Files.createDirectories(temp.resolve("target/"+folder));
+        Files.writeString(temp.resolve("target/surefire-reports/TEST-unit.xml"),"<testsuite><testcase classname='C' name='unit'/></testsuite>");
+        Files.writeString(temp.resolve("target/failsafe-reports/TEST-integration.xml"),"<testsuite><testcase classname='C' name='integration'/></testsuite>");
+        Files.writeString(temp.resolve("target/performance-reports/TEST-performance.xml"),"<testsuite><testcase classname='P' name='page[1]'/><testcase classname='P' name='page[2]'/></testsuite>");
+        Files.writeString(temp.resolve("target/performance-reports/failsafe-summary.xml"),"not a testcase report");
+        var runs=TestReportMain.readResults(temp);
+        assertThat(runs.standardResults()).extracting(TestReportMain.Result::name).containsExactly("unit","integration");
+        assertThat(runs.performanceResults()).extracting(TestReportMain.Result::name).containsExactly("page[1]","page[2]");
+        assertThat(runs.acceptedResults(false)).hasSize(2);
+        var merged=TestReportMain.render(Map.of("TC-RPT-22","Hiệu năng"),Map.of("P#page",List.of("TC-RPT-22")),runs.acceptedResults(true));
+        assertThat(merged).contains("Tổng số test (lượt thực thi, gồm tham số hóa): 4","Số ca Đạt: 1","| TC-RPT-22 | Hiệu năng | Đã có test | 2 | Đạt |");
+        var unverified=TestReportMain.render(Map.of("TC-RPT-22","Hiệu năng"),Map.of("P#page",List.of("TC-RPT-22")),runs.acceptedResults(false));
+        assertThat(unverified).contains("| TC-RPT-22 | Hiệu năng | Chưa có test | 0 | Chưa có test |");
+    }
 }

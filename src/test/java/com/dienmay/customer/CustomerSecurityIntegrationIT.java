@@ -79,6 +79,25 @@ class CustomerSecurityIntegrationIT extends MySqlIntegrationTestBase {
         assertThat(session.isInvalid()).isFalse();assertThat(session.getAttribute(SecurityConfig.EMPLOYEE_CONTEXT)).isNull();
         mvc.perform(get("/checkout").session(session)).andExpect(status().isOk());mvc.perform(get("/staff").session(session)).andExpect(redirectedUrlPattern("**/login"));
     }
+    @Test @com.dienmay.support.TestCase("TC-AUTH-08")
+    void logout_employeeWithoutCsrf_rejectedAndKeepsEmployeeSession()throws Exception{
+        employeeLogin();
+        mvc.perform(post("/logout").session(session)).andExpect(status().isForbidden());
+        assertThat(session.getAttribute(SecurityConfig.EMPLOYEE_CONTEXT)).isNotNull();
+        mvc.perform(get("/staff").session(session)).andExpect(status().isOk());
+    }
+    @Test @com.dienmay.support.TestCase("TC-AUTH-09")
+    void unknownPath_authenticatedEmployee_rendersNotFoundPage()throws Exception{
+        employeeLogin();
+        mvc.perform(get("/abc").session(session)).andExpect(status().isNotFound());
+        // MockMvc không tự tạo ERROR dispatch như servlet container; kiểm tra cả trang lỗi tương ứng.
+        mvc.perform(get("/error").session(session).accept(org.springframework.http.MediaType.TEXT_HTML)
+                .requestAttr(jakarta.servlet.RequestDispatcher.ERROR_STATUS_CODE,404)
+                .requestAttr(jakarta.servlet.RequestDispatcher.ERROR_REQUEST_URI,"/abc"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("error/404"))
+                .andExpect(content().string(org.hamcrest.Matchers.containsString("Không tìm thấy trang.")));
+    }
     @Test @com.dienmay.support.TestCase("TC-WEB-37")
     void csrf_tokensFromOtherChain_rejectedWithoutLoggingOut()throws Exception{
         employeeLogin();customerLogin();String staffToken=token("/staff"),customerToken=token("/cart");
