@@ -1,0 +1,16 @@
+# Profile riêng, không thêm migration demo vào prod.
+spring:
+  config:
+    import: classpath:application-prod.yml
+  flyway:
+    locations: classpath:db/migration,classpath:db/demo
+app:
+  demo:
+    seed: ${DEMO_SEED:false}
+    seed-value: ${DEMO_SEED_VALUE:20261023}
+# Root health chưa UP cho tới khi CommandLineRunner nạp xong.
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true

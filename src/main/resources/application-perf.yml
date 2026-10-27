@@ -1,0 +1,21 @@
+# Chỉ DB benchmark dùng một lần. Không có URL/password mặc định trỏ về dev.
+spring:
+  datasource:
+    url: ${PERF_JDBC_URL}
+    username: ${PERF_DB_USER:perf}
+    password: ${PERF_DB_PASSWORD}
+  thymeleaf:
+    cache: true
+  jpa:
+    properties:
+      hibernate:
+        format_sql: false
+app:
+  order:
+    expiry-enabled: false
+server:
+  port: 8083
+logging:
+  level:
+    org.hibernate.SQL: warn
+    org.springframework: info

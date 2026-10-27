@@ -1,4 +1,8 @@
 spring:
+  flyway:
+    # Chỉ Flyway dùng tài khoản DDL; datasource ứng dụng vẫn là dienmay.
+    user: ${FLYWAY_USER:root}
+    password: ${FLYWAY_PASSWORD:root123}
   datasource:
     url: jdbc:mysql://localhost:3307/dienmay?serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true&useSSL=false
     username: dienmay
@@ -12,3 +16,9 @@ logging:
 
 server:
   port: 8081
+
+# Dev không tự tạo tài khoản demo. DB mới cần mật khẩu admin qua môi trường.
+app:
+  bootstrap:
+    username: ${INITIAL_ADMIN_USERNAME:admin}
+    password: ${INITIAL_ADMIN_PASSWORD:}

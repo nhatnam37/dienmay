@@ -30,7 +30,7 @@ public class GoodsReceiptController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
             @RequestParam(defaultValue = "0") int page, Model model) {
         InventoryActor actor = current.get();
-        var pageable = PageRequest.of(Math.max(0,page),10,Sort.by("id").descending());
+        var pageable = com.dienmay.common.pagination.PageRequestFactory.of(Math.max(0,page),10,Sort.by("id").descending());
         try { model.addAttribute("receipts", receipts.search(branchId, supplierId, from, to, pageable, actor)); }
         catch (BusinessException exception) { model.addAttribute("error", exception.getMessage()); model.addAttribute("receipts", Page.empty(pageable)); }
         model.addAttribute("branchId", branchId); model.addAttribute("supplierId", supplierId);

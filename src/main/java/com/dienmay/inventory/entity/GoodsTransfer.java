@@ -7,6 +7,7 @@ import com.dienmay.catalog.entity.Product;
 import com.dienmay.inventory.serial.SerialItem;
 import java.time.LocalDateTime;
 
+@jakarta.persistence.EntityListeners(org.springframework.data.jpa.domain.support.AuditingEntityListener.class)
 @Entity
 @Table(name = "goods_transfer")
 public class GoodsTransfer {
@@ -37,6 +38,7 @@ public class GoodsTransfer {
     private Employee createdBy;
 
     @Column(name = "created_at", nullable = false, updatable = false)
+    @org.springframework.data.annotation.CreatedDate
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
@@ -76,7 +78,4 @@ public class GoodsTransfer {
     public void setReceivedBy(Employee receivedBy) { this.receivedBy = receivedBy; }
     public LocalDateTime getReceivedAt() { return receivedAt; }
     public void setReceivedAt(LocalDateTime receivedAt) { this.receivedAt = receivedAt; }
-
-    @PrePersist
-    void onCreate() { createdAt = LocalDateTime.now(); }
 }

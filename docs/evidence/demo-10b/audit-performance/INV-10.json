@@ -1,0 +1,533 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "15.85"
+    },
+    "ordering_operation": {
+      "using_filesort": true,
+      "cost_info": {
+        "sort_cost": "12.00"
+      },
+      "windowing": {
+        "windows": [
+          {
+            "name": "<unnamed window>",
+            "definition_position": 1,
+            "using_temporary_table": true,
+            "frame_buffer": {
+              "using_temporary_table": true,
+              "optimized_frame_evaluation": true
+            },
+            "functions": [
+              "sum"
+            ]
+          },
+          {
+            "name": "<unnamed window>",
+            "definition_position": 2,
+            "last_executed_window": true,
+            "frame_buffer": {
+              "using_temporary_table": true,
+              "optimized_frame_evaluation": true
+            },
+            "functions": [
+              "sum"
+            ]
+          }
+        ],
+        "table": {
+          "table_name": "q",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 12,
+          "rows_produced_per_join": 12,
+          "filtered": "100.00",
+          "cost_info": {
+            "read_cost": "2.65",
+            "eval_cost": "1.20",
+            "prefix_cost": "3.85",
+            "data_read_per_join": "1K"
+          },
+          "used_columns": [
+            "object_type",
+            "object_id",
+            "invoice_id",
+            "kind"
+          ],
+          "materialized_from_subquery": {
+            "using_temporary_table": true,
+            "dependent": false,
+            "cacheable": true,
+            "query_block": {
+              "union_result": {
+                "using_temporary_table": false,
+                "query_specifications": [
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 2,
+                      "cost_info": {
+                        "query_cost": "5.25"
+                      },
+                      "nested_loop": [
+                        {
+                          "table": {
+                            "table_name": "i",
+                            "access_type": "ALL",
+                            "rows_examined_per_scan": 1,
+                            "rows_produced_per_join": 1,
+                            "filtered": "100.00",
+                            "cost_info": {
+                              "read_cost": "0.25",
+                              "eval_cost": "0.10",
+                              "prefix_cost": "0.35",
+                              "data_read_per_join": "944"
+                            },
+                            "used_columns": [
+                              "id",
+                              "subtotal",
+                              "discount_amount",
+                              "total_amount"
+                            ]
+                          }
+                        },
+                        {
+                          "table": {
+                            "table_name": "p",
+                            "access_type": "ref",
+                            "possible_keys": [
+                              "<auto_key0>"
+                            ],
+                            "key": "<auto_key0>",
+                            "used_key_parts": [
+                              "invoice_id"
+                            ],
+                            "key_length": "8",
+                            "ref": [
+                              "audit_0da494474d7444c083635204a7bad048.i.id"
+                            ],
+                            "rows_examined_per_scan": 2,
+                            "rows_produced_per_join": 2,
+                            "filtered": "100.00",
+                            "cost_info": {
+                              "read_cost": "0.50",
+                              "eval_cost": "0.20",
+                              "prefix_cost": "1.05",
+                              "data_read_per_join": "64"
+                            },
+                            "used_columns": [
+                              "invoice_id",
+                              "amount"
+                            ],
+                            "materialized_from_subquery": {
+                              "using_temporary_table": true,
+                              "dependent": false,
+                              "cacheable": true,
+                              "query_block": {
+                                "select_id": 3,
+                                "cost_info": {
+                                  "query_cost": "0.35"
+                                },
+                                "grouping_operation": {
+                                  "using_filesort": false,
+                                  "table": {
+                                    "table_name": "payment",
+                                    "access_type": "index",
+                                    "possible_keys": [
+                                      "idx_payment_invoice"
+                                    ],
+                                    "key": "idx_payment_invoice",
+                                    "used_key_parts": [
+                                      "invoice_id"
+                                    ],
+                                    "key_length": "8",
+                                    "rows_examined_per_scan": 1,
+                                    "rows_produced_per_join": 1,
+                                    "filtered": "100.00",
+                                    "cost_info": {
+                                      "read_cost": "0.25",
+                                      "eval_cost": "0.10",
+                                      "prefix_cost": "0.35",
+                                      "data_read_per_join": "496"
+                                    },
+                                    "used_columns": [
+                                      "id",
+                                      "invoice_id",
+                                      "amount"
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "table": {
+                            "table_name": "r",
+                            "access_type": "ref",
+                            "possible_keys": [
+                              "<auto_key0>"
+                            ],
+                            "key": "<auto_key0>",
+                            "used_key_parts": [
+                              "invoice_id"
+                            ],
+                            "key_length": "8",
+                            "ref": [
+                              "audit_0da494474d7444c083635204a7bad048.i.id"
+                            ],
+                            "rows_examined_per_scan": 2,
+                            "rows_produced_per_join": 4,
+                            "filtered": "100.00",
+                            "cost_info": {
+                              "read_cost": "1.00",
+                              "eval_cost": "0.40",
+                              "prefix_cost": "2.45",
+                              "data_read_per_join": "128"
+                            },
+                            "used_columns": [
+                              "invoice_id",
+                              "amount"
+                            ],
+                            "materialized_from_subquery": {
+                              "using_temporary_table": true,
+                              "dependent": false,
+                              "cacheable": true,
+                              "query_block": {
+                                "select_id": 4,
+                                "cost_info": {
+                                  "query_cost": "0.70"
+                                },
+                                "grouping_operation": {
+                                  "using_temporary_table": true,
+                                  "using_filesort": false,
+                                  "nested_loop": [
+                                    {
+                                      "table": {
+                                        "table_name": "r",
+                                        "access_type": "ALL",
+                                        "possible_keys": [
+                                          "idx_refund_payment"
+                                        ],
+                                        "rows_examined_per_scan": 1,
+                                        "rows_produced_per_join": 1,
+                                        "filtered": "100.00",
+                                        "cost_info": {
+                                          "read_cost": "0.25",
+                                          "eval_cost": "0.10",
+                                          "prefix_cost": "0.35",
+                                          "data_read_per_join": "48"
+                                        },
+                                        "used_columns": [
+                                          "id",
+                                          "payment_id",
+                                          "amount"
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "table": {
+                                        "table_name": "p",
+                                        "access_type": "eq_ref",
+                                        "possible_keys": [
+                                          "PRIMARY",
+                                          "idx_payment_invoice"
+                                        ],
+                                        "key": "PRIMARY",
+                                        "used_key_parts": [
+                                          "id"
+                                        ],
+                                        "key_length": "8",
+                                        "ref": [
+                                          "audit_0da494474d7444c083635204a7bad048.r.payment_id"
+                                        ],
+                                        "rows_examined_per_scan": 1,
+                                        "rows_produced_per_join": 1,
+                                        "filtered": "100.00",
+                                        "cost_info": {
+                                          "read_cost": "0.25",
+                                          "eval_cost": "0.10",
+                                          "prefix_cost": "0.70",
+                                          "data_read_per_join": "496"
+                                        },
+                                        "used_columns": [
+                                          "id",
+                                          "invoice_id"
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "table": {
+                            "table_name": "x",
+                            "access_type": "ref",
+                            "possible_keys": [
+                              "<auto_key0>"
+                            ],
+                            "key": "<auto_key0>",
+                            "used_key_parts": [
+                              "invoice_id"
+                            ],
+                            "key_length": "8",
+                            "ref": [
+                              "audit_0da494474d7444c083635204a7bad048.i.id"
+                            ],
+                            "rows_examined_per_scan": 2,
+                            "rows_produced_per_join": 8,
+                            "filtered": "100.00",
+                            "cost_info": {
+                              "read_cost": "2.00",
+                              "eval_cost": "0.80",
+                              "prefix_cost": "5.25",
+                              "data_read_per_join": "256"
+                            },
+                            "used_columns": [
+                              "invoice_id",
+                              "amount"
+                            ],
+                            "attached_condition": "<if>(found_match(x), ((`audit_0da494474d7444c083635204a7bad048`.`i`.`total_amount` <> (`audit_0da494474d7444c083635204a7bad048`.`i`.`subtotal` - `audit_0da494474d7444c083635204a7bad048`.`i`.`discount_amount`)) or (coalesce(`p`.`amount`,0) <> `audit_0da494474d7444c083635204a7bad048`.`i`.`total_amount`) or (coalesce(`r`.`amount`,0) > coalesce(`p`.`amount`,0)) or (coalesce(`x`.`amount`,0) <> `audit_0da494474d7444c083635204a7bad048`.`i`.`subtotal`)), true)",
+                            "materialized_from_subquery": {
+                              "using_temporary_table": true,
+                              "dependent": false,
+                              "cacheable": true,
+                              "query_block": {
+                                "select_id": 5,
+                                "cost_info": {
+                                  "query_cost": "0.35"
+                                },
+                                "grouping_operation": {
+                                  "using_filesort": false,
+                                  "table": {
+                                    "table_name": "invoice_item",
+                                    "access_type": "index",
+                                    "possible_keys": [
+                                      "idx_invoice_item_invoice"
+                                    ],
+                                    "key": "idx_invoice_item_invoice",
+                                    "used_key_parts": [
+                                      "invoice_id"
+                                    ],
+                                    "key_length": "8",
+                                    "rows_examined_per_scan": 1,
+                                    "rows_produced_per_join": 1,
+                                    "filtered": "100.00",
+                                    "cost_info": {
+                                      "read_cost": "0.25",
+                                      "eval_cost": "0.10",
+                                      "prefix_cost": "0.35",
+                                      "data_read_per_join": "72"
+                                    },
+                                    "used_columns": [
+                                      "id",
+                                      "invoice_id",
+                                      "line_total"
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 6,
+                      "cost_info": {
+                        "query_cost": "1.05"
+                      },
+                      "nested_loop": [
+                        {
+                          "table": {
+                            "table_name": "o",
+                            "access_type": "index",
+                            "possible_keys": [
+                              "idx_order_status_expires"
+                            ],
+                            "key": "idx_order_branch_status",
+                            "used_key_parts": [
+                              "branch_id",
+                              "status"
+                            ],
+                            "key_length": "90",
+                            "rows_examined_per_scan": 1,
+                            "rows_produced_per_join": 1,
+                            "filtered": "100.00",
+                            "using_index": true,
+                            "cost_info": {
+                              "read_cost": "0.25",
+                              "eval_cost": "0.10",
+                              "prefix_cost": "0.35",
+                              "data_read_per_join": "3K"
+                            },
+                            "used_columns": [
+                              "id",
+                              "status"
+                            ],
+                            "attached_condition": "((`audit_0da494474d7444c083635204a7bad048`.`o`.`status` = 'COMPLETED') or (`audit_0da494474d7444c083635204a7bad048`.`o`.`status` <> 'COMPLETED'))"
+                          }
+                        },
+                        {
+                          "table": {
+                            "table_name": "a",
+                            "access_type": "ref",
+                            "possible_keys": [
+                              "<auto_key0>"
+                            ],
+                            "key": "<auto_key0>",
+                            "used_key_parts": [
+                              "order_id"
+                            ],
+                            "key_length": "9",
+                            "ref": [
+                              "audit_0da494474d7444c083635204a7bad048.o.id"
+                            ],
+                            "rows_examined_per_scan": 2,
+                            "rows_produced_per_join": 2,
+                            "filtered": "100.00",
+                            "cost_info": {
+                              "read_cost": "0.50",
+                              "eval_cost": "0.20",
+                              "prefix_cost": "1.05",
+                              "data_read_per_join": "64"
+                            },
+                            "used_columns": [
+                              "order_id",
+                              "n",
+                              "invoice_id"
+                            ],
+                            "attached_condition": "<if>(found_match(a), (((`audit_0da494474d7444c083635204a7bad048`.`o`.`status` = 'COMPLETED') and (coalesce(`a`.`n`,0) <> 1)) or ((`audit_0da494474d7444c083635204a7bad048`.`o`.`status` <> 'COMPLETED') and (coalesce(`a`.`n`,0) > 0))), true)",
+                            "materialized_from_subquery": {
+                              "using_temporary_table": true,
+                              "dependent": false,
+                              "cacheable": true,
+                              "query_block": {
+                                "select_id": 7,
+                                "cost_info": {
+                                  "query_cost": "0.35"
+                                },
+                                "grouping_operation": {
+                                  "using_filesort": false,
+                                  "table": {
+                                    "table_name": "invoice",
+                                    "access_type": "index",
+                                    "possible_keys": [
+                                      "uk_invoice_order"
+                                    ],
+                                    "key": "uk_invoice_order",
+                                    "used_key_parts": [
+                                      "order_id"
+                                    ],
+                                    "key_length": "9",
+                                    "rows_examined_per_scan": 1,
+                                    "rows_produced_per_join": 1,
+                                    "filtered": "100.00",
+                                    "using_index": true,
+                                    "cost_info": {
+                                      "read_cost": "0.25",
+                                      "eval_cost": "0.10",
+                                      "prefix_cost": "0.35",
+                                      "data_read_per_join": "944"
+                                    },
+                                    "used_columns": [
+                                      "id",
+                                      "order_id"
+                                    ],
+                                    "attached_condition": "(`audit_0da494474d7444c083635204a7bad048`.`invoice`.`order_id` is not null)"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 8,
+                      "cost_info": {
+                        "query_cost": "0.70"
+                      },
+                      "grouping_operation": {
+                        "using_temporary_table": true,
+                        "using_filesort": false,
+                        "nested_loop": [
+                          {
+                            "table": {
+                              "table_name": "p",
+                              "access_type": "ALL",
+                              "possible_keys": [
+                                "PRIMARY"
+                              ],
+                              "rows_examined_per_scan": 1,
+                              "rows_produced_per_join": 1,
+                              "filtered": "100.00",
+                              "cost_info": {
+                                "read_cost": "0.25",
+                                "eval_cost": "0.10",
+                                "prefix_cost": "0.35",
+                                "data_read_per_join": "496"
+                              },
+                              "used_columns": [
+                                "id",
+                                "invoice_id",
+                                "amount"
+                              ]
+                            }
+                          },
+                          {
+                            "table": {
+                              "table_name": "r",
+                              "access_type": "ref",
+                              "possible_keys": [
+                                "idx_refund_payment"
+                              ],
+                              "key": "idx_refund_payment",
+                              "used_key_parts": [
+                                "payment_id"
+                              ],
+                              "key_length": "8",
+                              "ref": [
+                                "audit_0da494474d7444c083635204a7bad048.p.id"
+                              ],
+                              "rows_examined_per_scan": 1,
+                              "rows_produced_per_join": 1,
+                              "filtered": "100.00",
+                              "cost_info": {
+                                "read_cost": "0.25",
+                                "eval_cost": "0.10",
+                                "prefix_cost": "0.70",
+                                "data_read_per_join": "48"
+                              },
+                              "used_columns": [
+                                "id",
+                                "payment_id",
+                                "amount"
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

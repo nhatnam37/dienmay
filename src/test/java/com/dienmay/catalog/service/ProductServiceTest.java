@@ -43,6 +43,7 @@ class ProductServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-PRD-02")
     void create_duplicateNormalizedSku_rejectsRequest() {
         when(products.existsBySku("IP-15")).thenReturn(true);
         assertThatThrownBy(() -> service.create(productForm())).isInstanceOf(BusinessException.class)
@@ -66,6 +67,7 @@ class ProductServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-PRD-01")
     void create_lowercasePaddedSku_savesUppercaseAndReturnsNames() {
         when(categories.findById(1L)).thenReturn(Optional.of(category(1, "Điện thoại", null)));
         when(brands.findById(2L)).thenReturn(Optional.of(brand(2, "Apple")));
@@ -97,6 +99,7 @@ class ProductServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-PRD-05")
     void discontinue_existingProduct_onlyChangesStatusWithoutDelete() {
         Product product = product();
         when(products.findById(3L)).thenReturn(Optional.of(product));
@@ -126,6 +129,7 @@ class ProductServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-PRD-06")
     void search_optionalFilters_mapsPageAndEscapesLikeCharacters() {
         Pageable pageable = PageRequest.of(0, 10, Sort.by("name"));
         when(products.search("%TV!%!_%", 1L, 2L, ProductStatus.ACTIVE, pageable))
@@ -152,6 +156,7 @@ class ProductServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-PRD-03")
     void create_negativePrice_rejectsRequest() {
         ProductForm form = productForm();
         form.setPrice(new BigDecimal("-0.01"));
@@ -160,6 +165,7 @@ class ProductServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-PRD-04")
     void create_warrantyOverSixty_rejectsRequest() {
         ProductForm form = productForm();
         form.setWarrantyMonths(61);
@@ -167,6 +173,7 @@ class ProductServiceTest {
                 .hasMessageContaining("60");
     }
     @Test
+    @com.dienmay.support.TestCase("TC-INV-12")
     void update_trackingChangedWithInventory_rejectsRequest() {
         Product product = product();
         when(products.findForUpdate(3L)).thenReturn(Optional.of(product));
@@ -179,6 +186,7 @@ class ProductServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-INV-12")
     void update_serialTypeChangedWithInventory_rejectsRequest() {
         Product product = product(); product.setTracksSerial(true); product.setSerialType(SerialType.IMEI);
         when(products.findForUpdate(3L)).thenReturn(Optional.of(product));
@@ -206,5 +214,10 @@ class ProductServiceTest {
         form.setTracksSerial(false); form.setSerialType(null); form.setName("Tên mới");
         assertThat(service.update(3L, form).getName()).isEqualTo("Tên mới");
         verifyNoInteractions(inventoryGuard);
+    }
+
+    @Test void create_fractionalDongPrice_isRejectedBeforeSaving(){
+        ProductForm form=productForm();form.setPrice(new BigDecimal("100.5"));
+        assertThatThrownBy(()->service.create(form)).isInstanceOf(BusinessException.class).hasMessageContaining("nguyên đồng");verify(products,never()).saveAndFlush(any());
     }
 }

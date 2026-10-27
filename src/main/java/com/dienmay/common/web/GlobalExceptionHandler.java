@@ -17,6 +17,12 @@ public class GlobalExceptionHandler {
         return "error/404";
     }
 
+    @ExceptionHandler(com.dienmay.common.pagination.InvalidQueryException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleInvalidQuery(com.dienmay.common.pagination.InvalidQueryException exception,Model model){
+        model.addAttribute("message",exception.getMessage());return "error/400";
+    }
+
     // Không bắt BusinessException toàn cục: controller catalog ở bước sau
     // cần catch lỗi để giữ dữ liệu nhập, BindingResult và danh sách chọn của form.
 }

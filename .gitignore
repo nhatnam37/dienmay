@@ -34,3 +34,13 @@ build/
 
 # Ảnh upload nằm ngoài classpath, không đưa dữ liệu người dùng vào Git.
 /uploads/
+
+# Cấu hình/mật khẩu riêng của máy chạy.
+.env
+.env.*
+!.env.example
+
+!.env.demo.example
+
+# Dump MySQL và ảnh sao lưu chứa dữ liệu riêng.
+/backup/

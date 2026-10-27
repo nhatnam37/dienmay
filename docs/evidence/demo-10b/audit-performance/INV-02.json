@@ -1,0 +1,135 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "4.72"
+    },
+    "ordering_operation": {
+      "using_filesort": true,
+      "cost_info": {
+        "sort_cost": "2.00"
+      },
+      "windowing": {
+        "windows": [
+          {
+            "name": "<unnamed window>",
+            "definition_position": 1,
+            "using_temporary_table": true,
+            "frame_buffer": {
+              "using_temporary_table": true,
+              "optimized_frame_evaluation": true
+            },
+            "functions": [
+              "sum"
+            ]
+          },
+          {
+            "name": "<unnamed window>",
+            "definition_position": 2,
+            "last_executed_window": true,
+            "frame_buffer": {
+              "using_temporary_table": true,
+              "optimized_frame_evaluation": true
+            },
+            "functions": [
+              "sum"
+            ]
+          }
+        ],
+        "table": {
+          "table_name": "q",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 2,
+          "rows_produced_per_join": 2,
+          "filtered": "100.00",
+          "cost_info": {
+            "read_cost": "2.52",
+            "eval_cost": "0.20",
+            "prefix_cost": "2.73",
+            "data_read_per_join": "208"
+          },
+          "used_columns": [
+            "object_type",
+            "object_id",
+            "invoice_id",
+            "kind"
+          ],
+          "materialized_from_subquery": {
+            "using_temporary_table": true,
+            "dependent": false,
+            "cacheable": true,
+            "query_block": {
+              "select_id": 2,
+              "cost_info": {
+                "query_cost": "0.70"
+              },
+              "grouping_operation": {
+                "using_temporary_table": true,
+                "using_filesort": false,
+                "nested_loop": [
+                  {
+                    "table": {
+                      "table_name": "i",
+                      "access_type": "ALL",
+                      "possible_keys": [
+                        "PRIMARY"
+                      ],
+                      "rows_examined_per_scan": 1,
+                      "rows_produced_per_join": 1,
+                      "filtered": "100.00",
+                      "cost_info": {
+                        "read_cost": "0.25",
+                        "eval_cost": "0.10",
+                        "prefix_cost": "0.35",
+                        "data_read_per_join": "944"
+                      },
+                      "used_columns": [
+                        "id",
+                        "status"
+                      ],
+                      "attached_condition": "(`audit_0da494474d7444c083635204a7bad048`.`i`.`status` = 'COMPLETED')"
+                    }
+                  },
+                  {
+                    "table": {
+                      "table_name": "x",
+                      "access_type": "ref",
+                      "possible_keys": [
+                        "idx_invoice_item_invoice",
+                        "idx_invoice_item_serial"
+                      ],
+                      "key": "idx_invoice_item_invoice",
+                      "used_key_parts": [
+                        "invoice_id"
+                      ],
+                      "key_length": "8",
+                      "ref": [
+                        "audit_0da494474d7444c083635204a7bad048.i.id"
+                      ],
+                      "rows_examined_per_scan": 1,
+                      "rows_produced_per_join": 1,
+                      "filtered": "100.00",
+                      "cost_info": {
+                        "read_cost": "0.25",
+                        "eval_cost": "0.10",
+                        "prefix_cost": "0.70",
+                        "data_read_per_join": "72"
+                      },
+                      "used_columns": [
+                        "id",
+                        "invoice_id",
+                        "serial_item_id",
+                        "returned"
+                      ],
+                      "attached_condition": "((`audit_0da494474d7444c083635204a7bad048`.`x`.`returned` = 0) and (`audit_0da494474d7444c083635204a7bad048`.`x`.`serial_item_id` is not null))"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

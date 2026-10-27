@@ -3,6 +3,7 @@ package com.dienmay.catalog.entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@jakarta.persistence.EntityListeners(org.springframework.data.jpa.domain.support.AuditingEntityListener.class)
 @Entity
 @Table(name = "brand")
 public class Brand {
@@ -15,13 +16,8 @@ public class Brand {
     private String name;
 
     @Column(name = "created_at", nullable = false, updatable = false)
+    @org.springframework.data.annotation.CreatedDate
     private LocalDateTime createdAt;
-
-    @PrePersist
-    void onCreate() {
-        // Gán ngay ở Java để DTO sau save có thời gian mà không cần đọc lại DB.
-        createdAt = LocalDateTime.now();
-    }
 
     public Long getId() { return id; }
     public String getName() { return name; }

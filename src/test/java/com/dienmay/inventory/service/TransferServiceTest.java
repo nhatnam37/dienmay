@@ -45,7 +45,8 @@ class TransferServiceTest {
         GoodsTransfer t = new GoodsTransfer(); ReflectionTestUtils.setField(t,"id",7L); t.setFromBranch(branch(1)); t.setToBranch(branch(2)); t.setStatus(status); return t;
     }
     GoodsTransferItem item(SerialItem serial) { GoodsTransferItem i=new GoodsTransferItem();i.setProduct(serial.getProduct());i.setSerialItem(serial);i.setQuantity(1);return i; }
-    @BeforeEach void setup() { service = new TransferService(transfers,items,serials,new SerialNumberRules(),serialState,stock,products,branches,employees,new InventoryAccess(),choices); }
+    @BeforeEach void setup() { service = new TransferService(transfers,items,serials,new SerialNumberRules(),serialState,stock,products,branches,employees,new InventoryAccess(),choices,java.time.Clock.fixed(java.time.Instant.parse("2026-10-23T02:00:00Z"),java.time.ZoneId.of("Asia/Ho_Chi_Minh"))); }
+    @org.junit.jupiter.api.DisplayName("Trạng thái phiếu sai không làm thay đổi tồn kho")
     @ParameterizedTest
     @CsvSource({"ship,SHIPPED","ship,RECEIVED","ship,CANCELLED","receive,DRAFT","receive,RECEIVED","receive,CANCELLED","cancel,SHIPPED","cancel,RECEIVED","cancel,CANCELLED"})
     void action_invalidStatus_rejectsWithoutChangingInventory(String action,TransferStatus status) {
@@ -54,19 +55,24 @@ class TransferServiceTest {
             .isInstanceOf(BusinessException.class).hasMessageContaining("Không thể");
         verifyNoInteractions(stock,serialState,items);
     }
-    @Test void receive_wrongBranch_returnsNotFound() {
+    @org.junit.jupiter.api.DisplayName("Sai chi nhánh trả không tìm thấy")
+    @Test @com.dienmay.support.TestCase("TC-INV-14")
+    void receive_wrongBranch_returnsNotFound() {
         when(transfers.findForUpdate(7L)).thenReturn(Optional.of(transfer(TransferStatus.SHIPPED)));
         assertThatThrownBy(() -> service.receive(7L,source)).isInstanceOf(ResourceNotFoundException.class);
         verifyNoInteractions(stock,serialState,items);
     }
+    @org.junit.jupiter.api.DisplayName("Thủ kho nhận không được xuất thay chi nhánh nguồn")
     @Test void ship_destinationWarehouse_returnsNotFound() {
         when(transfers.findForUpdate(7L)).thenReturn(Optional.of(transfer(TransferStatus.DRAFT)));
         assertThatThrownBy(() -> service.ship(7L,destination)).isInstanceOf(ResourceNotFoundException.class);
     }
+    @org.junit.jupiter.api.DisplayName("Hủy nháp chỉ đổi trạng thái phiếu")
     @Test void cancel_draft_changesOnlyHeader() {
         GoodsTransfer t=transfer(TransferStatus.DRAFT);when(transfers.findForUpdate(7L)).thenReturn(Optional.of(t));
         service.cancel(7L,source);assertThat(t.getStatus()).isEqualTo(TransferStatus.CANCELLED);verifyNoInteractions(stock,serialState);
     }
+    @org.junit.jupiter.api.DisplayName("Khóa Serial theo mã tăng dần tránh deadlock")
     @Test void ship_reverseInput_locksSerialsInIncreasingIdOrder() {
         GoodsTransfer t=transfer(TransferStatus.DRAFT);when(transfers.findForUpdate(7L)).thenReturn(Optional.of(t));
         SerialItem a=serial(10,SerialStatus.IN_STOCK),b=serial(20,SerialStatus.IN_STOCK);
@@ -78,6 +84,7 @@ class TransferServiceTest {
         InOrder order=inOrder(serials);order.verify(serials).findByIdForUpdate(10L);order.verify(serials).findByIdForUpdate(20L);
         assertThat(t.getStatus()).isEqualTo(TransferStatus.SHIPPED);verify(serialState,times(2)).transition(any(),eq(SerialStatus.IN_TRANSFER),any());
     }
+    @org.junit.jupiter.api.DisplayName("Một Serial đổi trạng thái làm từ chối toàn bộ trước khi ghi")
     @Test void ship_oneSerialChanged_rejectsWholeBatchBeforeTransitions() {
         when(transfers.findForUpdate(7L)).thenReturn(Optional.of(transfer(TransferStatus.DRAFT)));
         SerialItem a=serial(10,SerialStatus.IN_STOCK),b=serial(20,SerialStatus.RESERVED);
@@ -89,6 +96,7 @@ class TransferServiceTest {
     }
     TransferForm draft() { TransferForm f=new TransferForm();f.setFromBranchId(1L);f.setToBranchId(2L);f.setSerialText(" serial-10 ");return f; }
     void draftHeader() { when(branches.findById(1L)).thenReturn(Optional.of(branch(1)));when(branches.findById(2L)).thenReturn(Optional.of(branch(2)));when(employees.findById(1L)).thenReturn(Optional.of(new Employee())); }
+    @org.junit.jupiter.api.DisplayName("Đăng ký Serial chuẩn hóa và ghi lịch sử trong kho")
     @Test void createDraft_validSerial_doesNotReserveOrLockStock() {
         draftHeader();SerialItem s=serial(10,SerialStatus.IN_STOCK);when(serials.findAllBySerialNoIn(anyCollection())).thenReturn(List.of(s));
         when(transfers.saveAndFlush(any())).thenAnswer(call->{GoodsTransfer t=call.getArgument(0);ReflectionTestUtils.setField(t,"id",7L);return t;});
@@ -96,27 +104,43 @@ class TransferServiceTest {
         verify(serials,never()).findByIdForUpdate(any());verifyNoInteractions(serialState,stock);
         ArgumentCaptor<GoodsTransferItem> cap=ArgumentCaptor.forClass(GoodsTransferItem.class);verify(items).save(cap.capture());assertThat(cap.getValue().getQuantity()).isEqualTo(1);
     }
+    @org.junit.jupiter.api.DisplayName("Chi nhánh đi và đến phải khác nhau")
     @Test void createDraft_sameBranch_rejects() {
         when(branches.findById(1L)).thenReturn(Optional.of(branch(1)));TransferForm f=draft();f.setToBranchId(1L);
         assertThatThrownBy(()->service.createDraft(f,source)).isInstanceOf(BusinessException.class).hasMessageContaining("phải khác nhau");
     }
+    @org.junit.jupiter.api.DisplayName("Nhân viên không được chọn chi nhánh xuất khác")
     @Test void createDraft_otherSourceBranch_returnsNotFound() {
         TransferForm f=draft();f.setFromBranchId(2L);assertThatThrownBy(()->service.createDraft(f,source)).isInstanceOf(ResourceNotFoundException.class);verifyNoInteractions(transfers);
     }
+    @org.junit.jupiter.api.DisplayName("Serial trùng bị từ chối trước khi khóa")
     @Test void createDraft_duplicateSerial_rejectsWithoutSaving() {
         draftHeader();when(serials.findAllBySerialNoIn(anyCollection())).thenReturn(List.of(serial(10,SerialStatus.IN_STOCK)));
         TransferForm f=draft();f.setSerialText("serial-10,SERIAL-10");assertThatThrownBy(()->service.createDraft(f,source)).isInstanceOf(TransferValidationException.class).hasMessageContaining("bị lặp");verify(transfers,never()).saveAndFlush(any());
     }
+    @org.junit.jupiter.api.DisplayName("Serial không sẵn sàng bị từ chối")
     @Test void createDraft_unavailableSerial_rejects() {
         draftHeader();when(serials.findAllBySerialNoIn(anyCollection())).thenReturn(List.of(serial(10,SerialStatus.IN_TRANSFER)));
         assertThatThrownBy(()->service.createDraft(draft(),source)).isInstanceOf(BusinessException.class).hasMessageContaining("không IN_STOCK");
     }
+    @org.junit.jupiter.api.DisplayName("Phụ kiện thiếu tồn bị từ chối")
     @Test void createDraft_insufficientQuantity_rejects() {
         draftHeader();TransferForm f=draft();f.setSerialText(null);TransferQuantityForm line=new TransferQuantityForm();line.setProductId(9L);line.setQuantity("3");f.setLines(List.of(line));
         when(products.findById(9L)).thenReturn(Optional.of(product(9,false)));when(stock.getAvailableQuantity(1L,9L)).thenReturn(2);
         assertThatThrownBy(()->service.createDraft(f,source)).isInstanceOf(BusinessException.class).hasMessageContaining("Không đủ", "SKU-9");verify(transfers,never()).saveAndFlush(any());
     }
+    @org.junit.jupiter.api.DisplayName("Thu ngân không được chuyển kho")
     @Test void ship_cashier_rejectsBeforeLoadingTransfer() {
         assertThatThrownBy(()->service.ship(7L,new InventoryActor(3L,1L,Set.of("ROLE_CASHIER")))).isInstanceOf(org.springframework.security.access.AccessDeniedException.class);verifyNoInteractions(transfers);
     }
+
+    @Test @DisplayName("Serial không tồn tại phải được báo rõ và không tạo nháp")
+    void createDraft_unknownSerial_rejectsWithoutSaving(){draftHeader();when(serials.findAllBySerialNoIn(anyCollection())).thenReturn(List.of());assertThatThrownBy(()->service.createDraft(draft(),source)).isInstanceOf(TransferValidationException.class).hasMessageContaining("Không tìm thấy Serial SERIAL-10");verify(transfers,never()).saveAndFlush(any());}
+    @Test @DisplayName("Phụ kiện không tồn tại không được nhập vào phiếu chuyển")
+    void createDraft_unknownProduct_rejectsWithoutSaving(){draftHeader();var f=draft();f.setSerialText(null);var line=new TransferQuantityForm();line.setProductId(99L);line.setQuantity("1");f.setLines(List.of(line));assertThatThrownBy(()->service.createDraft(f,source)).isInstanceOf(TransferValidationException.class).hasMessageContaining("không tìm thấy sản phẩm");verify(transfers,never()).saveAndFlush(any());}
+    @Test @DisplayName("Hàng có Serial không được giả thành dòng số lượng")
+    void createDraft_serialProductInQuantityLine_rejectsWithoutSaving(){draftHeader();var f=draft();f.setSerialText(null);var line=new TransferQuantityForm();line.setProductId(9L);line.setQuantity("1");f.setLines(List.of(line));when(products.findById(9L)).thenReturn(Optional.of(product(9,true)));assertThatThrownBy(()->service.createDraft(f,source)).isInstanceOf(TransferValidationException.class).hasMessageContaining("phải nhập bằng danh sách Serial");verifyNoInteractions(stock,serialState);}
+    @Test @DisplayName("Số lượng chuyển bằng không bị từ chối")
+    void createDraft_zeroQuantity_rejectsWithoutSaving(){draftHeader();var f=draft();f.setSerialText(null);var line=new TransferQuantityForm();line.setProductId(9L);line.setQuantity("0");f.setLines(List.of(line));when(products.findById(9L)).thenReturn(Optional.of(product(9,false)));assertThatThrownBy(()->service.createDraft(f,source)).isInstanceOf(TransferValidationException.class).hasMessageContaining("lớn hơn 0");verifyNoInteractions(stock,serialState);}
+
 }

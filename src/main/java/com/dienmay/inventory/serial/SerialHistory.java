@@ -5,6 +5,7 @@ import com.dienmay.organization.entity.Branch;
 import com.dienmay.inventory.context.ActorType;
 import java.time.LocalDateTime;
 
+@jakarta.persistence.EntityListeners(org.springframework.data.jpa.domain.support.AuditingEntityListener.class)
 @Entity
 @Table(name = "serial_history")
 public class SerialHistory {
@@ -49,10 +50,8 @@ public class SerialHistory {
     private String note;
 
     @Column(name = "changed_at", nullable = false, updatable = false)
+    @org.springframework.data.annotation.CreatedDate
     private LocalDateTime changedAt;
-
-    @PrePersist
-    void onCreate() { changedAt = LocalDateTime.now(); }
 
     public Long getId() { return id; }
     public SerialItem getSerialItem() { return serialItem; }

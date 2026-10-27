@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.dienmay.warranty.WarrantyWebTest" time="0.419" tests="27" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/dinhnhatnam/NhatNam/dienmay/target/test-classes:/Users/dinhnhatnam/NhatNam/dienmay/target/classes:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-actuator/3.5.16/spring-boot-starter-actuator-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter/3.5.16/spring-boot-starter-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-logging/3.5.16/spring-boot-starter-logging-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/ch/qos/logback/logback-classic/1.5.34/logback-classic-1.5.34.jar:/Users/dinhnhatnam/.m2/repository/ch/qos/logback/logback-core/1.5.34/logback-core-1.5.34.jar:/Users/dinhnhatnam/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.24.3/log4j-to-slf4j-2.24.3.jar:/Users/dinhnhatnam/.m2/repository/org/slf4j/jul-to-slf4j/2.0.18/jul-to-slf4j-2.0.18.jar:/Users/dinhnhatnam/.m2/repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/Users/dinhnhatnam/.m2/repository/org/yaml/snakeyaml/2.4/snakeyaml-2.4.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-actuator-autoconfigure/3.5.16/spring-boot-actuator-autoconfigure-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-actuator/3.5.16/spring-boot-actuator-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.21.4/jackson-databind-2.21.4.jar:/Users/dinhnhatnam/.m2/repository/io/micrometer/micrometer-observation/1.15.12/micrometer-observation-1.15.12.jar:/Users/dinhnhatnam/.m2/repository/io/micrometer/micrometer-commons/1.15.12/micrometer-commons-1.15.12.jar:/Users/dinhnhatnam/.m2/repository/io/micrometer/micrometer-jakarta9/1.15.12/micrometer-jakarta9-1.15.12.jar:/Users/dinhnhatnam/.m2/repository/io/micrometer/micrometer-core/1.15.12/micrometer-core-1.15.12.jar:/Users/dinhnhatnam/.m2/repository/org/hdrhistogram/HdrHistogram/2.2.2/HdrHistogram-2.2.2.jar:/Users/dinhnhatnam/.m2/repository/org/latencyutils/LatencyUtils/2.0.3/LatencyUtils-2.0.3.jar:/Users/dinhnhatnam/.m2/repository/com/tngtech/archunit/archunit-junit5/1.4.1/archunit-junit5-1.4.1.jar:/Users/dinhnhatnam/.m2/repository/com/tngtech/archunit/archunit-junit5-api/1.4.1/archunit-junit5-api-1.4.1.jar:/Users/dinhnhatnam/.m2/repository/com/tngtech/archunit/archunit/1.4.1/archunit-1.4.1.jar:/Users/dinhnhatnam/.m2/repository/com/tngtech/archunit/archunit-junit5-engine/1.4.1/archunit-junit5-engine-1.4.1.jar:/Users/dinhnhatnam/.m2/repository/com/tngtech/archunit/archunit-junit5-engine-api/1.4.1/archunit-junit5-engine-api-1.4.1.jar:/Users/dinhnhatnam/.m2/repository/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar:/Users/dinhnhatnam/.m2/repository/org/apache/poi/poi-ooxml/5.5.1/poi-ooxml-5.5.1.jar:/Users/dinhnhatnam/.m2/repository/org/apache/poi/poi/5.5.1/poi-5.5.1.jar:/Users/dinhnhatnam/.m2/repository/commons-codec/commons-codec/1.18.0/commons-codec-1.18.0.jar:/Users/dinhnhatnam/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/dinhnhatnam/.m2/repository/com/zaxxer/SparseBitSet/1.3/SparseBitSet-1.3.jar:/Users/dinhnhatnam/.m2/repository/org/apache/poi/poi-ooxml-lite/5.5.1/poi-ooxml-lite-5.5.1.jar:/Users/dinhnhatnam/.m2/repository/org/apache/xmlbeans/xmlbeans/5.3.0/xmlbeans-5.3.0.jar:/Users/dinhnhatnam/.m2/repository/org/apache/commons/commons-compress/1.28.0/commons-compress-1.28.0.jar:/Users/dinhnhatnam/.m2/repository/org/apache/commons/commons-lang3/3.17.0/commons-lang3-3.17.0.jar:/Users/dinhnhatnam/.m2/repository/commons-io/commons-io/2.21.0/commons-io-2.21.0.jar:/Users/dinhnhatnam/.m2/repository/com/github/virtuald/curvesapi/1.08/curvesapi-1.08.jar:/Users/dinhnhatnam/.m2/repository/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.jar:/Users/dinhnhatnam/.m2/repository/org/apache/commons/commons-collections4/4.5.0/commons-collections4-4.5.0.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/3.5.16/spring-boot-starter-data-jpa-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/3.5.16/spring-boot-starter-jdbc-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/com/zaxxer/HikariCP/6.3.3/HikariCP-6.3.3.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-jdbc/6.2.19/spring-jdbc-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/hibernate/orm/hibernate-core/6.6.53.Final/hibernate-core-6.6.53.Final.jar:/Users/dinhnhatnam/.m2/repository/jakarta/persistence/jakarta.persistence-api/3.1.0/jakarta.persistence-api-3.1.0.jar:/Users/dinhnhatnam/.m2/repository/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar:/Users/dinhnhatnam/.m2/repository/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar:/Users/dinhnhatnam/.m2/repository/org/hibernate/common/hibernate-commons-annotations/7.0.3.Final/hibernate-commons-annotations-7.0.3.Final.jar:/Users/dinhnhatnam/.m2/repository/io/smallrye/jandex/3.2.0/jandex-3.2.0.jar:/Users/dinhnhatnam/.m2/repository/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar:/Users/dinhnhatnam/.m2/repository/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar:/Users/dinhnhatnam/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.9/jaxb-runtime-4.0.9.jar:/Users/dinhnhatnam/.m2/repository/org/glassfish/jaxb/jaxb-core/4.0.9/jaxb-core-4.0.9.jar:/Users/dinhnhatnam/.m2/repository/org/eclipse/angus/angus-activation/2.0.3/angus-activation-2.0.3.jar:/Users/dinhnhatnam/.m2/repository/org/glassfish/jaxb/txw2/4.0.9/txw2-4.0.9.jar:/Users/dinhnhatnam/.m2/repository/com/sun/istack/istack-commons-runtime/4.1.2/istack-commons-runtime-4.1.2.jar:/Users/dinhnhatnam/.m2/repository/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.jar:/Users/dinhnhatnam/.m2/repository/org/antlr/antlr4-runtime/4.13.2/antlr4-runtime-4.13.2.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/data/spring-data-jpa/3.5.13/spring-data-jpa-3.5.13.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/data/spring-data-commons/3.5.13/spring-data-commons-3.5.13.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-orm/6.2.19/spring-orm-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-context/6.2.19/spring-context-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-tx/6.2.19/spring-tx-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-beans/6.2.19/spring-beans-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-aspects/6.2.19/spring-aspects-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/aspectj/aspectjweaver/1.9.25.1/aspectjweaver-1.9.25.1.jar:/Users/dinhnhatnam/.m2/repository/org/flywaydb/flyway-core/11.7.2/flyway-core-11.7.2.jar:/Users/dinhnhatnam/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-toml/2.21.4/jackson-dataformat-toml-2.21.4.jar:/Users/dinhnhatnam/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.21.4/jackson-core-2.21.4.jar:/Users/dinhnhatnam/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.21.4/jackson-datatype-jsr310-2.21.4.jar:/Users/dinhnhatnam/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-security/3.5.16/spring-boot-starter-security-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-aop/6.2.19/spring-aop-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/security/spring-security-config/6.5.11/spring-security-config-6.5.11.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/security/spring-security-web/6.5.11/spring-security-web-6.5.11.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-expression/6.2.19/spring-expression-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-thymeleaf/3.5.16/spring-boot-starter-thymeleaf-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/thymeleaf/thymeleaf-spring6/3.1.5.RELEASE/thymeleaf-spring6-3.1.5.RELEASE.jar:/Users/dinhnhatnam/.m2/repository/org/thymeleaf/thymeleaf/3.1.5.RELEASE/thymeleaf-3.1.5.RELEASE.jar:/Users/dinhnhatnam/.m2/repository/org/attoparser/attoparser/2.0.7.RELEASE/attoparser-2.0.7.RELEASE.jar:/Users/dinhnhatnam/.m2/repository/org/unbescape/unbescape/1.1.6.RELEASE/unbescape-1.1.6.RELEASE.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-validation/3.5.16/spring-boot-starter-validation-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.55/tomcat-embed-el-10.1.55.jar:/Users/dinhnhatnam/.m2/repository/org/hibernate/validator/hibernate-validator/8.0.3.Final/hibernate-validator-8.0.3.Final.jar:/Users/dinhnhatnam/.m2/repository/jakarta/validation/jakarta.validation-api/3.0.2/jakarta.validation-api-3.0.2.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-web/3.5.16/spring-boot-starter-web-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-json/3.5.16/spring-boot-starter-json-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.21.4/jackson-datatype-jdk8-2.21.4.jar:/Users/dinhnhatnam/.m2/repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.21.4/jackson-module-parameter-names-2.21.4.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/3.5.16/spring-boot-starter-tomcat-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.55/tomcat-embed-core-10.1.55.jar:/Users/dinhnhatnam/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.55/tomcat-embed-websocket-10.1.55.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-web/6.2.19/spring-web-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-webmvc/6.2.19/spring-webmvc-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/flywaydb/flyway-mysql/11.7.2/flyway-mysql-11.7.2.jar:/Users/dinhnhatnam/.m2/repository/org/thymeleaf/extras/thymeleaf-extras-springsecurity6/3.1.5.RELEASE/thymeleaf-extras-springsecurity6-3.1.5.RELEASE.jar:/Users/dinhnhatnam/.m2/repository/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-devtools/3.5.16/spring-boot-devtools-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot/3.5.16/spring-boot-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/3.5.16/spring-boot-autoconfigure-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/com/mysql/mysql-connector-j/9.7.0/mysql-connector-j-9.7.0.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-test/3.5.16/spring-boot-starter-test-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-test/3.5.16/spring-boot-test-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-test-autoconfigure/3.5.16/spring-boot-test-autoconfigure-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/com/jayway/jsonpath/json-path/2.9.0/json-path-2.9.0.jar:/Users/dinhnhatnam/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.5/jakarta.xml.bind-api-4.0.5.jar:/Users/dinhnhatnam/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/Users/dinhnhatnam/.m2/repository/net/minidev/json-smart/2.5.2/json-smart-2.5.2.jar:/Users/dinhnhatnam/.m2/repository/net/minidev/accessors-smart/2.5.2/accessors-smart-2.5.2.jar:/Users/dinhnhatnam/.m2/repository/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/Users/dinhnhatnam/.m2/repository/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/Users/dinhnhatnam/.m2/repository/org/awaitility/awaitility/4.2.2/awaitility-4.2.2.jar:/Users/dinhnhatnam/.m2/repository/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/Users/dinhnhatnam/.m2/repository/org/junit/jupiter/junit-jupiter/5.12.2/junit-jupiter-5.12.2.jar:/Users/dinhnhatnam/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.12.2/junit-jupiter-api-5.12.2.jar:/Users/dinhnhatnam/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/dinhnhatnam/.m2/repository/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar:/Users/dinhnhatnam/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/dinhnhatnam/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.12.2/junit-jupiter-params-5.12.2.jar:/Users/dinhnhatnam/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.12.2/junit-jupiter-engine-5.12.2.jar:/Users/dinhnhatnam/.m2/repository/org/mockito/mockito-core/5.17.0/mockito-core-5.17.0.jar:/Users/dinhnhatnam/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar:/Users/dinhnhatnam/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/dinhnhatnam/.m2/repository/org/mockito/mockito-junit-jupiter/5.17.0/mockito-junit-jupiter-5.17.0.jar:/Users/dinhnhatnam/.m2/repository/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/Users/dinhnhatnam/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-core/6.2.19/spring-core-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-jcl/6.2.19/spring-jcl-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-test/6.2.19/spring-test-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/security/spring-security-test/6.5.11/spring-security-test-6.5.11.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/security/spring-security-core/6.5.11/spring-security-core-6.5.11.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/security/spring-security-crypto/6.5.11/spring-security-crypto-6.5.11.jar:/Users/dinhnhatnam/.m2/repository/org/testcontainers/junit-jupiter/1.21.4/junit-jupiter-1.21.4.jar:/Users/dinhnhatnam/.m2/repository/org/testcontainers/testcontainers/1.21.4/testcontainers-1.21.4.jar:/Users/dinhnhatnam/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/dinhnhatnam/.m2/repository/org/hamcrest/hamcrest-core/3.0/hamcrest-core-3.0.jar:/Users/dinhnhatnam/.m2/repository/org/rnorth/duct-tape/duct-tape/1.0.8/duct-tape-1.0.8.jar:/Users/dinhnhatnam/.m2/repository/org/jetbrains/annotations/17.0.0/annotations-17.0.0.jar:/Users/dinhnhatnam/.m2/repository/com/github/docker-java/docker-java-api/3.4.2/docker-java-api-3.4.2.jar:/Users/dinhnhatnam/.m2/repository/com/github/docker-java/docker-java-transport-zerodep/3.4.2/docker-java-transport-zerodep-3.4.2.jar:/Users/dinhnhatnam/.m2/repository/com/github/docker-java/docker-java-transport/3.4.2/docker-java-transport-3.4.2.jar:/Users/dinhnhatnam/.m2/repository/net/java/dev/jna/jna/5.13.0/jna-5.13.0.jar:/Users/dinhnhatnam/.m2/repository/org/testcontainers/mysql/1.21.4/mysql-1.21.4.jar:/Users/dinhnhatnam/.m2/repository/org/testcontainers/jdbc/1.21.4/jdbc-1.21.4.jar:/Users/dinhnhatnam/.m2/repository/org/testcontainers/database-commons/1.21.4/database-commons-1.21.4.jar:"/>
+    <property name="sun.awt.enableExtraMouseButtons" value="true"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Asia/Ho_Chi_Minh"/>
+    <property name="org.jboss.logging.provider" value="slf4j"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="APPLICATION_NAME" value="dienmay"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="VN"/>
+    <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/dinhnhatnam/NhatNam/dienmay/target/surefire/surefirebooter-20261023144022155_3.jar /Users/dinhnhatnam/NhatNam/dienmay/target/surefire 2026-10-23T14-40-22_119-jvmRun1 surefire-20261023144022155_1tmp surefire_0-20261023144022155_2tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/dinhnhatnam/NhatNam/dienmay/target/test-classes:/Users/dinhnhatnam/NhatNam/dienmay/target/classes:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-actuator/3.5.16/spring-boot-starter-actuator-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter/3.5.16/spring-boot-starter-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-logging/3.5.16/spring-boot-starter-logging-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/ch/qos/logback/logback-classic/1.5.34/logback-classic-1.5.34.jar:/Users/dinhnhatnam/.m2/repository/ch/qos/logback/logback-core/1.5.34/logback-core-1.5.34.jar:/Users/dinhnhatnam/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.24.3/log4j-to-slf4j-2.24.3.jar:/Users/dinhnhatnam/.m2/repository/org/slf4j/jul-to-slf4j/2.0.18/jul-to-slf4j-2.0.18.jar:/Users/dinhnhatnam/.m2/repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/Users/dinhnhatnam/.m2/repository/org/yaml/snakeyaml/2.4/snakeyaml-2.4.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-actuator-autoconfigure/3.5.16/spring-boot-actuator-autoconfigure-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-actuator/3.5.16/spring-boot-actuator-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.21.4/jackson-databind-2.21.4.jar:/Users/dinhnhatnam/.m2/repository/io/micrometer/micrometer-observation/1.15.12/micrometer-observation-1.15.12.jar:/Users/dinhnhatnam/.m2/repository/io/micrometer/micrometer-commons/1.15.12/micrometer-commons-1.15.12.jar:/Users/dinhnhatnam/.m2/repository/io/micrometer/micrometer-jakarta9/1.15.12/micrometer-jakarta9-1.15.12.jar:/Users/dinhnhatnam/.m2/repository/io/micrometer/micrometer-core/1.15.12/micrometer-core-1.15.12.jar:/Users/dinhnhatnam/.m2/repository/org/hdrhistogram/HdrHistogram/2.2.2/HdrHistogram-2.2.2.jar:/Users/dinhnhatnam/.m2/repository/org/latencyutils/LatencyUtils/2.0.3/LatencyUtils-2.0.3.jar:/Users/dinhnhatnam/.m2/repository/com/tngtech/archunit/archunit-junit5/1.4.1/archunit-junit5-1.4.1.jar:/Users/dinhnhatnam/.m2/repository/com/tngtech/archunit/archunit-junit5-api/1.4.1/archunit-junit5-api-1.4.1.jar:/Users/dinhnhatnam/.m2/repository/com/tngtech/archunit/archunit/1.4.1/archunit-1.4.1.jar:/Users/dinhnhatnam/.m2/repository/com/tngtech/archunit/archunit-junit5-engine/1.4.1/archunit-junit5-engine-1.4.1.jar:/Users/dinhnhatnam/.m2/repository/com/tngtech/archunit/archunit-junit5-engine-api/1.4.1/archunit-junit5-engine-api-1.4.1.jar:/Users/dinhnhatnam/.m2/repository/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar:/Users/dinhnhatnam/.m2/repository/org/apache/poi/poi-ooxml/5.5.1/poi-ooxml-5.5.1.jar:/Users/dinhnhatnam/.m2/repository/org/apache/poi/poi/5.5.1/poi-5.5.1.jar:/Users/dinhnhatnam/.m2/repository/commons-codec/commons-codec/1.18.0/commons-codec-1.18.0.jar:/Users/dinhnhatnam/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/dinhnhatnam/.m2/repository/com/zaxxer/SparseBitSet/1.3/SparseBitSet-1.3.jar:/Users/dinhnhatnam/.m2/repository/org/apache/poi/poi-ooxml-lite/5.5.1/poi-ooxml-lite-5.5.1.jar:/Users/dinhnhatnam/.m2/repository/org/apache/xmlbeans/xmlbeans/5.3.0/xmlbeans-5.3.0.jar:/Users/dinhnhatnam/.m2/repository/org/apache/commons/commons-compress/1.28.0/commons-compress-1.28.0.jar:/Users/dinhnhatnam/.m2/repository/org/apache/commons/commons-lang3/3.17.0/commons-lang3-3.17.0.jar:/Users/dinhnhatnam/.m2/repository/commons-io/commons-io/2.21.0/commons-io-2.21.0.jar:/Users/dinhnhatnam/.m2/repository/com/github/virtuald/curvesapi/1.08/curvesapi-1.08.jar:/Users/dinhnhatnam/.m2/repository/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.jar:/Users/dinhnhatnam/.m2/repository/org/apache/commons/commons-collections4/4.5.0/commons-collections4-4.5.0.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/3.5.16/spring-boot-starter-data-jpa-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/3.5.16/spring-boot-starter-jdbc-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/com/zaxxer/HikariCP/6.3.3/HikariCP-6.3.3.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-jdbc/6.2.19/spring-jdbc-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/hibernate/orm/hibernate-core/6.6.53.Final/hibernate-core-6.6.53.Final.jar:/Users/dinhnhatnam/.m2/repository/jakarta/persistence/jakarta.persistence-api/3.1.0/jakarta.persistence-api-3.1.0.jar:/Users/dinhnhatnam/.m2/repository/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar:/Users/dinhnhatnam/.m2/repository/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar:/Users/dinhnhatnam/.m2/repository/org/hibernate/common/hibernate-commons-annotations/7.0.3.Final/hibernate-commons-annotations-7.0.3.Final.jar:/Users/dinhnhatnam/.m2/repository/io/smallrye/jandex/3.2.0/jandex-3.2.0.jar:/Users/dinhnhatnam/.m2/repository/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar:/Users/dinhnhatnam/.m2/repository/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar:/Users/dinhnhatnam/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.9/jaxb-runtime-4.0.9.jar:/Users/dinhnhatnam/.m2/repository/org/glassfish/jaxb/jaxb-core/4.0.9/jaxb-core-4.0.9.jar:/Users/dinhnhatnam/.m2/repository/org/eclipse/angus/angus-activation/2.0.3/angus-activation-2.0.3.jar:/Users/dinhnhatnam/.m2/repository/org/glassfish/jaxb/txw2/4.0.9/txw2-4.0.9.jar:/Users/dinhnhatnam/.m2/repository/com/sun/istack/istack-commons-runtime/4.1.2/istack-commons-runtime-4.1.2.jar:/Users/dinhnhatnam/.m2/repository/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.jar:/Users/dinhnhatnam/.m2/repository/org/antlr/antlr4-runtime/4.13.2/antlr4-runtime-4.13.2.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/data/spring-data-jpa/3.5.13/spring-data-jpa-3.5.13.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/data/spring-data-commons/3.5.13/spring-data-commons-3.5.13.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-orm/6.2.19/spring-orm-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-context/6.2.19/spring-context-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-tx/6.2.19/spring-tx-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-beans/6.2.19/spring-beans-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-aspects/6.2.19/spring-aspects-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/aspectj/aspectjweaver/1.9.25.1/aspectjweaver-1.9.25.1.jar:/Users/dinhnhatnam/.m2/repository/org/flywaydb/flyway-core/11.7.2/flyway-core-11.7.2.jar:/Users/dinhnhatnam/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-toml/2.21.4/jackson-dataformat-toml-2.21.4.jar:/Users/dinhnhatnam/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.21.4/jackson-core-2.21.4.jar:/Users/dinhnhatnam/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.21.4/jackson-datatype-jsr310-2.21.4.jar:/Users/dinhnhatnam/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-security/3.5.16/spring-boot-starter-security-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-aop/6.2.19/spring-aop-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/security/spring-security-config/6.5.11/spring-security-config-6.5.11.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/security/spring-security-web/6.5.11/spring-security-web-6.5.11.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-expression/6.2.19/spring-expression-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-thymeleaf/3.5.16/spring-boot-starter-thymeleaf-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/thymeleaf/thymeleaf-spring6/3.1.5.RELEASE/thymeleaf-spring6-3.1.5.RELEASE.jar:/Users/dinhnhatnam/.m2/repository/org/thymeleaf/thymeleaf/3.1.5.RELEASE/thymeleaf-3.1.5.RELEASE.jar:/Users/dinhnhatnam/.m2/repository/org/attoparser/attoparser/2.0.7.RELEASE/attoparser-2.0.7.RELEASE.jar:/Users/dinhnhatnam/.m2/repository/org/unbescape/unbescape/1.1.6.RELEASE/unbescape-1.1.6.RELEASE.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-validation/3.5.16/spring-boot-starter-validation-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.55/tomcat-embed-el-10.1.55.jar:/Users/dinhnhatnam/.m2/repository/org/hibernate/validator/hibernate-validator/8.0.3.Final/hibernate-validator-8.0.3.Final.jar:/Users/dinhnhatnam/.m2/repository/jakarta/validation/jakarta.validation-api/3.0.2/jakarta.validation-api-3.0.2.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-web/3.5.16/spring-boot-starter-web-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-json/3.5.16/spring-boot-starter-json-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.21.4/jackson-datatype-jdk8-2.21.4.jar:/Users/dinhnhatnam/.m2/repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.21.4/jackson-module-parameter-names-2.21.4.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/3.5.16/spring-boot-starter-tomcat-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.55/tomcat-embed-core-10.1.55.jar:/Users/dinhnhatnam/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.55/tomcat-embed-websocket-10.1.55.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-web/6.2.19/spring-web-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-webmvc/6.2.19/spring-webmvc-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/flywaydb/flyway-mysql/11.7.2/flyway-mysql-11.7.2.jar:/Users/dinhnhatnam/.m2/repository/org/thymeleaf/extras/thymeleaf-extras-springsecurity6/3.1.5.RELEASE/thymeleaf-extras-springsecurity6-3.1.5.RELEASE.jar:/Users/dinhnhatnam/.m2/repository/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-devtools/3.5.16/spring-boot-devtools-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot/3.5.16/spring-boot-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/3.5.16/spring-boot-autoconfigure-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/com/mysql/mysql-connector-j/9.7.0/mysql-connector-j-9.7.0.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-starter-test/3.5.16/spring-boot-starter-test-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-test/3.5.16/spring-boot-test-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/boot/spring-boot-test-autoconfigure/3.5.16/spring-boot-test-autoconfigure-3.5.16.jar:/Users/dinhnhatnam/.m2/repository/com/jayway/jsonpath/json-path/2.9.0/json-path-2.9.0.jar:/Users/dinhnhatnam/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.5/jakarta.xml.bind-api-4.0.5.jar:/Users/dinhnhatnam/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.4/jakarta.activation-api-2.1.4.jar:/Users/dinhnhatnam/.m2/repository/net/minidev/json-smart/2.5.2/json-smart-2.5.2.jar:/Users/dinhnhatnam/.m2/repository/net/minidev/accessors-smart/2.5.2/accessors-smart-2.5.2.jar:/Users/dinhnhatnam/.m2/repository/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar:/Users/dinhnhatnam/.m2/repository/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar:/Users/dinhnhatnam/.m2/repository/org/awaitility/awaitility/4.2.2/awaitility-4.2.2.jar:/Users/dinhnhatnam/.m2/repository/org/hamcrest/hamcrest/3.0/hamcrest-3.0.jar:/Users/dinhnhatnam/.m2/repository/org/junit/jupiter/junit-jupiter/5.12.2/junit-jupiter-5.12.2.jar:/Users/dinhnhatnam/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.12.2/junit-jupiter-api-5.12.2.jar:/Users/dinhnhatnam/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/dinhnhatnam/.m2/repository/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar:/Users/dinhnhatnam/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/dinhnhatnam/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.12.2/junit-jupiter-params-5.12.2.jar:/Users/dinhnhatnam/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.12.2/junit-jupiter-engine-5.12.2.jar:/Users/dinhnhatnam/.m2/repository/org/mockito/mockito-core/5.17.0/mockito-core-5.17.0.jar:/Users/dinhnhatnam/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar:/Users/dinhnhatnam/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/dinhnhatnam/.m2/repository/org/mockito/mockito-junit-jupiter/5.17.0/mockito-junit-jupiter-5.17.0.jar:/Users/dinhnhatnam/.m2/repository/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/Users/dinhnhatnam/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-core/6.2.19/spring-core-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-jcl/6.2.19/spring-jcl-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/spring-test/6.2.19/spring-test-6.2.19.jar:/Users/dinhnhatnam/.m2/repository/org/xmlunit/xmlunit-core/2.10.4/xmlunit-core-2.10.4.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/security/spring-security-test/6.5.11/spring-security-test-6.5.11.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/security/spring-security-core/6.5.11/spring-security-core-6.5.11.jar:/Users/dinhnhatnam/.m2/repository/org/springframework/security/spring-security-crypto/6.5.11/spring-security-crypto-6.5.11.jar:/Users/dinhnhatnam/.m2/repository/org/testcontainers/junit-jupiter/1.21.4/junit-jupiter-1.21.4.jar:/Users/dinhnhatnam/.m2/repository/org/testcontainers/testcontainers/1.21.4/testcontainers-1.21.4.jar:/Users/dinhnhatnam/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/dinhnhatnam/.m2/repository/org/hamcrest/hamcrest-core/3.0/hamcrest-core-3.0.jar:/Users/dinhnhatnam/.m2/repository/org/rnorth/duct-tape/duct-tape/1.0.8/duct-tape-1.0.8.jar:/Users/dinhnhatnam/.m2/repository/org/jetbrains/annotations/17.0.0/annotations-17.0.0.jar:/Users/dinhnhatnam/.m2/repository/com/github/docker-java/docker-java-api/3.4.2/docker-java-api-3.4.2.jar:/Users/dinhnhatnam/.m2/repository/com/github/docker-java/docker-java-transport-zerodep/3.4.2/docker-java-transport-zerodep-3.4.2.jar:/Users/dinhnhatnam/.m2/repository/com/github/docker-java/docker-java-transport/3.4.2/docker-java-transport-3.4.2.jar:/Users/dinhnhatnam/.m2/repository/net/java/dev/jna/jna/5.13.0/jna-5.13.0.jar:/Users/dinhnhatnam/.m2/repository/org/testcontainers/mysql/1.21.4/mysql-1.21.4.jar:/Users/dinhnhatnam/.m2/repository/org/testcontainers/jdbc/1.21.4/jdbc-1.21.4.jar:/Users/dinhnhatnam/.m2/repository/org/testcontainers/database-commons/1.21.4/database-commons-1.21.4.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/dinhnhatnam"/>
+    <property name="user.language" value="vi"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-04-21"/>
+    <property name="java.home" value="/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/dinhnhatnam/NhatNam/dienmay"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="FILE_LOG_CHARSET" value="UTF-8"/>
+    <property name="java.awt.headless" value="true"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/dinhnhatnam/NhatNam/dienmay/target/surefire/surefirebooter-20261023144022155_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="21.0.11+10-LTS"/>
+    <property name="user.name" value="dinhnhatnam"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="26.5.2"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-21.0.11+10"/>
+    <property name="localRepository" value="/Users/dinhnhatnam/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/fm/l1mfkg8j7vd255jqys0q8rx00000gn/T/"/>
+    <property name="java.version" value="21.0.11"/>
+    <property name="user.dir" value="/Users/dinhnhatnam/NhatNam/dienmay"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="PID" value="76272"/>
+    <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/dinhnhatnam/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="21.0.11+10-LTS"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="65.0"/>
+    <property name="LOGGED_APPLICATION_NAME" value="[dienmay] "/>
+  </properties>
+  <testcase name="invoice_warrantyStaff_readOnlyView" classname="com.dienmay.warranty.WarrantyWebTest" time="0.011">
+    <system-out><![CDATA[2026-10-23T14:40:38.803+07:00 DEBUG 76272 --- [dienmay] [           main] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [WarrantyWebTest]: using SpringBootContextLoader
+2026-10-23T14:40:38.803+07:00 DEBUG 76272 --- [dienmay] [           main] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using ContextCustomizerFactory implementations for test class [WarrantyWebTest]: [ImportsContextCustomizerFactory, ExcludeFilterContextCustomizerFactory, HttpGraphQlTesterContextCustomizerFactory, DuplicateJsonObjectContextCustomizerFactory, MockitoContextCustomizerFactory, TestRestTemplateContextCustomizerFactory, WebTestClientContextCustomizerFactory, DisableReactorResourceFactoryGlobalResourcesContextCustomizerFactory, OnFailureConditionReportContextCustomizerFactory, OverrideAutoConfigurationContextCustomizerFactory, ObservabilityContextCustomizerFactory, TypeExcludeFiltersContextCustomizerFactory, PropertyMappingContextCustomizerFactory, WebDriverContextCustomizerFactory, BeanOverrideContextCustomizerFactory, MockServerContainerContextCustomizerFactory, DynamicPropertiesContextCustomizerFactory]
+2026-10-23T14:40:38.804+07:00 DEBUG 76272 --- [dienmay] [           main] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using ContextCustomizers for test class [WarrantyWebTest]: [ImportsContextCustomizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, DisableReactorResourceFactoryGlobalResourcesContextCustomizerCustomizer, OnFailureConditionReportContextCustomizer, DisableAutoConfigurationContextCustomizer, DisableObservabilityContextCustomizer, TypeExcludeFiltersContextCustomizer, PropertyMappingContextCustomizer, WebDriverContextCustomizer, BeanOverrideContextCustomizer, DynamicPropertiesContextCustomizer]
+2026-10-23T14:40:38.809+07:00  INFO 76272 --- [dienmay] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.dienmay.DienmayApplication for test class com.dienmay.warranty.WarrantyWebTest
+2026-10-23T14:40:38.810+07:00 DEBUG 76272 --- [dienmay] [           main] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners for test class [WarrantyWebTest]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, BeanOverrideTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, CommonCachesTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, WithSecurityContextTestExecutionListener, ReactorContextTestExecutionListener, ResetMocksTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, MockitoResetTestExecutionListener]
+2026-10-23T14:40:38.810+07:00  INFO 76272 --- [dienmay] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-10-23T14:40:38.812+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.boot.env.OriginTrackedYamlLoader     : Loading from YAML: class path resource [application.yml]
+2026-10-23T14:40:38.812+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.boot.env.OriginTrackedYamlLoader     : Merging document (no matchers set): {spring={servlet={multipart={max-file-size=2MB, max-request-size=3MB}}, application={name=dienmay}, profiles={default=dev}, jpa={open-in-view=false, hibernate={ddl-auto=none}, properties={hibernate={format_sql=true}}}, flyway={enabled=true, locations=classpath:db/migration}}, app={web={query={max-page=${QUERY_MAX_PAGE:10000}, max-size=${QUERY_MAX_SIZE:50}, max-keyword-length=${QUERY_MAX_KEYWORD_LENGTH:100}}}, security={login={pair-limit=${LOGIN_PAIR_LIMIT:5}, ip-limit=${LOGIN_IP_LIMIT:50}, window=${LOGIN_WINDOW:PT5M}, block-duration=${LOGIN_BLOCK_DURATION:PT5M}, cleanup-interval=${LOGIN_CLEANUP_INTERVAL:PT1M}, max-entries=${LOGIN_MAX_ENTRIES:100000}, trust-forwarded-for=${LOGIN_TRUST_FORWARDED_FOR:false}, trusted-proxy-addresses=${LOGIN_TRUSTED_PROXY_ADDRESSES:}}}, report={export-max-rows=${REPORT_EXPORT_MAX_ROWS:50000}, low-stock-threshold=${REPORT_LOW_STOCK_THRESHOLD:5}}, warranty={lookup-rate-per-minute=${WARRANTY_LOOKUP_RATE_PER_MINUTE:20}}, order={hold-minutes=15, placed-hold-hours=24, expiry-enabled=${ORDER_EXPIRY_ENABLED:true}, expiry-delay-ms=60000}, pos={max-cashier-discount-percent=5, cancel-same-day-only=true, return-window-days=7}, upload-dir=${UPLOAD_DIR:./uploads}}, server={error={include-stacktrace=never, include-message=never, include-binding-errors=never}}, management={endpoints={access={default=none}, web={exposure={include=health}, discovery={enabled=false}}, jmx={exposure={exclude=*}}}, endpoint={health={access=read-only, show-details=never, show-components=never}}}}
+2026-10-23T14:40:38.812+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.boot.env.OriginTrackedYamlLoader     : Loaded 1 document from YAML resource: class path resource [application.yml]
+2026-10-23T14:40:38.814+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.boot.env.OriginTrackedYamlLoader     : Loading from YAML: class path resource [application-dev.yml]
+2026-10-23T14:40:38.814+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.boot.env.OriginTrackedYamlLoader     : Merging document (no matchers set): {spring={flyway={user=${FLYWAY_USER:root}, password=${FLYWAY_PASSWORD:root123}}, datasource={url=jdbc:mysql://localhost:3307/dienmay?serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true&useSSL=false, username=dienmay, password=dienmay123}, thymeleaf={cache=false}}, logging={level={org.hibernate.SQL=debug}}, server={port=8081}, app={bootstrap={username=${INITIAL_ADMIN_USERNAME:admin}, password=${INITIAL_ADMIN_PASSWORD:}}}}
+2026-10-23T14:40:38.814+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.boot.env.OriginTrackedYamlLoader     : Loaded 1 document from YAML resource: class path resource [application-dev.yml]
+2026-10-23T14:40:38.814+07:00 DEBUG 76272 --- [dienmay] [           main] .s.b.w.s.c.ApplicationServletEnvironment : Activating profiles []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-23T14:40:38.815+07:00  INFO 76272 --- [dienmay] [           main] com.dienmay.warranty.WarrantyWebTest     : Starting WarrantyWebTest using Java 21.0.11 with PID 76272 (started by dinhnhatnam in /Users/dinhnhatnam/NhatNam/dienmay)
+2026-10-23T14:40:38.815+07:00  INFO 76272 --- [dienmay] [           main] com.dienmay.warranty.WarrantyWebTest     : No active profile set, falling back to 1 default profile: "dev"
+2026-10-23T14:40:38.815+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.boot.SpringApplication               : Loading source class com.dienmay.DienmayApplication,class com.dienmay.warranty.WarrantyWebTest$TestTime
+2026-10-23T14:40:38.816+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@2901f399
+2026-10-23T14:40:39.039+07:00  WARN 76272 --- [dienmay] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: dd815fe2-89ea-4c7a-9d4b-7b638b081e84
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-10-23T14:40:39.039+07:00  INFO 76272 --- [dienmay] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-10-23T14:40:39.045+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 16 mappings in 'requestMappingHandlerMapping'
+2026-10-23T14:40:39.048+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.b.a.AutoConfigurationPackages        : @EnableAutoConfiguration was declared on a class in the package 'com.dienmay'. Automatic @Repository and @Entity scanning is enabled.
+2026-10-23T14:40:39.056+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /uploads/**] in 'resourceHandlerMapping'
+2026-10-23T14:40:39.070+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 1 @ModelAttribute, 3 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-10-23T14:40:39.073+07:00 DEBUG 76272 --- [dienmay] [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 3 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-10-23T14:40:39.078+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.b.w.s.ServletContextInitializerBeans : Mapping filters: springSecurityFilterChain urls=[/*] order=-100, characterEncodingFilter urls=[/*] order=-2147483648, formContentFilter urls=[/*] order=-9900, requestContextFilter urls=[/*] order=-105
+2026-10-23T14:40:39.078+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.b.w.s.ServletContextInitializerBeans : Mapping servlets: 
+2026-10-23T14:40:39.079+07:00 DEBUG 76272 --- [dienmay] [           main] s.b.w.s.f.OrderedCharacterEncodingFilter : Filter 'characterEncodingFilter' configured for use
+2026-10-23T14:40:39.079+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.b.w.s.f.OrderedFormContentFilter     : Filter 'formContentFilter' configured for use
+2026-10-23T14:40:39.079+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.b.w.s.f.OrderedRequestContextFilter  : Filter 'requestContextFilter' configured for use
+2026-10-23T14:40:39.079+07:00 DEBUG 76272 --- [dienmay] [           main] .DelegatingFilterProxyRegistrationBean$1 : Filter 'springSecurityFilterChain' configured for use
+2026-10-23T14:40:39.079+07:00  INFO 76272 --- [dienmay] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-23T14:40:39.079+07:00  INFO 76272 --- [dienmay] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-23T14:40:39.079+07:00  INFO 76272 --- [dienmay] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-10-23T14:40:39.081+07:00 DEBUG 76272 --- [dienmay] [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+
+============================
+CONDITIONS EVALUATION REPORT
+============================
+
+
+Positive matches:
+-----------------
+
+   ErrorMvcAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.springframework.web.servlet.DispatcherServlet' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+
+   ErrorMvcAutoConfiguration#basicErrorController matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.web.servlet.error.ErrorController; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration#errorAttributes matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.web.servlet.error.ErrorAttributes; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration.WhitelabelErrorViewConfiguration matched:
+      - @ConditionalOnBooleanProperty (server.error.whitelabel.enabled=true) matched (OnPropertyCondition)
+      - ErrorTemplate Missing did not find error template view (ErrorMvcAutoConfiguration.ErrorTemplateMissingCondition)
+
+   ErrorMvcAutoConfiguration.WhitelabelErrorViewConfiguration#beanNameViewResolver matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.servlet.view.BeanNameViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ErrorMvcAutoConfiguration.WhitelabelErrorViewConfiguration#defaultErrorView matched:
+      - @ConditionalOnMissingBean (names: error; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   HttpEncodingAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.web.filter.CharacterEncodingFilter' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+      - @ConditionalOnBooleanProperty (server.servlet.encoding.enabled=true) matched (OnPropertyCondition)
+
+   HttpEncodingAutoConfiguration#characterEncodingFilter matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.filter.CharacterEncodingFilter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   HttpMessageConvertersAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.http.converter.HttpMessageConverter' (OnClassCondition)
+      - NoneNestedConditions 0 matched 1 did not; NestedCondition on HttpMessageConvertersAutoConfiguration.NotReactiveWebApplicationCondition.ReactiveWebApplication did not find reactive web application classes (HttpMessageConvertersAutoConfiguration.NotReactiveWebApplicationCondition)
+
+   HttpMessageConvertersAutoConfiguration#messageConverters matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.autoconfigure.http.HttpMessageConverters; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   HttpMessageConvertersAutoConfiguration.StringHttpMessageConverterConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.http.converter.StringHttpMessageConverter' (OnClassCondition)
+
+   HttpMessageConvertersAutoConfiguration.StringHttpMessageConverterConfiguration#stringHttpMessageConverter matched:
+      - @ConditionalOnMissingBean (types: org.springframework.http.converter.StringHttpMessageConverter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JacksonAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'com.fasterxml.jackson.databind.ObjectMapper' (OnClassCondition)
+
+   JacksonAutoConfiguration.Jackson2ObjectMapperBuilderCustomizerConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.http.converter.json.Jackson2ObjectMapperBuilder' (OnClassCondition)
+
+   JacksonAutoConfiguration.JacksonObjectMapperBuilderConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.http.converter.json.Jackson2ObjectMapperBuilder' (OnClassCondition)
+
+   JacksonAutoConfiguration.JacksonObjectMapperBuilderConfiguration#jacksonObjectMapperBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.http.converter.json.Jackson2ObjectMapperBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JacksonAutoConfiguration.JacksonObjectMapperConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.http.converter.json.Jackson2ObjectMapperBuilder' (OnClassCondition)
+
+   JacksonAutoConfiguration.JacksonObjectMapperConfiguration#jacksonObjectMapper matched:
+      - @ConditionalOnMissingBean (types: com.fasterxml.jackson.databind.ObjectMapper; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JacksonAutoConfiguration.ParameterNamesModuleConfiguration matched:
+      - @ConditionalOnClass found required class 'com.fasterxml.jackson.module.paramnames.ParameterNamesModule' (OnClassCondition)
+
+   JacksonAutoConfiguration.ParameterNamesModuleConfiguration#parameterNamesModule matched:
+      - @ConditionalOnMissingBean (types: com.fasterxml.jackson.module.paramnames.ParameterNamesModule; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   JacksonHttpMessageConvertersConfiguration.MappingJackson2HttpMessageConverterConfiguration matched:
+      - @ConditionalOnClass found required class 'com.fasterxml.jackson.databind.ObjectMapper' (OnClassCondition)
+      - @ConditionalOnPreferredJsonMapper JACKSON no property was configured and Jackson is the default (OnPreferredJsonMapperCondition)
+      - @ConditionalOnBean (types: com.fasterxml.jackson.databind.ObjectMapper; SearchStrategy: all) found bean 'jacksonObjectMapper' (OnBeanCondition)
+
+   JacksonHttpMessageConvertersConfiguration.MappingJackson2HttpMessageConverterConfiguration#mappingJackson2HttpMessageConverter matched:
+      - @ConditionalOnMissingBean (types: org.springframework.http.converter.json.MappingJackson2HttpMessageConverter ignored: org.springframework.hateoas.server.mvc.TypeConstrainedMappingJackson2HttpMessageConverter,org.springframework.data.rest.webmvc.alps.AlpsJsonHttpMessageConverter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MessageSourceAutoConfiguration matched:
+      - ResourceBundle found bundle file [/Users/dinhnhatnam/NhatNam/dienmay/target/classes/messages.properties] (MessageSourceAutoConfiguration.ResourceBundleCondition)
+      - @ConditionalOnMissingBean (names: messageSource; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   MockMvcAutoConfiguration matched:
+      - found 'session' scope (OnWebApplicationCondition)
+
+   MockMvcAutoConfiguration#dispatcherServlet matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.servlet.DispatcherServlet; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MockMvcAutoConfiguration#dispatcherServletPath matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.autoconfigure.web.servlet.DispatcherServletPath; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MockMvcConfiguration#mockMvc matched:
+      - @ConditionalOnMissingBean (types: org.springframework.test.web.servlet.MockMvc; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MockMvcConfiguration#mockMvcBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.test.web.servlet.MockMvcBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   MockMvcSecurityConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors' (OnClassCondition)
+
+   MockMvcSecurityConfiguration#securityMockMvcBuilderCustomizer matched:
+      - @ConditionalOnBean (names: springSecurityFilterChain; SearchStrategy: all) found bean 'springSecurityFilterChain' (OnBeanCondition)
+
+   MockMvcTesterConfiguration matched:
+      - @ConditionalOnClass found required class 'org.assertj.core.api.Assert' (OnClassCondition)
+
+   MockMvcTesterConfiguration#mockMvcTester matched:
+      - @ConditionalOnMissingBean (types: org.springframework.test.web.servlet.assertj.MockMvcTester; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   NoOpCacheConfiguration matched:
+      - Cache org.springframework.boot.autoconfigure.cache.NoOpCacheConfiguration NONE cache type (CacheCondition)
+
+   SecurityAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.security.authentication.DefaultAuthenticationEventPublisher' (OnClassCondition)
+
+   SecurityAutoConfiguration#authenticationEventPublisher matched:
+      - @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationEventPublisher; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   SecurityFilterAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer', 'org.springframework.security.config.http.SessionCreationPolicy' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+
+   SecurityFilterAutoConfiguration#securityFilterChainRegistration matched:
+      - @ConditionalOnBean (names: springSecurityFilterChain; SearchStrategy: all) found bean 'springSecurityFilterChain' (OnBeanCondition)
+
+   SpringBootWebSecurityConfiguration matched:
+      - found 'session' scope (OnWebApplicationCondition)
+
+   SpringBootWebSecurityConfiguration.WebSecurityEnablerConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.security.config.annotation.web.configuration.EnableWebSecurity' (OnClassCondition)
+      - @ConditionalOnMissingBean (names: springSecurityFilterChain; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   SpringDataWebAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'org.springframework.data.web.PageableHandlerMethodArgumentResolver', 'org.springframework.web.servlet.config.annotation.WebMvcConfigurer' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.data.web.PageableHandlerMethodArgumentResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   SpringDataWebAutoConfiguration#pageableCustomizer matched:
+      - @ConditionalOnMissingBean (types: org.springframework.data.web.config.PageableHandlerMethodArgumentResolverCustomizer; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   SpringDataWebAutoConfiguration#sortCustomizer matched:
+      - @ConditionalOnMissingBean (types: org.springframework.data.web.config.SortHandlerMethodArgumentResolverCustomizer; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   SpringDataWebAutoConfiguration#springDataWebSettings matched:
+      - @ConditionalOnMissingBean (types: org.springframework.data.web.config.SpringDataWebSettings; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskExecutionAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor' (OnClassCondition)
+
+   TaskExecutorConfigurations.AsyncConfigurerConfiguration matched:
+      - @ConditionalOnMissingBean (types: org.springframework.scheduling.annotation.AsyncConfigurer; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskExecutorConfigurations.AsyncConfigurerConfiguration#applicationTaskExecutorAsyncConfigurer matched:
+      - @ConditionalOnMissingBean (types: org.springframework.scheduling.annotation.AsyncConfigurer; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskExecutorConfigurations.SimpleAsyncTaskExecutorBuilderConfiguration#simpleAsyncTaskExecutorBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+      - @ConditionalOnThreading found PLATFORM (OnThreadingCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration matched:
+      - AnyNestedCondition 1 matched 1 did not; NestedCondition on TaskExecutorConfigurations.OnExecutorCondition.ModelCondition @ConditionalOnProperty (spring.task.execution.mode=force) did not find property 'spring.task.execution.mode'; NestedCondition on TaskExecutorConfigurations.OnExecutorCondition.ExecutorBeanCondition @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) did not find any beans (TaskExecutorConfigurations.OnExecutorCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration#applicationTaskExecutor matched:
+      - @ConditionalOnThreading found PLATFORM (OnThreadingCondition)
+
+   TaskExecutorConfigurations.ThreadPoolTaskExecutorBuilderConfiguration#threadPoolTaskExecutorBuilder matched:
+      - @ConditionalOnMissingBean (types: org.springframework.boot.task.ThreadPoolTaskExecutorBuilder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TemplateEngineConfigurations.DefaultTemplateEngineConfiguration#templateEngine matched:
+      - @ConditionalOnMissingBean (types: org.thymeleaf.spring6.ISpringTemplateEngine; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ThymeleafAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'org.thymeleaf.templatemode.TemplateMode', 'org.thymeleaf.spring6.SpringTemplateEngine' (OnClassCondition)
+
+   ThymeleafAutoConfiguration.DefaultTemplateResolverConfiguration matched:
+      - @ConditionalOnMissingBean (names: defaultTemplateResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ThymeleafAutoConfiguration.ThymeleafSecurityDialectConfiguration matched:
+      - @ConditionalOnClass found required classes 'org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect', 'org.springframework.security.web.server.csrf.CsrfToken' (OnClassCondition)
+
+   ThymeleafAutoConfiguration.ThymeleafSecurityDialectConfiguration#securityDialect matched:
+      - @ConditionalOnMissingBean (types: org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ThymeleafAutoConfiguration.ThymeleafWebMvcConfiguration matched:
+      - found 'session' scope (OnWebApplicationCondition)
+      - @ConditionalOnBooleanProperty (spring.thymeleaf.enabled=true) matched (OnPropertyCondition)
+
+   ThymeleafAutoConfiguration.ThymeleafWebMvcConfiguration.ThymeleafViewResolverConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.web.servlet.view.AbstractCachingViewResolver' (OnClassCondition)
+
+   ThymeleafAutoConfiguration.ThymeleafWebMvcConfiguration.ThymeleafViewResolverConfiguration#thymeleafViewResolver matched:
+      - @ConditionalOnMissingBean (names: thymeleafViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   UserDetailsServiceAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.security.authentication.AuthenticationManager' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+      - AnyNestedCondition 1 matched 2 did not; NestedCondition on UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured.PasswordConfigured @ConditionalOnProperty (spring.security.user.password) did not find property 'spring.security.user.password'; NestedCondition on UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured.NameConfigured @ConditionalOnProperty (spring.security.user.name) did not find property 'spring.security.user.name'; NestedCondition on UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured.MissingAlternative @ConditionalOnMissingClass did not find unwanted classes 'org.springframework.security.oauth2.client.registration.ClientRegistrationRepository', 'org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector', 'org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository' (UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured)
+      - @ConditionalOnBean (types: org.springframework.security.config.ObjectPostProcessor; SearchStrategy: all) found beans 'methodResultAuthorizationManagerPostProcessor', 'objectPostProcessor', 'webAuthorizationManagerPostProcessor', 'filterChainDecoratorPostProcessor', 'methodAuthorizationManagerPostProcessor', 'authenticationManagerPostProcessor'; @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationManager,org.springframework.security.authentication.AuthenticationProvider,org.springframework.security.core.userdetails.UserDetailsService,org.springframework.security.authentication.AuthenticationManagerResolver,org.springframework.security.oauth2.jwt.JwtDecoder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ValidationAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'jakarta.validation.executable.ExecutableValidator' (OnClassCondition)
+      - @ConditionalOnResource found location classpath:META-INF/services/jakarta.validation.spi.ValidationProvider (OnResourceCondition)
+
+   ValidationAutoConfiguration#defaultValidator matched:
+      - @ConditionalOnMissingBean (types: jakarta.validation.Validator; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   ValidationAutoConfiguration#methodValidationPostProcessor matched:
+      - @ConditionalOnMissingBean (types: org.springframework.validation.beanvalidation.MethodValidationPostProcessor; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration matched:
+      - @ConditionalOnClass found required classes 'jakarta.servlet.Servlet', 'org.springframework.web.servlet.DispatcherServlet', 'org.springframework.web.servlet.config.annotation.WebMvcConfigurer' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration#formContentFilter matched:
+      - @ConditionalOnBooleanProperty (spring.mvc.formcontent.filter.enabled=true) matched (OnPropertyCondition)
+      - @ConditionalOnMissingBean (types: org.springframework.web.filter.FormContentFilter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.EnableWebMvcConfiguration#flashMapManager matched:
+      - @ConditionalOnMissingBean (names: flashMapManager; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.EnableWebMvcConfiguration#localeResolver matched:
+      - @ConditionalOnMissingBean (names: localeResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.EnableWebMvcConfiguration#themeResolver matched:
+      - @ConditionalOnMissingBean (names: themeResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.EnableWebMvcConfiguration#viewNameTranslator matched:
+      - @ConditionalOnMissingBean (names: viewNameTranslator; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#defaultViewResolver matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.servlet.view.InternalResourceViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#requestContextFilter matched:
+      - @ConditionalOnMissingBean (types: org.springframework.web.context.request.RequestContextListener,org.springframework.web.filter.RequestContextFilter; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#viewResolver matched:
+      - @ConditionalOnBean (types: org.springframework.web.servlet.ViewResolver; SearchStrategy: all) found beans 'defaultViewResolver', 'beanNameViewResolver', 'mvcViewResolver'; @ConditionalOnMissingBean (names: viewResolver types: org.springframework.web.servlet.view.ContentNegotiatingViewResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+   Cache2kCacheConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.cache2k.Cache2kBuilder' (OnClassCondition)
+
+   CacheAutoConfiguration:
+      Did not match:
+         - @ConditionalOnBean (types: org.springframework.cache.interceptor.CacheAspectSupport; SearchStrategy: all) did not find any beans of type org.springframework.cache.interceptor.CacheAspectSupport (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.cache.CacheManager' (OnClassCondition)
+
+   CacheAutoConfiguration.CacheManagerEntityManagerFactoryDependsOnPostProcessor:
+      Did not match:
+         - Ancestor org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration did not match (ConditionEvaluationReport.AncestorsMatchedCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean' (OnClassCondition)
+
+   CaffeineCacheConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'com.github.benmanes.caffeine.cache.Caffeine' (OnClassCondition)
+
+   CouchbaseCacheConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'com.couchbase.client.java.Cluster' (OnClassCondition)
+
+   ErrorMvcAutoConfiguration.DefaultErrorViewResolverConfiguration#conventionErrorViewResolver:
+      Did not match:
+         - @ConditionalOnBean (types: org.springframework.web.servlet.DispatcherServlet; SearchStrategy: all) did not find any beans of type org.springframework.web.servlet.DispatcherServlet (OnBeanCondition)
+
+   FreeMarkerAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'freemarker.template.Configuration' (OnClassCondition)
+
+   GenericCacheConfiguration:
+      Did not match:
+         - Cache org.springframework.boot.autoconfigure.cache.GenericCacheConfiguration unknown cache type (CacheCondition)
+
+   GroovyTemplateAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'groovy.text.markup.MarkupTemplateEngine' (OnClassCondition)
+
+   GsonAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'com.google.gson.Gson' (OnClassCondition)
+
+   GsonHttpMessageConvertersConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'com.google.gson.Gson' (OnClassCondition)
+
+   HazelcastCacheConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'com.hazelcast.core.HazelcastInstance' (OnClassCondition)
+
+   HypermediaAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.hateoas.EntityModel' (OnClassCondition)
+
+   InfinispanCacheConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.infinispan.spring.embedded.provider.SpringEmbeddedCacheManager' (OnClassCondition)
+
+   JCacheCacheConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'javax.cache.Caching' (OnClassCondition)
+
+   JacksonHttpMessageConvertersConfiguration.MappingJackson2XmlHttpMessageConverterConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'com.fasterxml.jackson.dataformat.xml.XmlMapper' (OnClassCondition)
+
+   JsonbAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'jakarta.json.bind.Jsonb' (OnClassCondition)
+
+   JsonbHttpMessageConvertersConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'jakarta.json.bind.Jsonb' (OnClassCondition)
+
+   MockMvcAutoConfiguration.WebTestClientMockMvcConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.web.reactive.function.client.WebClient' (OnClassCondition)
+
+   MockMvcWebClientAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.htmlunit.WebClient' (OnClassCondition)
+
+   MockMvcWebDriverAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.openqa.selenium.htmlunit.HtmlUnitDriver' (OnClassCondition)
+
+   MustacheAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'com.samskivert.mustache.Mustache' (OnClassCondition)
+
+   OAuth2ClientAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.security.oauth2.client.registration.ClientRegistration' (OnClassCondition)
+
+   OAuth2ClientWebSecurityAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository' (OnClassCondition)
+
+   OAuth2ResourceServerAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthenticationToken' (OnClassCondition)
+
+   RedisCacheConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.data.redis.connection.RedisConnectionFactory' (OnClassCondition)
+
+   Saml2RelyingPartyAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository' (OnClassCondition)
+
+   SecurityDataConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.security.data.repository.query.SecurityEvaluationContextExtension' (OnClassCondition)
+
+   SimpleCacheConfiguration:
+      Did not match:
+         - Cache org.springframework.boot.autoconfigure.cache.SimpleCacheConfiguration unknown cache type (CacheCondition)
+
+   SpringBootWebSecurityConfiguration.SecurityFilterChainConfiguration:
+      Did not match:
+         - AllNestedConditions 1 matched 1 did not; NestedCondition on DefaultWebSecurityCondition.Beans @ConditionalOnMissingBean (types: org.springframework.security.web.SecurityFilterChain; SearchStrategy: all) found beans of type 'org.springframework.security.web.SecurityFilterChain' customerChain, employeeChain; NestedCondition on DefaultWebSecurityCondition.Classes @ConditionalOnClass found required classes 'org.springframework.security.web.SecurityFilterChain', 'org.springframework.security.config.annotation.web.builders.HttpSecurity' (DefaultWebSecurityCondition)
+
+   TaskExecutorConfigurations.SimpleAsyncTaskExecutorBuilderConfiguration#simpleAsyncTaskExecutorBuilderVirtualThreads:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder; SearchStrategy: all) found beans of type 'org.springframework.boot.task.SimpleAsyncTaskExecutorBuilder' simpleAsyncTaskExecutorBuilder (OnBeanCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration#applicationTaskExecutorVirtualThreads:
+      Did not match:
+         - @ConditionalOnThreading did not find VIRTUAL (OnThreadingCondition)
+
+   TemplateEngineConfigurations.ReactiveTemplateEngineConfiguration:
+      Did not match:
+         - did not find reactive web application classes (OnWebApplicationCondition)
+
+   ThymeleafAutoConfiguration.DataAttributeDialectConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect' (OnClassCondition)
+
+   ThymeleafAutoConfiguration.ThymeleafWebFluxConfiguration:
+      Did not match:
+         - did not find reactive web application classes (OnWebApplicationCondition)
+
+   ThymeleafAutoConfiguration.ThymeleafWebLayoutConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect' (OnClassCondition)
+
+   ThymeleafAutoConfiguration.ThymeleafWebMvcConfiguration#resourceUrlEncodingFilter:
+      Did not match:
+         - @ConditionalOnEnabledResourceChain did not find class org.webjars.WebJarVersionLocator (OnEnabledResourceChainCondition)
+
+   WebMvcAutoConfiguration#hiddenHttpMethodFilter:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.mvc.hiddenmethod.filter.enabled=true) did not find property 'spring.mvc.hiddenmethod.filter.enabled' (OnPropertyCondition)
+
+   WebMvcAutoConfiguration.ProblemDetailsErrorHandlingConfiguration:
+      Did not match:
+         - @ConditionalOnBooleanProperty (spring.mvc.problemdetails.enabled=true) did not find property 'spring.mvc.problemdetails.enabled' (OnPropertyCondition)
+
+   WebMvcAutoConfiguration.ResourceChainCustomizerConfiguration:
+      Did not match:
+         - @ConditionalOnEnabledResourceChain did not find class org.webjars.WebJarVersionLocator (OnEnabledResourceChainCondition)
+
+   WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter#beanNameViewResolver:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.web.servlet.view.BeanNameViewResolver; SearchStrategy: all) found beans of type 'org.springframework.web.servlet.view.BeanNameViewResolver' beanNameViewResolver (OnBeanCondition)
+
+   WebTestClientAutoConfiguration:
+      Did not match:
+         - @ConditionalOnClass did not find required class 'org.springframework.web.reactive.function.client.WebClient' (OnClassCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2026-10-23T14:40:39.081+07:00  INFO 76272 --- [dienmay] [           main] o.s.s.config.TaskSchedulerRouter         : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2026-10-23T14:40:39.082+07:00  INFO 76272 --- [dienmay] [           main] com.dienmay.warranty.WarrantyWebTest     : Started WarrantyWebTest in 0.272 seconds (process running for 16.887)
+2026-10-23T14:40:39.084+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#invoice(Long, AppUserDetails, Model)
+2026-10-23T14:40:39.085+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="staff_customerOnly_redirectedToEmployeeLogin" classname="com.dienmay.warranty.WarrantyWebTest" time="0.001"/>
+  <testcase name="publicPages_anonymous_accessibleWithCustomerCsrfForms" classname="com.dienmay.warranty.WarrantyWebTest" time="0.006">
+    <system-out><![CDATA[2026-10-23T14:40:39.096+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#form()
+2026-10-23T14:40:39.097+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.099+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#trackForm()
+2026-10-23T14:40:39.099+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="publicPost_missingCsrf_forbidden" classname="com.dienmay.warranty.WarrantyWebTest" time="0.001"/>
+  <testcase name="receive_validation_keepsFormInFlash" classname="com.dienmay.warranty.WarrantyWebTest" time="0.004">
+    <system-out><![CDATA[2026-10-23T14:40:39.103+07:00  WARN 76272 --- [dienmay] [           main] o.s.w.s.h.HandlerMappingIntrospector     : Cache miss for REQUEST dispatch to '/staff/warranty/tickets' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2026-10-23T14:40:39.103+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#receive(WarrantyReceiveForm, BindingResult, AppUserDetails, RedirectAttributes)
+2026-10-23T14:40:39.105+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.web.servlet.view.RedirectView        : View name [redirect:], model {}
+]]></system-out>
+  </testcase>
+  <testcase name="track_success_safeTimelineOnly" classname="com.dienmay.warranty.WarrantyWebTest" time="0.005">
+    <system-out><![CDATA[2026-10-23T14:40:39.107+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#track(String, String, HttpServletRequest, Model)
+2026-10-23T14:40:39.107+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="staff_cashierAndWarehouse_forbidden" classname="com.dienmay.warranty.WarrantyWebTest" time="0.001"/>
+  <testcase name="new_expiredStaff_needsManagerAndNoOverrideInput" classname="com.dienmay.warranty.WarrantyWebTest" time="0.006">
+    <system-out><![CDATA[2026-10-23T14:40:39.113+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#newTicket(String, AppUserDetails, Model)
+2026-10-23T14:40:39.114+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="print_readonlyReceipt_rendersRequiredFieldsWithoutInternalDiagnosis" classname="com.dienmay.warranty.WarrantyWebTest" time="0.006">
+    <system-out><![CDATA[2026-10-23T14:40:39.119+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#print(Long, AppUserDetails, Model)
+2026-10-23T14:40:39.120+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="transition_staleVersion_flashAndRedirect" classname="com.dienmay.warranty.WarrantyWebTest" time="0.005">
+    <system-out><![CDATA[2026-10-23T14:40:39.126+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#change(Long, Action, BindingResult, AppUserDetails, RedirectAttributes)
+2026-10-23T14:40:39.128+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.web.servlet.view.RedirectView        : View name [redirect:], model {}
+]]></system-out>
+  </testcase>
+  <testcase name="customerPage_employeeOnly_customerLogin" classname="com.dienmay.warranty.WarrantyWebTest" time="0.001"/>
+  <testcase name="detail_otherBranch_returns404" classname="com.dienmay.warranty.WarrantyWebTest" time="0.003">
+    <system-out><![CDATA[2026-10-23T14:40:39.131+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#detail(Long, AppUserDetails, Model)
+2026-10-23T14:40:39.132+07:00 DEBUG 76272 --- [dienmay] [           main] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.dienmay.common.web.GlobalExceptionHandler#handleNotFound(ResourceNotFoundException, Model)
+2026-10-23T14:40:39.132+07:00 DEBUG 76272 --- [dienmay] [           main] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.dienmay.common.exception.ResourceNotFoundException: Không tìm thấy phiếu.] to ModelAndView [view="error/404"; model={message=Không tìm thấy phiếu.}]
+2026-10-23T14:40:39.132+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="staffPost_missingCsrf_forbidden" classname="com.dienmay.warranty.WarrantyWebTest" time="0.001"/>
+  <testcase name="detail_actions_matchStatus(WarrantyTicketStatus)[1]" classname="com.dienmay.warranty.WarrantyWebTest" time="0.006">
+    <system-out><![CDATA[2026-10-23T14:40:39.135+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#detail(Long, AppUserDetails, Model)
+2026-10-23T14:40:39.136+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="detail_actions_matchStatus(WarrantyTicketStatus)[2]" classname="com.dienmay.warranty.WarrantyWebTest" time="0.004">
+    <system-out><![CDATA[2026-10-23T14:40:39.141+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#detail(Long, AppUserDetails, Model)
+2026-10-23T14:40:39.141+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="detail_actions_matchStatus(WarrantyTicketStatus)[3]" classname="com.dienmay.warranty.WarrantyWebTest" time="0.004">
+    <system-out><![CDATA[2026-10-23T14:40:39.145+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#detail(Long, AppUserDetails, Model)
+2026-10-23T14:40:39.145+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="detail_actions_matchStatus(WarrantyTicketStatus)[4]" classname="com.dienmay.warranty.WarrantyWebTest" time="0.003">
+    <system-out><![CDATA[2026-10-23T14:40:39.149+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#detail(Long, AppUserDetails, Model)
+2026-10-23T14:40:39.150+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="detail_actions_matchStatus(WarrantyTicketStatus)[5]" classname="com.dienmay.warranty.WarrantyWebTest" time="0.003">
+    <system-out><![CDATA[2026-10-23T14:40:39.153+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#detail(Long, AppUserDetails, Model)
+2026-10-23T14:40:39.153+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="detail_actions_matchStatus(WarrantyTicketStatus)[6]" classname="com.dienmay.warranty.WarrantyWebTest" time="0.002">
+    <system-out><![CDATA[2026-10-23T14:40:39.156+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#detail(Long, AppUserDetails, Model)
+2026-10-23T14:40:39.156+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="lookup_success_noPiiAndNoSerialInResponseUrl" classname="com.dienmay.warranty.WarrantyWebTest" time="0.005">
+    <system-out><![CDATA[2026-10-23T14:40:39.159+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#lookup(String, HttpServletRequest, Model)
+2026-10-23T14:40:39.160+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="staff_warrantyStaff_allowedAndFiltersParsed" classname="com.dienmay.warranty.WarrantyWebTest" time="0.008">
+    <system-out><![CDATA[2026-10-23T14:40:39.164+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#list(Long, WarrantyTicketStatus, String, String, String, LocalDate, LocalDate, int, AppUserDetails, Model)
+2026-10-23T14:40:39.165+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.167+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#list(Long, WarrantyTicketStatus, String, String, String, LocalDate, LocalDate, int, AppUserDetails, Model)
+2026-10-23T14:40:39.168+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.169+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#lookupForm()
+2026-10-23T14:40:39.170+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="lookup_twentyFirstSharedRequest_friendly429" classname="com.dienmay.warranty.WarrantyWebTest" time="0.028">
+    <system-out><![CDATA[2026-10-23T14:40:39.173+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#lookup(String, HttpServletRequest, Model)
+2026-10-23T14:40:39.173+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.174+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#track(String, String, HttpServletRequest, Model)
+2026-10-23T14:40:39.174+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.175+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#lookup(String, HttpServletRequest, Model)
+2026-10-23T14:40:39.176+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.177+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#track(String, String, HttpServletRequest, Model)
+2026-10-23T14:40:39.177+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.178+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#lookup(String, HttpServletRequest, Model)
+2026-10-23T14:40:39.178+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.179+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#track(String, String, HttpServletRequest, Model)
+2026-10-23T14:40:39.179+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.180+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#lookup(String, HttpServletRequest, Model)
+2026-10-23T14:40:39.181+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.182+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#track(String, String, HttpServletRequest, Model)
+2026-10-23T14:40:39.182+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.183+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#lookup(String, HttpServletRequest, Model)
+2026-10-23T14:40:39.183+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.184+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#track(String, String, HttpServletRequest, Model)
+2026-10-23T14:40:39.184+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.185+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#lookup(String, HttpServletRequest, Model)
+2026-10-23T14:40:39.185+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.186+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#track(String, String, HttpServletRequest, Model)
+2026-10-23T14:40:39.186+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.187+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#lookup(String, HttpServletRequest, Model)
+2026-10-23T14:40:39.187+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.188+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#track(String, String, HttpServletRequest, Model)
+2026-10-23T14:40:39.188+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.189+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#lookup(String, HttpServletRequest, Model)
+2026-10-23T14:40:39.189+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.191+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#track(String, String, HttpServletRequest, Model)
+2026-10-23T14:40:39.191+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.192+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#lookup(String, HttpServletRequest, Model)
+2026-10-23T14:40:39.192+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.193+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#track(String, String, HttpServletRequest, Model)
+2026-10-23T14:40:39.194+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.194+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#lookup(String, HttpServletRequest, Model)
+2026-10-23T14:40:39.195+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.195+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#track(String, String, HttpServletRequest, Model)
+2026-10-23T14:40:39.196+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.197+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#lookup(String, HttpServletRequest, Model)
+2026-10-23T14:40:39.197+07:00 DEBUG 76272 --- [dienmay] [           main] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler com.dienmay.warranty.web.PublicWarrantyController#limited(ResponseStatusException, HttpServletResponse)
+2026-10-23T14:40:39.197+07:00 DEBUG 76272 --- [dienmay] [           main] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.server.ResponseStatusException: 429 TOO_MANY_REQUESTS "Bạn tra cứu quá nhiều lần, vui lòng thử lại sau một phút."] to ModelAndView [view="warranty/public/429"; model={}]
+2026-10-23T14:40:39.197+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="lookupStaff_fullHistoryAndInvoiceLink_renderWithoutPosPermission" classname="com.dienmay.warranty.WarrantyWebTest" time="0.007">
+    <system-out><![CDATA[2026-10-23T14:40:39.200+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#lookup(String, String, AppUserDetails, Model)
+2026-10-23T14:40:39.201+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="receive_success_postRedirectGetAndFlash" classname="com.dienmay.warranty.WarrantyWebTest" time="0.002">
+    <system-out><![CDATA[2026-10-23T14:40:39.208+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#receive(WarrantyReceiveForm, BindingResult, AppUserDetails, RedirectAttributes)
+2026-10-23T14:40:39.208+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.web.servlet.view.RedirectView        : View name [redirect:], model {}
+]]></system-out>
+  </testcase>
+  <testcase name="new_expiredManager_hasRequiredOverrideInput" classname="com.dienmay.warranty.WarrantyWebTest" time="0.004">
+    <system-out><![CDATA[2026-10-23T14:40:39.210+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.StaffWarrantyController#newTicket(String, AppUserDetails, Model)
+2026-10-23T14:40:39.210+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="lookup_unknownAndUnsold_renderExactlySameVisibleContent" classname="com.dienmay.warranty.WarrantyWebTest" time="0.004">
+    <system-out><![CDATA[2026-10-23T14:40:39.214+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#lookup(String, HttpServletRequest, Model)
+2026-10-23T14:40:39.214+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+2026-10-23T14:40:39.215+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.PublicWarrantyController#lookup(String, HttpServletRequest, Model)
+2026-10-23T14:40:39.216+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+  <testcase name="customerPage_authenticatedCustomer_usesPrincipalIdOnly" classname="com.dienmay.warranty.WarrantyWebTest" time="0.005">
+    <system-out><![CDATA[2026-10-23T14:40:39.218+07:00 DEBUG 76272 --- [dienmay] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.dienmay.warranty.web.CustomerWarrantyController#list(CustomerUserDetails, Model)
+2026-10-23T14:40:39.219+07:00 DEBUG 76272 --- [dienmay] [           main] o.s.w.s.v.ContentNegotiatingViewResolver : Selected '*/*' given [*/*]
+]]></system-out>
+  </testcase>
+</testsuite>

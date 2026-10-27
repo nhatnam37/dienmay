@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional(readOnly = true)
 public class TransferService {
+    private final Clock clock;
     private final GoodsTransferRepository transfers;
     private final GoodsTransferItemRepository items;
     private final SerialItemRepository serials;
@@ -36,7 +37,8 @@ public class TransferService {
 
     public TransferService(GoodsTransferRepository transfers, GoodsTransferItemRepository items,
             SerialItemRepository serials, SerialNumberRules rules, SerialStateService serialState, StockService stock,
-            ProductRepository products, BranchRepository branches, EmployeeRepository employees, InventoryAccess access, InventoryProductQueries choices) {
+            ProductRepository products, BranchRepository branches, EmployeeRepository employees, InventoryAccess access, InventoryProductQueries choices, Clock clock) {
+        this.clock=clock;
         this.transfers = transfers; this.items = items; this.serials = serials; this.rules = rules;
         this.serialState = serialState; this.stock = stock; this.products = products;
         this.branches = branches; this.employees = employees; this.access = access; this.choices = choices;
@@ -92,7 +94,7 @@ public class TransferService {
         GoodsTransfer transfer = new GoodsTransfer(); transfer.setCode("TMP-" + UUID.randomUUID());
         transfer.setFromBranch(from); transfer.setToBranch(to); transfer.setCreatedBy(employee); transfer.setNote(form.getNote());
         transfer = transfers.saveAndFlush(transfer);
-        transfer.setCode("CK-" + LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")).format(DateTimeFormatter.BASIC_ISO_DATE)
+        transfer.setCode("CK-" + LocalDate.now(clock).format(DateTimeFormatter.BASIC_ISO_DATE)
                 + "-" + String.format(Locale.ROOT, "%05d", transfer.getId()));
         for (GoodsTransferItem item : prepared) { item.setTransfer(transfer); items.save(item); }
         transfers.flush(); return transfer.getId();
@@ -124,7 +126,7 @@ public class TransferService {
                 catch (BusinessException exception) { throw new BusinessException("Không thể xuất " + line.getProduct().getSku() + ": " + exception.getMessage()); }
             }
         }
-        transfer.setStatus(TransferStatus.SHIPPED); transfer.setShippedBy(employee); transfer.setShippedAt(LocalDateTime.now());
+        transfer.setStatus(TransferStatus.SHIPPED); transfer.setShippedBy(employee); transfer.setShippedAt(LocalDateTime.now(clock));
         transfers.flush();
     }
 
@@ -150,7 +152,7 @@ public class TransferService {
                 catch (BusinessException exception) { throw new BusinessException("Không thể nhận " + line.getProduct().getSku() + ": " + exception.getMessage()); }
             }
         }
-        transfer.setStatus(TransferStatus.RECEIVED); transfer.setReceivedBy(employee); transfer.setReceivedAt(LocalDateTime.now());
+        transfer.setStatus(TransferStatus.RECEIVED); transfer.setReceivedBy(employee); transfer.setReceivedAt(LocalDateTime.now(clock));
         transfers.flush();
     }
 

@@ -1,0 +1,13 @@
+<!DOCTYPE html><html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Kiểm tra toàn vẹn')}"></head>
+<body><nav th:replace="~{fragments/layout :: nav}"></nav><main class="container py-4">
+<h1>Kiểm tra toàn vẹn</h1>
+<p>Công cụ chẩn đoán chỉ đọc. 12 bất biến INV-01..12; tối đa 20 ID ví dụ mỗi mục. Không hiển thị dữ liệu cá nhân.</p>
+<form th:action="@{/admin/integrity}" method="post"><button class="btn btn-primary">Chạy 12 kiểm tra</button></form>
+<p th:if="${report != null}">Thời điểm: <span th:text="${report.checkedAt}"></span> · Tổng thời gian (ms): <span th:text="${report.milliseconds}"></span></p>
+<section th:each="check : ${checks}" class="card card-body my-3" th:classappend="${check.violations > 0 ? 'border-danger' : (check.unknown > 0 ? 'border-warning' : 'border-success')}">
+<h2 class="h5" th:text="${check.code + ' — ' + check.description}"></h2>
+<p>Trạng thái: <strong th:text="${check.status()}"></strong> · Vi phạm: <span th:text="${check.violations}"></span> · Chưa đủ dữ liệu: <span th:text="${check.unknown}"></span> · Thời gian (ms): <span th:text="${check.milliseconds}"></span></p>
+<p class="text-secondary">Snapshot NULL là dữ liệu lịch sử chưa đủ bằng chứng; không tính Đạt hoặc vi phạm. Bảng chỉ hiển thị số dòng tối đa cấu hình; số lượng bên trên là tổng.</p>
+<table class="table"><thead><tr><th>Đối tượng</th><th>ID</th><th>Kết quả</th><th>Chứng từ</th></tr></thead><tbody><tr th:each="row : ${check.rows}"><td th:text="${row.objectType}"></td><td th:text="${row.objectId}"></td><td th:text="${row.kind == 'UNKNOWN' ? 'Chưa đủ dữ liệu' : 'Vi phạm'}"></td><td><a th:if="${row.invoiceId > 0}" th:href="@{/pos/invoices/{id}(id=${row.invoiceId})}">Xem hóa đơn</a></td></tr></tbody></table>
+</section></main></body></html>

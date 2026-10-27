@@ -22,9 +22,10 @@ public class SerialLookupService {
     private final GoodsReceiptRepository receipts;
     private final GoodsTransferRepository transfers;
     private final SerialNumberRules rules;
+    private final StocktakeRepository stocktakes;
     public SerialLookupService(SerialItemRepository serials, SerialHistoryRepository histories, EmployeeRepository employees,
-            GoodsReceiptRepository receipts, GoodsTransferRepository transfers, SerialNumberRules rules) {
-        this.serials = serials; this.histories = histories; this.employees = employees; this.receipts = receipts; this.transfers = transfers; this.rules = rules;
+            GoodsReceiptRepository receipts, GoodsTransferRepository transfers, SerialNumberRules rules, StocktakeRepository stocktakes) {
+        this.serials = serials; this.histories = histories; this.employees = employees; this.receipts = receipts; this.transfers = transfers; this.rules = rules; this.stocktakes = stocktakes;
     }
     public SerialLookupView lookup(String serialNo, InventoryActor actor) {
         if (actor == null || !(actor.hasRole("ADMIN") || actor.hasRole("BRANCH_MANAGER") || actor.hasRole("WAREHOUSE") || actor.hasRole("WARRANTY_STAFF"))) {
@@ -39,6 +40,7 @@ public class SerialLookupService {
         // Nạp người thao tác và mã chứng từ theo lô, không SELECT lặp theo từng history.
         Map<Long, String> receiptCodes = receipts.findAllById(refIds(events, "GOODS_RECEIPT")).stream().collect(Collectors.toMap(doc -> doc.getId(), doc -> doc.getCode()));
         Map<Long, String> transferCodes = transfers.findAllById(refIds(events, "GOODS_TRANSFER")).stream().collect(Collectors.toMap(doc -> doc.getId(), doc -> doc.getCode()));
+        Map<Long, String> stocktakeCodes = stocktakes.findAllById(refIds(events, "STOCKTAKE")).stream().collect(Collectors.toMap(doc -> doc.getId(), doc -> doc.getCode()));
         List<SerialTimelineEntry> timeline = events.stream().map(event -> {
             String person = switch (event.getActorType()) {
                 case SYSTEM -> "Hệ thống";
@@ -48,6 +50,8 @@ public class SerialLookupService {
             String code = event.getRefType() + " #" + event.getRefId(); String url = null;
             if (event.getRefType().equals("GOODS_RECEIPT")) { code = receiptCodes.getOrDefault(event.getRefId(), code); url = "/inventory/receipts/" + event.getRefId(); }
             if (event.getRefType().equals("GOODS_TRANSFER")) { code = transferCodes.getOrDefault(event.getRefId(), code); url = "/inventory/transfers/" + event.getRefId(); }
+            if (event.getRefType().equals("STOCKTAKE")) { code = stocktakeCodes.getOrDefault(event.getRefId(), code); url = "/inventory/stocktakes/" + event.getRefId(); }
+            if (event.getRefType().equals("WARRANTY_TICKET")) { code = "Phiếu bảo hành #" + event.getRefId(); url = "/staff/warranty/tickets/" + event.getRefId(); }
             return new SerialTimelineEntry(event.getChangedAt(), event.getFromStatus(), event.getToStatus(),
                     event.getFromBranch() == null ? null : event.getFromBranch().getName(), event.getToBranch() == null ? null : event.getToBranch().getName(),
                     person, event.getRefType(), event.getRefId(), code, url, event.getNote());

@@ -1,0 +1,35 @@
+Việc cầ n làm
+1. Xác định tác nhân: khách vãng lai, khách hàng, thu ngân, th ủ  kho, nhân viên b ả o hành, 
+qu ả n lý chi nhánh, admin, hệ thống (Scheduler t ự  động).
+2. Viết danh sách use case (kho ả ng 24) theo 5 phân hệ: đăng nhập; qu ả n lý danh mục, 
+s ả n ph ẩ m, chi nhánh, nhân viên; nhập kho theo Serial và theo số l ượ ng; chuy ể n kho; 
+ki ể m kê; tra c ứ u lịch s ử  Serial; bán tại quầy; đ ổ i tr ả ; xem s ả n ph ẩ m, gi ỏ  hàng, đặt hàng 
+online, theo dõi đ ơ n; t ự  kích hoạt b ả o hành; tra c ứ u b ả o hành; tiếp nhận và x ử  lý phiếu 
+b ả o hành; nh ả  hàng gi ữ  quá hạn; báo cáo và xuất Excel. Ba use case cần đặc t ả  chi tiết 
+nhất vì là lõi: nhập kho theo Serial, bán tại quầy, đặt hàng online.
+3. Viết yêu cầu ch ứ c năng (FR-01 đến FR-24, nhóm theo xác th ự c, danh mục, kho, POS, 
+website, b ả o hành, báo cáo) và phi ch ứ c năng.
+4. Chốt quy tắc nghiệp vụ.
+5. Vẽ vòng đ ờ i Serial và ERD (chia 4 s ơ  đồ nh ỏ , mỗi s ơ  đồ 5-7 b ả ng; s ơ  đồ gộp 25 b ả ng quá 
+chằng chéo, ch ỉ  đ ể  phụ lục). Dùng mermaid.live, dán code thuần văn b ả n, xuất SVG 
+hoặc PNG rộng 2000-3000.
+Yêu cầ u phi ch ứ c năng chính
+Quy tắc nghiệ p vụ
+BR-01: s ả n ph ẩ m tracks_serial = true bán theo Serial; false bán theo số l ượ ng 
+(stock_quantity).
+Mã Yêu cầ u
+NFR-01 Không bao gi ờ  bán trùng một Serial, k ể  c ả  khi hai 
+ng ườ i thao tác đồng th ờ i
+NFR-02Bán hàng là giao dịch nguyên t ử : xong tất c ả  b ướ c 
+hoặc hoàn tác toàn bộ
+NFR-03BCrypt, chống CSRF và XSS, ki ể m tra quyền ở  tầng 
+service
+NFR-04Trang danh sách d ướ i 2 giây v ớ i 10.000 s ả n ph ẩ m và 
+100.000 Serial (phân trang, index)
+NFR-05Mọi thao tác kho, bán, b ả o hành ghi ng ườ i th ự c hiện 
+và th ờ i đi ể m
+NFR-06Module hóa, Flyway qu ả n lý schema, độ ph ủ  test 
+service trên 70%
+NFR-07Chạy đ ượ c bằng docker compose up
+19:16 14/10/26 Cẩm nang thực hiện đồ án: Hệ thống quản lý chuỗi điện máy (Java Spring)
+https://claude.ai/artifact/HWwaEehJsWboefnH11xFX6 5/18

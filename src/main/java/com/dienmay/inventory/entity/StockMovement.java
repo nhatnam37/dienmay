@@ -6,6 +6,7 @@ import com.dienmay.organization.entity.Branch;
 import com.dienmay.inventory.context.ActorType;
 import java.time.LocalDateTime;
 
+@jakarta.persistence.EntityListeners(org.springframework.data.jpa.domain.support.AuditingEntityListener.class)
 @Entity
 @Table(name = "stock_movement")
 public class StockMovement {
@@ -24,6 +25,9 @@ public class StockMovement {
     @Column(nullable = false)
     private int delta;
 
+    @Column(name="reserved_delta",nullable=false)
+    private int reservedDelta;
+
     @Column(name = "ref_type", nullable = false, length = 30)
     private String refType;
 
@@ -41,16 +45,16 @@ public class StockMovement {
     private String note;
 
     @Column(name = "created_at", nullable = false, updatable = false)
+    @org.springframework.data.annotation.CreatedDate
     private LocalDateTime createdAt;
-
-    @PrePersist
-    void onCreate() { createdAt = LocalDateTime.now(); }
 
     public Long getId() { return id; }
     public Branch getBranch() { return branch; }
     public void setBranch(Branch branch) { this.branch = branch; }
     public Product getProduct() { return product; }
     public void setProduct(Product product) { this.product = product; }
+    public int getReservedDelta(){return reservedDelta;}
+    public void setReservedDelta(int value){reservedDelta=value;}
     public int getDelta() { return delta; }
     public void setDelta(int delta) { this.delta = delta; }
     public String getRefType() { return refType; }

@@ -7,7 +7,7 @@
 <div th:replace="~{fragments/layout :: messages}"></div>
 <h1 class="h3 mb-4" th:text="${id == null ? 'Thêm danh mục' : 'Sửa danh mục'}"></h1>
 <form th:action="@{${id == null ? '/admin/catalog/categories' : '/admin/catalog/categories/' + id}}"
-      th:object="${form}" method="post" class="card card-body shadow-sm" style="max-width: 650px">
+      th:object="${form}" method="post" class="card card-body shadow-sm form-width-medium">
     <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
         <div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
     </div>

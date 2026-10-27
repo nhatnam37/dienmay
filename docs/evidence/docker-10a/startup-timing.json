@@ -1,0 +1,7 @@
+{
+  "startedUtc": "2026-10-23T07:54:07.436734+00:00",
+  "healthyLogUtc": "2026-10-23T07:54:31.488386+00:00",
+  "composeToHealthySeconds": 24.051,
+  "measurement": "timestamp before compose up --build to mtime of final healthy output; DB/uploads volumes empty, build cache warm",
+  "springBootStartedSeconds": 5.134
+}

@@ -69,13 +69,7 @@ public class ProductService {
 
     public Page<ProductView> search(String keyword, Long categoryId, Long brandId,
                                     ProductStatus status, Pageable pageable) {
-        String pattern = formValidator.trim(keyword);
-        if (pattern == null || pattern.isEmpty()) {
-            pattern = null;
-        } else {
-            // Escape ký tự LIKE để keyword '%'/'_' vẫn được hiểu là văn bản tìm kiếm.
-            pattern = "%" + pattern.replace("!", "!!").replace("%", "!%").replace("_", "!_") + "%";
-        }
+        String pattern = com.dienmay.common.pagination.SearchTerms.contains(keyword,false);
         // Map trong transaction: view không mang lazy proxy ra ngoài tầng service.
         return productRepository.search(pattern, categoryId, brandId, status, pageable).map(mapper::toView);
     }
@@ -119,6 +113,7 @@ public class ProductService {
         form.setName(formValidator.trim(form.getName()));
         form.setImageUrl(formValidator.trim(form.getImageUrl()));
         formValidator.validate(form);
+        if(form.getPrice().stripTrailingZeros().scale()>0)throw new BusinessException("Giá sản phẩm phải là số nguyên đồng.");
     }
 
     private Product find(Long id) {

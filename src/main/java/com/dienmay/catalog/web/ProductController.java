@@ -36,7 +36,7 @@ public class ProductController {
                        @RequestParam(required = false) ProductStatus status,
                        @RequestParam(defaultValue = "0") int page, Model model) {
         model.addAttribute("products", products.search(keyword, categoryId, brandId, status,
-                PageRequest.of(Math.max(0, page), 10, Sort.by("id").descending())));
+                com.dienmay.common.pagination.PageRequestFactory.of(Math.max(0, page), 10, Sort.by("id").descending())));
         model.addAttribute("keyword", keyword);
         model.addAttribute("categoryId", categoryId);
         model.addAttribute("brandId", brandId);

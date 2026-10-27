@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.math.BigDecimal;
 
+@jakarta.persistence.EntityListeners(org.springframework.data.jpa.domain.support.AuditingEntityListener.class)
 @Entity
 @Table(name = "product")
 public class Product {
@@ -50,22 +51,12 @@ public class Product {
     private ProductStatus status = ProductStatus.ACTIVE;
 
     @Column(name = "created_at", nullable = false, updatable = false)
+    @org.springframework.data.annotation.CreatedDate
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
+    @org.springframework.data.annotation.LastModifiedDate
     private LocalDateTime updatedAt;
-
-    @PrePersist
-    void onCreate() {
-        // Gán ngay ở Java để DTO sau save có thời gian mà không cần đọc lại DB.
-        createdAt = LocalDateTime.now();
-        updatedAt = createdAt;
-    }
-
-    @PreUpdate
-    void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
 
     public Long getId() { return id; }
     public Category getCategory() { return category; }

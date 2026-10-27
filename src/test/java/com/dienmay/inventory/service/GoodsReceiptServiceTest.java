@@ -40,7 +40,7 @@ class GoodsReceiptServiceTest {
     @BeforeEach
     void setUp() {
         service = new GoodsReceiptService(receipts,items,suppliers,products,serials,serialState,
-                new SerialNumberRules(),stock,branches,employees,new InventoryAccess());
+                new SerialNumberRules(),stock,branches,employees,new InventoryAccess(),java.time.Clock.fixed(java.time.Instant.parse("2026-10-23T02:00:00Z"),java.time.ZoneId.of("Asia/Ho_Chi_Minh")));
     }
     Product product(long id, boolean serial, SerialType type) {
         Product product = new Product(); ReflectionTestUtils.setField(product,"id",id);
@@ -67,12 +67,15 @@ class GoodsReceiptServiceTest {
     }
     @ParameterizedTest
     @ValueSource(strings={"490154203237519","49015420323751","4901542032375180","49015420323751A","490154 203237518"})
+    @com.dienmay.support.TestCase("TC-INV-04")
+    @com.dienmay.support.TestCase("TC-INV-05")
     void create_invalidImei_reportsLineAndDoesNotSave(String number) {
         prepare(product(1,true,SerialType.IMEI));
         assertThatThrownBy(() -> service.create(form(line(1,number)),actor)).isInstanceOf(ReceiptValidationException.class).hasMessageContaining("Dòng 1");
         verify(receipts,never()).saveAndFlush(any());verifyNoInteractions(items,stock,serialState);
     }
     @Test
+    @com.dienmay.support.TestCase("TC-INV-06")
     void create_duplicateSerialAcrossLines_reportsOriginalLine() {
         prepare(product(1,true,SerialType.GENERIC),product(2,true,SerialType.GENERIC));
         assertThatThrownBy(() -> service.create(form(line(1,"abc-123"),line(2," ABC-123 ")),actor))
@@ -80,12 +83,14 @@ class GoodsReceiptServiceTest {
         verify(serials,times(1)).findAllBySerialNoIn(anyCollection());verify(receipts,never()).saveAndFlush(any());
     }
     @Test
+    @com.dienmay.support.TestCase("TC-INV-06")
     void create_duplicateSerialWithinLine_rejectsBatch() {
         prepare(product(1,true,SerialType.GENERIC));
         assertThatThrownBy(() -> service.create(form(line(1,"ABC-123,abc-123")),actor))
                 .isInstanceOf(ReceiptValidationException.class).hasMessageContaining("trùng dòng 1");
     }
     @Test
+    @com.dienmay.support.TestCase("TC-INV-07")
     void create_serialExistsInDatabase_checksWholeBatchWithOneQuery() {
         prepare(product(1,true,SerialType.GENERIC));
         SerialItem existing=new SerialItem();existing.setSerialNo("ABC-123");
@@ -95,6 +100,7 @@ class GoodsReceiptServiceTest {
         verify(serials).findAllBySerialNoIn(argThat(numbers -> numbers.size()==2));verify(serials,never()).existsBySerialNo(anyString());
     }
     @Test
+    @com.dienmay.support.TestCase("TC-INV-08")
     void create_multipleErrors_reportsAllRowsTogether() {
         prepare(product(1,true,SerialType.IMEI),product(2,false,null));
         ReceiptLineForm invalid=line(2,null);invalid.setQuantity("-1");invalid.setUnitCost("bad");
@@ -146,6 +152,7 @@ class GoodsReceiptServiceTest {
         assertThatThrownBy(() -> service.create(form(line(1,null),line(1,null)),actor)).isInstanceOf(ReceiptValidationException.class).hasMessageContaining("sản phẩm trùng dòng 1");
     }
     @Test
+    @com.dienmay.support.TestCase("TC-INV-16")
     void getById_receiptFromAnotherBranch_returnsNotFound() {
         Branch other=new Branch();ReflectionTestUtils.setField(other,"id",2L);
         GoodsReceipt receipt=new GoodsReceipt();receipt.setBranch(other);

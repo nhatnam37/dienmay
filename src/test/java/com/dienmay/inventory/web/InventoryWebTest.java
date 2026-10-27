@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(controllers={GoodsReceiptController.class,SupplierController.class,InventoryStockController.class})
 @Import({SecurityConfig.class,CurrentInventoryUser.class})
-class InventoryWebTest {
+class InventoryWebTest extends com.dienmay.support.ActiveEmployeeWebFixture {
     @Autowired MockMvc mvc;
     @MockitoBean GoodsReceiptService receipts;
     @MockitoBean SupplierService suppliers;
@@ -47,7 +47,8 @@ class InventoryWebTest {
         mvc.perform(post("/inventory/receipts").with(user(InventoryTestUsers.user("WAREHOUSE",1,1)))).andExpect(status().isForbidden());
         verifyNoInteractions(receipts);
     }
-    @Test void detail_otherBranch_returnsNotFound() throws Exception {
+    @Test @com.dienmay.support.TestCase("TC-INV-16")
+    void detail_otherBranch_returnsNotFound() throws Exception {
         when(receipts.getById(eq(7L),any())).thenThrow(new ResourceNotFoundException("Không tìm thấy phiếu nhập."));
         mvc.perform(get("/inventory/receipts/7").with(user(InventoryTestUsers.user("WAREHOUSE",2,1)))).andExpect(status().isNotFound());
     }

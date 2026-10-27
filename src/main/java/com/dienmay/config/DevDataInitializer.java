@@ -6,20 +6,21 @@ import com.dienmay.organization.entity.Role;
 import com.dienmay.organization.repository.BranchRepository;
 import com.dienmay.organization.repository.EmployeeRepository;
 import com.dienmay.organization.repository.RoleRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-@Profile("dev") // Chỉ tạo tài khoản mẫu khi profile dev được bật.
-public class DevDataInitializer implements CommandLineRunner {
+@org.springframework.boot.autoconfigure.condition.ConditionalOnProperty(name="app.demo.seed",havingValue="true")
+@Profile("demo & !prod & !dev & !test & !perf") // Tài khoản mẫu tuyệt đối không tạo khi bật prod/dev/test.
+public class DevDataInitializer {
 
     private final EmployeeRepository employeeRepository;
     private final RoleRepository roleRepository;
     private final BranchRepository branchRepository;
     private final PasswordEncoder passwordEncoder;
+
 
     public DevDataInitializer(EmployeeRepository employeeRepository,
                               RoleRepository roleRepository,
@@ -31,12 +32,22 @@ public class DevDataInitializer implements CommandLineRunner {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Override
     @Transactional
     public void run(String... args) {
+        initialize();
+    }
+
+    private void initialize(){
         Branch hq = branchRepository.findByCode("HQ").orElseThrow();
         createIfMissing("admin", "Quản trị viên", "ADMIN", "Admin@123", hq);
         createIfMissing("cashier01", "Thu ngân 01", "CASHIER", "Cashier@123", hq);
+        createIfMissing("warranty01", "Bảo hành 01", "WARRANTY_STAFF", "Warranty@123", hq);
+        createIfMissing("manager01", "Quản lý HQ", "BRANCH_MANAGER", "Manager@123", hq);
+        Branch cn2=branchRepository.findByCode("CN2").orElseGet(()->{
+            Branch branch=new Branch();branch.setCode("CN2");branch.setName("Chi nhánh 2");
+            return branchRepository.save(branch);
+        });
+        createIfMissing("manager02", "Quản lý CN2", "BRANCH_MANAGER", "Manager@123", cn2);
     }
 
     private void createIfMissing(String username, String fullName, String roleCode,

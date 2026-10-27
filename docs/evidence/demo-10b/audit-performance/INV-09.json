@@ -1,0 +1,400 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "13.44"
+    },
+    "ordering_operation": {
+      "using_filesort": true,
+      "windowing": {
+        "windows": [
+          {
+            "name": "<unnamed window>",
+            "definition_position": 1,
+            "using_temporary_table": true,
+            "frame_buffer": {
+              "using_temporary_table": true,
+              "optimized_frame_evaluation": true
+            },
+            "functions": [
+              "sum"
+            ]
+          },
+          {
+            "name": "<unnamed window>",
+            "definition_position": 2,
+            "last_executed_window": true,
+            "using_temporary_table": true,
+            "frame_buffer": {
+              "using_temporary_table": true,
+              "optimized_frame_evaluation": true
+            },
+            "functions": [
+              "sum"
+            ]
+          }
+        ],
+        "nested_loop": [
+          {
+            "table": {
+              "table_name": "k",
+              "access_type": "ALL",
+              "rows_examined_per_scan": 6,
+              "rows_produced_per_join": 6,
+              "filtered": "100.00",
+              "cost_info": {
+                "read_cost": "2.58",
+                "eval_cost": "0.60",
+                "prefix_cost": "3.18",
+                "data_read_per_join": "144"
+              },
+              "used_columns": [
+                "branch_id",
+                "product_id"
+              ],
+              "materialized_from_subquery": {
+                "using_temporary_table": true,
+                "dependent": false,
+                "cacheable": true,
+                "query_block": {
+                  "union_result": {
+                    "using_temporary_table": true,
+                    "select_id": 8,
+                    "table_name": "<union3,4,6>",
+                    "access_type": "ALL",
+                    "query_specifications": [
+                      {
+                        "dependent": false,
+                        "cacheable": true,
+                        "query_block": {
+                          "select_id": 3,
+                          "cost_info": {
+                            "query_cost": "1.10"
+                          },
+                          "table": {
+                            "table_name": "stock_quantity",
+                            "access_type": "index",
+                            "key": "uk_stock_branch_product",
+                            "used_key_parts": [
+                              "branch_id",
+                              "product_id"
+                            ],
+                            "key_length": "16",
+                            "rows_examined_per_scan": 1,
+                            "rows_produced_per_join": 1,
+                            "filtered": "100.00",
+                            "using_index": true,
+                            "cost_info": {
+                              "read_cost": "1.00",
+                              "eval_cost": "0.10",
+                              "prefix_cost": "1.10",
+                              "data_read_per_join": "48"
+                            },
+                            "used_columns": [
+                              "branch_id",
+                              "product_id"
+                            ]
+                          }
+                        }
+                      },
+                      {
+                        "dependent": false,
+                        "cacheable": true,
+                        "query_block": {
+                          "select_id": 4,
+                          "cost_info": {
+                            "query_cost": "2.72"
+                          },
+                          "table": {
+                            "table_name": "movement",
+                            "access_type": "ALL",
+                            "rows_examined_per_scan": 2,
+                            "rows_produced_per_join": 2,
+                            "filtered": "100.00",
+                            "cost_info": {
+                              "read_cost": "2.52",
+                              "eval_cost": "0.20",
+                              "prefix_cost": "2.73",
+                              "data_read_per_join": "112"
+                            },
+                            "used_columns": [
+                              "branch_id",
+                              "product_id",
+                              "qty",
+                              "reserved"
+                            ],
+                            "materialized_from_subquery": {
+                              "using_temporary_table": true,
+                              "dependent": false,
+                              "cacheable": true,
+                              "query_block": {
+                                "select_id": 5,
+                                "cost_info": {
+                                  "query_cost": "1.10"
+                                },
+                                "grouping_operation": {
+                                  "using_filesort": false,
+                                  "table": {
+                                    "table_name": "stock_movement",
+                                    "access_type": "index",
+                                    "possible_keys": [
+                                      "idx_movement_branch_product_created"
+                                    ],
+                                    "key": "idx_movement_branch_product_created",
+                                    "used_key_parts": [
+                                      "branch_id",
+                                      "product_id",
+                                      "created_at"
+                                    ],
+                                    "key_length": "24",
+                                    "rows_examined_per_scan": 1,
+                                    "rows_produced_per_join": 1,
+                                    "filtered": "100.00",
+                                    "cost_info": {
+                                      "read_cost": "1.00",
+                                      "eval_cost": "0.10",
+                                      "prefix_cost": "1.10",
+                                      "data_read_per_join": "232"
+                                    },
+                                    "used_columns": [
+                                      "id",
+                                      "branch_id",
+                                      "product_id",
+                                      "delta",
+                                      "reserved_delta"
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "dependent": false,
+                        "cacheable": true,
+                        "query_block": {
+                          "select_id": 6,
+                          "cost_info": {
+                            "query_cost": "2.72"
+                          },
+                          "table": {
+                            "table_name": "held",
+                            "access_type": "ALL",
+                            "rows_examined_per_scan": 2,
+                            "rows_produced_per_join": 2,
+                            "filtered": "100.00",
+                            "cost_info": {
+                              "read_cost": "2.52",
+                              "eval_cost": "0.20",
+                              "prefix_cost": "2.73",
+                              "data_read_per_join": "80"
+                            },
+                            "used_columns": [
+                              "branch_id",
+                              "product_id",
+                              "qty"
+                            ],
+                            "materialized_from_subquery": {
+                              "using_temporary_table": true,
+                              "dependent": false,
+                              "cacheable": true,
+                              "query_block": {
+                                "select_id": 7,
+                                "cost_info": {
+                                  "query_cost": "1.80"
+                                },
+                                "grouping_operation": {
+                                  "using_temporary_table": true,
+                                  "using_filesort": false,
+                                  "nested_loop": [
+                                    {
+                                      "table": {
+                                        "table_name": "x",
+                                        "access_type": "ALL",
+                                        "possible_keys": [
+                                          "uk_order_item_product",
+                                          "fk_order_item_product"
+                                        ],
+                                        "rows_examined_per_scan": 1,
+                                        "rows_produced_per_join": 1,
+                                        "filtered": "100.00",
+                                        "cost_info": {
+                                          "read_cost": "0.25",
+                                          "eval_cost": "0.10",
+                                          "prefix_cost": "0.35",
+                                          "data_read_per_join": "48"
+                                        },
+                                        "used_columns": [
+                                          "id",
+                                          "order_id",
+                                          "product_id",
+                                          "quantity"
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "table": {
+                                        "table_name": "o",
+                                        "access_type": "eq_ref",
+                                        "possible_keys": [
+                                          "PRIMARY",
+                                          "idx_order_status_expires"
+                                        ],
+                                        "key": "PRIMARY",
+                                        "used_key_parts": [
+                                          "id"
+                                        ],
+                                        "key_length": "8",
+                                        "ref": [
+                                          "audit_0da494474d7444c083635204a7bad048.x.order_id"
+                                        ],
+                                        "rows_examined_per_scan": 1,
+                                        "rows_produced_per_join": 1,
+                                        "filtered": "100.00",
+                                        "cost_info": {
+                                          "read_cost": "0.25",
+                                          "eval_cost": "0.10",
+                                          "prefix_cost": "0.70",
+                                          "data_read_per_join": "3K"
+                                        },
+                                        "used_columns": [
+                                          "id",
+                                          "branch_id",
+                                          "status"
+                                        ],
+                                        "attached_condition": "(`audit_0da494474d7444c083635204a7bad048`.`o`.`status` in ('PENDING_PAYMENT','PLACED','CONFIRMED','SHIPPING','READY_FOR_PICKUP'))"
+                                      }
+                                    },
+                                    {
+                                      "table": {
+                                        "table_name": "p",
+                                        "access_type": "eq_ref",
+                                        "possible_keys": [
+                                          "PRIMARY"
+                                        ],
+                                        "key": "PRIMARY",
+                                        "used_key_parts": [
+                                          "id"
+                                        ],
+                                        "key_length": "8",
+                                        "ref": [
+                                          "audit_0da494474d7444c083635204a7bad048.x.product_id"
+                                        ],
+                                        "rows_examined_per_scan": 1,
+                                        "rows_produced_per_join": 1,
+                                        "filtered": "100.00",
+                                        "cost_info": {
+                                          "read_cost": "1.00",
+                                          "eval_cost": "0.10",
+                                          "prefix_cost": "1.80",
+                                          "data_read_per_join": "2K"
+                                        },
+                                        "used_columns": [
+                                          "id",
+                                          "tracks_serial"
+                                        ],
+                                        "attached_condition": "(`audit_0da494474d7444c083635204a7bad048`.`p`.`tracks_serial` = 0)"
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "table": {
+              "table_name": "q",
+              "access_type": "ALL",
+              "possible_keys": [
+                "uk_stock_branch_product",
+                "fk_stock_product"
+              ],
+              "rows_examined_per_scan": 1,
+              "rows_produced_per_join": 6,
+              "filtered": "100.00",
+              "using_join_buffer": "hash join",
+              "cost_info": {
+                "read_cost": "1.00",
+                "eval_cost": "0.60",
+                "prefix_cost": "4.78",
+                "data_read_per_join": "288"
+              },
+              "used_columns": [
+                "id",
+                "branch_id",
+                "product_id",
+                "quantity",
+                "reserved_qty"
+              ],
+              "attached_condition": "<if>(is_not_null_compl(q), ((`audit_0da494474d7444c083635204a7bad048`.`q`.`product_id` = `k`.`product_id`) and (`audit_0da494474d7444c083635204a7bad048`.`q`.`branch_id` = `k`.`branch_id`)), true)"
+            }
+          },
+          {
+            "table": {
+              "table_name": "m",
+              "access_type": "ALL",
+              "rows_examined_per_scan": 2,
+              "rows_produced_per_join": 12,
+              "filtered": "100.00",
+              "using_join_buffer": "hash join",
+              "cost_info": {
+                "read_cost": "2.53",
+                "eval_cost": "1.20",
+                "prefix_cost": "8.50",
+                "data_read_per_join": "672"
+              },
+              "used_columns": [
+                "branch_id",
+                "product_id",
+                "qty",
+                "reserved"
+              ],
+              "attached_condition": "<if>(is_not_null_compl(m), ((`m`.`product_id` = `k`.`product_id`) and (`m`.`branch_id` = `k`.`branch_id`)), true)",
+              "materialized_from_subquery": {
+                "sharing_temporary_table_with": {
+                  "select_id": 5
+                }
+              }
+            }
+          },
+          {
+            "table": {
+              "table_name": "h",
+              "access_type": "ALL",
+              "rows_examined_per_scan": 2,
+              "rows_produced_per_join": 24,
+              "filtered": "100.00",
+              "using_join_buffer": "hash join",
+              "cost_info": {
+                "read_cost": "2.54",
+                "eval_cost": "2.40",
+                "prefix_cost": "13.44",
+                "data_read_per_join": "960"
+              },
+              "used_columns": [
+                "branch_id",
+                "product_id",
+                "qty"
+              ],
+              "attached_condition": "(<if>(found_match(h), ((`audit_0da494474d7444c083635204a7bad048`.`q`.`id` is null) or (`audit_0da494474d7444c083635204a7bad048`.`q`.`quantity` < 0) or (`audit_0da494474d7444c083635204a7bad048`.`q`.`reserved_qty` < 0) or (`audit_0da494474d7444c083635204a7bad048`.`q`.`reserved_qty` > `audit_0da494474d7444c083635204a7bad048`.`q`.`quantity`) or (`audit_0da494474d7444c083635204a7bad048`.`q`.`quantity` <> coalesce(`m`.`qty`,0)) or (`audit_0da494474d7444c083635204a7bad048`.`q`.`reserved_qty` <> coalesce(`h`.`qty`,0)) or (`audit_0da494474d7444c083635204a7bad048`.`q`.`reserved_qty` <> coalesce(`m`.`reserved`,0))), true) and <if>(is_not_null_compl(h), ((`h`.`product_id` = `k`.`product_id`) and (`h`.`branch_id` = `k`.`branch_id`)), true))",
+              "materialized_from_subquery": {
+                "sharing_temporary_table_with": {
+                  "select_id": 7
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,2 @@
+ERROR 1142 (42000) at line 1: CREATE command denied to user 'dienmay'@'localhost' for table 'deployment_permission_probe'
+PASS: app user cannot CREATE TABLE

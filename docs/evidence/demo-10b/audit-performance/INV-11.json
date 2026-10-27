@@ -1,0 +1,136 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "1.05"
+    },
+    "ordering_operation": {
+      "using_filesort": false,
+      "windowing": {
+        "windows": [
+          {
+            "name": "<unnamed window>",
+            "definition_position": 1,
+            "using_temporary_table": true,
+            "frame_buffer": {
+              "using_temporary_table": true,
+              "optimized_frame_evaluation": true
+            },
+            "functions": [
+              "sum"
+            ]
+          },
+          {
+            "name": "<unnamed window>",
+            "definition_position": 2,
+            "last_executed_window": true,
+            "frame_buffer": {
+              "using_temporary_table": true,
+              "optimized_frame_evaluation": true
+            },
+            "functions": [
+              "sum"
+            ]
+          }
+        ],
+        "nested_loop": [
+          {
+            "table": {
+              "table_name": "x",
+              "access_type": "index",
+              "possible_keys": [
+                "idx_invoice_item_invoice",
+                "idx_invoice_item_serial"
+              ],
+              "key": "PRIMARY",
+              "used_key_parts": [
+                "id"
+              ],
+              "key_length": "8",
+              "rows_examined_per_scan": 1,
+              "rows_produced_per_join": 1,
+              "filtered": "100.00",
+              "cost_info": {
+                "read_cost": "0.25",
+                "eval_cost": "0.10",
+                "prefix_cost": "0.35",
+                "data_read_per_join": "72"
+              },
+              "used_columns": [
+                "id",
+                "invoice_id",
+                "serial_item_id",
+                "returned",
+                "warranty_months"
+              ]
+            }
+          },
+          {
+            "table": {
+              "table_name": "i",
+              "access_type": "eq_ref",
+              "possible_keys": [
+                "PRIMARY"
+              ],
+              "key": "PRIMARY",
+              "used_key_parts": [
+                "id"
+              ],
+              "key_length": "8",
+              "ref": [
+                "audit_0da494474d7444c083635204a7bad048.x.invoice_id"
+              ],
+              "rows_examined_per_scan": 1,
+              "rows_produced_per_join": 1,
+              "filtered": "100.00",
+              "cost_info": {
+                "read_cost": "0.25",
+                "eval_cost": "0.10",
+                "prefix_cost": "0.70",
+                "data_read_per_join": "944"
+              },
+              "used_columns": [
+                "id",
+                "created_at"
+              ]
+            }
+          },
+          {
+            "table": {
+              "table_name": "w",
+              "access_type": "eq_ref",
+              "possible_keys": [
+                "uk_warranty_invoice_item"
+              ],
+              "key": "uk_warranty_invoice_item",
+              "used_key_parts": [
+                "invoice_item_id"
+              ],
+              "key_length": "8",
+              "ref": [
+                "audit_0da494474d7444c083635204a7bad048.x.id"
+              ],
+              "rows_examined_per_scan": 1,
+              "rows_produced_per_join": 1,
+              "filtered": "100.00",
+              "cost_info": {
+                "read_cost": "0.25",
+                "eval_cost": "0.10",
+                "prefix_cost": "1.05",
+                "data_read_per_join": "568"
+              },
+              "used_columns": [
+                "id",
+                "invoice_item_id",
+                "start_date",
+                "end_date",
+                "status"
+              ],
+              "attached_condition": "<if>(found_match(w), ((`audit_0da494474d7444c083635204a7bad048`.`x`.`warranty_months` is null) or ((`audit_0da494474d7444c083635204a7bad048`.`x`.`serial_item_id` is not null) and (`audit_0da494474d7444c083635204a7bad048`.`x`.`warranty_months` > 0) and (`audit_0da494474d7444c083635204a7bad048`.`w`.`id` is null)) or ((`audit_0da494474d7444c083635204a7bad048`.`w`.`id` is not null) and ((`audit_0da494474d7444c083635204a7bad048`.`x`.`warranty_months` = 0) or (`audit_0da494474d7444c083635204a7bad048`.`w`.`start_date` <> cast(`audit_0da494474d7444c083635204a7bad048`.`i`.`created_at` as date)) or (`audit_0da494474d7444c083635204a7bad048`.`w`.`end_date` <> (cast(`audit_0da494474d7444c083635204a7bad048`.`i`.`created_at` as date) + interval `audit_0da494474d7444c083635204a7bad048`.`x`.`warranty_months` month)) or ((`audit_0da494474d7444c083635204a7bad048`.`x`.`returned` = 1) and (`audit_0da494474d7444c083635204a7bad048`.`w`.`status` <> 'VOIDED'))))), true)"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

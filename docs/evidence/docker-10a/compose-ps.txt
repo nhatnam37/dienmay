@@ -1,0 +1,3 @@
+NAME                 IMAGE            COMMAND                  SERVICE   CREATED              STATUS                        PORTS
+dienmay10a-app-1     dienmay10a-app   "/app/entrypoint.sh"     app       About a minute ago   Up About a minute (healthy)   127.0.0.1:8081->8081/tcp
+dienmay10a-mysql-1   mysql:8.0        "docker-entrypoint.s…"   mysql     About a minute ago   Up About a minute (healthy)   127.0.0.1:3307->3306/tcp

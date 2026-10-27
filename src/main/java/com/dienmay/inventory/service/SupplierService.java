@@ -79,6 +79,6 @@ public class SupplierService {
     private SupplierView view(Supplier supplier) { return new SupplierView(supplier.getId(), supplier.getName(), supplier.getPhone(), supplier.getAddress(), supplier.isActive()); }
     static String pattern(String keyword) {
         if (keyword == null || keyword.isBlank()) { return null; }
-        return "%" + keyword.strip().replace("!", "!!").replace("%", "!%").replace("_", "!_") + "%";
+        return com.dienmay.common.pagination.SearchTerms.contains(keyword,false);
     }
 }

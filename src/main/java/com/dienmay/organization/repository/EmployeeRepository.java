@@ -17,5 +17,11 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
             """)
     Optional<Employee> findWithRoleAndBranchByUsername(@Param("username") String username);
 
+    @org.springframework.data.jpa.repository.EntityGraph(attributePaths={"role","branch"})
+    @Query("select e from Employee e where e.id=:id")
+    Optional<Employee> findSalesActor(@Param("id") Long id);
+
+    boolean existsByIdAndActiveTrue(Long id);
+
     boolean existsByUsername(String username);
 }

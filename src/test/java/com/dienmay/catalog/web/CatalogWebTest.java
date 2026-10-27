@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(controllers = {ProductController.class, CategoryController.class, BrandController.class})
 @Import(SecurityConfig.class)
-class CatalogWebTest {
+class CatalogWebTest extends com.dienmay.support.ActiveEmployeeWebFixture {
     @Autowired MockMvc mvc;
     @MockitoBean ProductService products;
     @MockitoBean ProductAdminService admin;
@@ -40,6 +40,7 @@ class CatalogWebTest {
 
     @Test
     @WithMockUser(roles = "CASHIER")
+    @com.dienmay.support.TestCase("TC-SEC-01")
     void products_cashier_isForbidden() throws Exception {
         mvc.perform(get("/admin/catalog/products")).andExpect(status().isForbidden());
         verifyNoInteractions(products);
@@ -47,6 +48,7 @@ class CatalogWebTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
+    @com.dienmay.support.TestCase("TC-PRD-06")
     void products_admin_rendersPageWithFiltersAndPrice() throws Exception {
         Pageable pageable = PageRequest.of(0, 10, Sort.by("id").descending());
         when(products.search("iphone", 2L, 3L, ProductStatus.ACTIVE, pageable))
@@ -82,6 +84,7 @@ class CatalogWebTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
+    @com.dienmay.support.TestCase("TC-PRD-01")
     void createProduct_validForm_redirectsWithSuccess() throws Exception {
         mvc.perform(post("/admin/catalog/products").with(csrf()).param("sku", "ip-15").param("name", "iPhone")
                         .param("categoryId", "2").param("brandId", "3").param("price", "1000000")
@@ -93,6 +96,7 @@ class CatalogWebTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
+    @com.dienmay.support.TestCase("TC-CAT-02")
     void createCategory_duplicateName_redirectsWithBusinessError() throws Exception {
         when(categories.create(any())).thenThrow(new BusinessException("Tên danh mục đã tồn tại."));
         var result = mvc.perform(post("/admin/catalog/categories").with(csrf()).param("name", "Tivi"))
@@ -103,6 +107,7 @@ class CatalogWebTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
+    @com.dienmay.support.TestCase("TC-BRD-01")
     void deleteBrand_hasProducts_redirectsWithFailureFlash() throws Exception {
         doThrow(new BusinessException("Không thể xóa thương hiệu còn sản phẩm.")).when(brands).delete(1L);
         mvc.perform(post("/admin/catalog/brands/1/delete").with(csrf()))

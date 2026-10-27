@@ -1,0 +1,76 @@
+app-1  | Picked up JAVA_TOOL_OPTIONS: -XX:MaxRAMPercentage=70.0 -Duser.timezone=Asia/Ho_Chi_Minh
+app-1  | 
+app-1  |   .   ____          _            __ _ _
+app-1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+app-1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+app-1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+app-1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+app-1  |  =========|_|==============|___/=/_/_/_/
+app-1  | 
+app-1  |  :: Spring Boot ::               (v3.5.16)
+app-1  | 
+app-1  | 2026-10-23T14:54:21.477+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.DienmayApplication           : Starting DienmayApplication v0.0.1-SNAPSHOT using Java 21.0.12.1 with PID 1 (/app/app.jar started by app in /app)
+app-1  | 2026-10-23T14:54:21.478+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.DienmayApplication           : The following 1 profile is active: "prod"
+app-1  | 2026-10-23T14:54:22.007+07:00  INFO 1 --- [dienmay] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+app-1  | 2026-10-23T14:54:22.060+07:00  INFO 1 --- [dienmay] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 49 ms. Found 36 JPA repository interfaces.
+app-1  | 2026-10-23T14:54:22.393+07:00  INFO 1 --- [dienmay] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+app-1  | 2026-10-23T14:54:22.403+07:00  INFO 1 --- [dienmay] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+app-1  | 2026-10-23T14:54:22.404+07:00  INFO 1 --- [dienmay] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+app-1  | 2026-10-23T14:54:22.458+07:00  INFO 1 --- [dienmay] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+app-1  | 2026-10-23T14:54:22.458+07:00  INFO 1 --- [dienmay] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 959 ms
+app-1  | 2026-10-23T14:54:22.801+07:00  INFO 1 --- [dienmay] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://mysql:3306/dienmay?serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true&useSSL=false (MySQL 8.0)
+app-1  | 2026-10-23T14:54:22.849+07:00  INFO 1 --- [dienmay] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table `dienmay`.`flyway_schema_history` does not exist yet
+app-1  | 2026-10-23T14:54:22.869+07:00  INFO 1 --- [dienmay] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table `dienmay`.`flyway_schema_history` does not exist yet
+app-1  | 2026-10-23T14:54:22.870+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 15 migrations (execution time 00:00.004s)
+app-1  | 2026-10-23T14:54:22.876+07:00  INFO 1 --- [dienmay] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table `dienmay`.`flyway_schema_history` ...
+app-1  | 2026-10-23T14:54:22.920+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `dienmay`: << Empty Schema >>
+app-1  | 2026-10-23T14:54:22.925+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `dienmay` to version "1 - init organization"
+app-1  | 2026-10-23T14:54:22.941+07:00  WARN 1 --- [dienmay] [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: Integer display width is deprecated and will be removed in a future release. (SQL State: HY000 - Error Code: 1681)
+app-1  | 2026-10-23T14:54:22.949+07:00  WARN 1 --- [dienmay] [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: Integer display width is deprecated and will be removed in a future release. (SQL State: HY000 - Error Code: 1681)
+app-1  | 2026-10-23T14:54:22.962+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `dienmay` to version "2 - catalog"
+app-1  | 2026-10-23T14:54:22.991+07:00  WARN 1 --- [dienmay] [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: Integer display width is deprecated and will be removed in a future release. (SQL State: HY000 - Error Code: 1681)
+app-1  | 2026-10-23T14:54:23.003+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `dienmay` to version "3 - inventory core"
+app-1  | 2026-10-23T14:54:23.051+07:00  WARN 1 --- [dienmay] [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: Integer display width is deprecated and will be removed in a future release. (SQL State: HY000 - Error Code: 1681)
+app-1  | 2026-10-23T14:54:23.110+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `dienmay` to version "4 - transfer"
+app-1  | 2026-10-23T14:54:23.142+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `dienmay` to version "5 - stocktake"
+app-1  | 2026-10-23T14:54:23.166+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `dienmay` to version "6 - sales"
+app-1  | 2026-10-23T14:54:23.216+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `dienmay` to version "7 - sales return"
+app-1  | 2026-10-23T14:54:23.237+07:00  WARN 1 --- [dienmay] [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: Integer display width is deprecated and will be removed in a future release. (SQL State: HY000 - Error Code: 1681)
+app-1  | 2026-10-23T14:54:23.421+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `dienmay` to version "8 - customer"
+app-1  | 2026-10-23T14:54:23.429+07:00  WARN 1 --- [dienmay] [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: Integer display width is deprecated and will be removed in a future release. (SQL State: HY000 - Error Code: 1681)
+app-1  | 2026-10-23T14:54:23.443+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `dienmay` to version "9 - orders"
+app-1  | 2026-10-23T14:54:23.572+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `dienmay` to version "10 - order fulfillment"
+app-1  | 2026-10-23T14:54:23.598+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `dienmay` to version "11 - online payment cash check"
+app-1  | 2026-10-23T14:54:23.623+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `dienmay` to version "12 - warranty ticket"
+app-1  | 2026-10-23T14:54:23.661+07:00  WARN 1 --- [dienmay] [           main] o.f.c.i.s.DefaultSqlScriptExecutor       : DB: Integer display width is deprecated and will be removed in a future release. (SQL State: HY000 - Error Code: 1681)
+app-1  | 2026-10-23T14:54:23.674+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `dienmay` to version "13 - report indexes"
+app-1  | 2026-10-23T14:54:23.699+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `dienmay` to version "14 - whole inventory cost"
+app-1  | 2026-10-23T14:54:23.742+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `dienmay` to version "15 - invoice warranty snapshot"
+app-1  | 2026-10-23T14:54:23.781+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 15 migrations to schema `dienmay`, now at version v15 (execution time 00:00.751s)
+app-1  | 2026-10-23T14:54:23.833+07:00  INFO 1 --- [dienmay] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+app-1  | 2026-10-23T14:54:23.862+07:00  INFO 1 --- [dienmay] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.53.Final
+app-1  | 2026-10-23T14:54:23.877+07:00  INFO 1 --- [dienmay] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+app-1  | 2026-10-23T14:54:23.980+07:00  INFO 1 --- [dienmay] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+app-1  | 2026-10-23T14:54:23.992+07:00  INFO 1 --- [dienmay] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+app-1  | 2026-10-23T14:54:23.997+07:00  INFO 1 --- [dienmay] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4bc9389
+app-1  | 2026-10-23T14:54:23.997+07:00  INFO 1 --- [dienmay] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+app-1  | 2026-10-23T14:54:24.021+07:00  INFO 1 --- [dienmay] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+app-1  | 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+app-1  | 	Database driver: undefined/unknown
+app-1  | 	Database version: 8.0.46
+app-1  | 	Autocommit mode: undefined/unknown
+app-1  | 	Isolation level: undefined/unknown
+app-1  | 	Minimum pool size: undefined/unknown
+app-1  | 	Maximum pool size: undefined/unknown
+app-1  | 2026-10-23T14:54:24.697+07:00  INFO 1 --- [dienmay] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+app-1  | 2026-10-23T14:54:24.698+07:00  INFO 1 --- [dienmay] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+app-1  | 2026-10-23T14:54:24.831+07:00  INFO 1 --- [dienmay] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+app-1  | 2026-10-23T14:54:25.970+07:00  WARN 1 --- [dienmay] [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [appUserDetailsService, customerUserDetailsService]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+app-1  | 2026-10-23T14:54:26.130+07:00  INFO 1 --- [dienmay] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+app-1  | 2026-10-23T14:54:26.317+07:00  INFO 1 --- [dienmay] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+app-1  | 2026-10-23T14:54:26.324+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.DienmayApplication           : Started DienmayApplication in 5.134 seconds (process running for 5.341)
+app-1  | 2026-10-23T14:54:26.381+07:00  INFO 1 --- [dienmay] [   scheduling-1] c.dienmay.orders.service.OrderExpiryJob  : Nhả 0 đơn quá hạn trong lượt kiểm tra
+app-1  | 2026-10-23T14:54:31.145+07:00  INFO 1 --- [dienmay] [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+app-1  | 2026-10-23T14:54:31.145+07:00  INFO 1 --- [dienmay] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+app-1  | 2026-10-23T14:54:31.148+07:00  INFO 1 --- [dienmay] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+app-1  | 2026-10-23T14:55:26.418+07:00  INFO 1 --- [dienmay] [   scheduling-1] c.dienmay.orders.service.OrderExpiryJob  : Nhả 0 đơn quá hạn trong lượt kiểm tra

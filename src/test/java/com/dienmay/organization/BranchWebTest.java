@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(BranchController.class)
 @Import(SecurityConfig.class)
-class BranchWebTest {
+class BranchWebTest extends com.dienmay.support.ActiveEmployeeWebFixture {
     @Autowired MockMvc mvc;
     @MockitoBean BranchService branches;
     @Test void list_warehouse_isForbidden() throws Exception {mvc.perform(get("/admin/organization/branches").with(user(InventoryTestUsers.user("WAREHOUSE",1,1)))).andExpect(status().isForbidden());verifyNoInteractions(branches);}

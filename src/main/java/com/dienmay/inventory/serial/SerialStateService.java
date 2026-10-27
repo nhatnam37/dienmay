@@ -50,10 +50,7 @@ public class SerialStateService {
         if (!product.isTracksSerial()) { throw new BusinessException("Sản phẩm không bật quản lý Serial."); }
         SerialNumberRules.Result result = rules.validate(serialNo, product.getSerialType());
         if (!result.valid()) { throw new BusinessException(result.reason()); }
-        if (costPrice == null || costPrice.signum() < 0 || costPrice.scale() > 2
-                || costPrice.precision() - costPrice.scale() > 13) {
-            throw new BusinessException("Giá vốn không hợp lệ, phải không âm và tối đa 2 số thập phân.");
-        }
+        costPrice=com.dienmay.common.money.WholeMoneyValidator.nonNegative(costPrice,"Giá vốn");
         Branch branch = findBranch(branchId);
         GoodsReceipt receipt = receipts.findById(receiptId)
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy phiếu nhập: " + receiptId));
@@ -88,8 +85,11 @@ public class SerialStateService {
         Branch fromBranch = current.getBranch();
         Branch toBranch = fromBranch;
         if (context.toBranchId() != null && !context.toBranchId().equals(fromBranch.getId())) {
-            if (from != SerialStatus.IN_TRANSFER || to != SerialStatus.IN_STOCK) {
-                throw new BusinessException("Chỉ được đổi chi nhánh khi hoàn tất chuyển kho IN_TRANSFER → IN_STOCK.");
+            // Trả hàng hợp lệ phải về chi nhánh bán; ReturnService đã khóa hóa đơn và kiểm tra quyền.
+            boolean salesReturn = from == SerialStatus.SOLD && to == SerialStatus.IN_STOCK
+                    && "SALES_RETURN".equals(context.refType()) && context.note()!=null && !context.note().isBlank();
+            if (!salesReturn && (from != SerialStatus.IN_TRANSFER || to != SerialStatus.IN_STOCK)) {
+                throw new BusinessException("Chỉ đổi chi nhánh khi nhận chuyển kho hoặc trả hàng SALES_RETURN hợp lệ.");
             }
             toBranch = findBranch(context.toBranchId());
         }

@@ -18,6 +18,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class StockServiceTest {
+    private final com.dienmay.customer.repository.CustomerRepository customers = mock(com.dienmay.customer.repository.CustomerRepository.class);
     @Mock ProductRepository products;
     @Mock BranchRepository branches;
     @Mock StockQuantityRepository stocks;
@@ -29,7 +30,7 @@ class StockServiceTest {
 
     @BeforeEach
     void setUp() {
-        service = new StockService(products, branches, stocks, movements, initializer, new InventoryContextValidator(employees));
+        service = new StockService(products, branches, stocks, movements, initializer, new InventoryContextValidator(employees, customers));
     }
 
     private StockQuantity stock(int quantity, int reserved) {
@@ -43,6 +44,7 @@ class StockServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-INV-11")
     void decrease_moreThanAvailable_rejectsWithoutMovement() {
         StockQuantity row = stock(10, 8);
         assertThatThrownBy(() -> service.decrease(1L, 2L, 3, ctx)).isInstanceOf(BusinessException.class)

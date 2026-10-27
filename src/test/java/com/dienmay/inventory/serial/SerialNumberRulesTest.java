@@ -12,12 +12,14 @@ class SerialNumberRulesTest {
     // Hai IMEI test cố định; mỗi giá trị được kiểm chứng trực tiếp bằng hàm Luhn đã viết.
     @ParameterizedTest
     @ValueSource(strings = {"490154203237518", "356938035643809"})
+    @com.dienmay.support.TestCase("TC-INV-03")
     void validate_knownValidImei_passesLuhnAndValidation(String imei) {
         assertThat(rules.isValidLuhn(imei)).isTrue();
         assertThat(rules.validate(imei, SerialType.IMEI).valid()).isTrue();
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-INV-04")
     void validate_wrongCheckDigit_reportsLuhnError() {
         assertThat(rules.isValidLuhn("490154203237519")).isFalse();
         assertThat(rules.validate("490154203237519", SerialType.IMEI).reason()).contains("Luhn");
@@ -25,6 +27,7 @@ class SerialNumberRulesTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"49015420323751", "4901542032375180", "49015420323751A"})
+    @com.dienmay.support.TestCase("TC-INV-05")
     void validate_wrongImeiLengthOrLetters_rejectsInput(String raw) {
         assertThat(rules.validate(raw, SerialType.IMEI).valid()).isFalse();
         assertThat(rules.validate(raw, SerialType.IMEI).reason()).contains("15 chữ số");

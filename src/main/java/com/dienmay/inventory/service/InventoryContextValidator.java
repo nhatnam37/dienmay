@@ -8,7 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class InventoryContextValidator {
     private final EmployeeRepository employees;
-    public InventoryContextValidator(EmployeeRepository employees) { this.employees = employees; }
+    private final com.dienmay.customer.repository.CustomerRepository customers;
+    public InventoryContextValidator(EmployeeRepository employees, com.dienmay.customer.repository.CustomerRepository customers) {
+        this.employees = employees; this.customers = customers;
+    }
 
     public void validate(InventoryContext context) {
         if (context == null || context.refType() == null || context.refType().isBlank()
@@ -26,6 +29,8 @@ public class InventoryContextValidator {
         if (context.actorType() == ActorType.EMPLOYEE && !employees.existsById(context.actorId())) {
             throw new BusinessException("Không tìm thấy nhân viên thao tác.");
         }
-        // TODO: kiểm tra CUSTOMER tồn tại khi triển khai module customer.
+        if (context.actorType() == ActorType.CUSTOMER && !customers.existsById(context.actorId())) {
+            throw new BusinessException("Không tìm thấy khách hàng thao tác.");
+        }
     }
 }

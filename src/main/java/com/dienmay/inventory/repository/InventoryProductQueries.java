@@ -11,4 +11,6 @@ public interface InventoryProductQueries extends Repository<Product, Long> {
     List<ReceiptProductChoice> findReceiptChoices();
     @Query("select new com.dienmay.inventory.dto.InventoryChoice(p.id, concat(p.sku, ' — ', p.name)) from Product p where p.tracksSerial = false order by p.name")
     java.util.List<com.dienmay.inventory.dto.InventoryChoice> findTransferQuantityChoices();
+    @Query("select new com.dienmay.inventory.dto.StocktakeProductChoice(p.id,p.sku,p.name,p.tracksSerial) from Product p order by p.name")
+    List<com.dienmay.inventory.dto.StocktakeProductChoice> findStocktakeChoices();
 }

@@ -1,0 +1,3 @@
+/Users/dinhnhatnam/NhatNam/Cẩm nang thực hiện đồ án_ Hệ thống quản lý chuỗi điện máy (Java Spring) - Claude.pdf: SHA-256 160897ba02a5df807252c6025543c656f6d90ac3f771451cd4cd226968e1649f
+/Users/dinhnhatnam/NhatNam/docan_text.txt: SHA-256 e772eb265f1b8533053eaf06d7c2afec5a76e591cb10af4a192ccc9ac25e7fd8
+Extraction: pypdf, PDF page 5/18; read-only, 2026-10-23.

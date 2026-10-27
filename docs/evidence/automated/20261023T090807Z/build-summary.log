@@ -1,0 +1,113 @@
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.152 s -- in com.dienmay.organization.BranchServiceTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.402 s -- in com.dienmay.organization.BranchWebTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.171 s -- in com.dienmay.demo.DemoCatalogTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.888 s -- in com.dienmay.storefront.StorefrontWebTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.173 s -- in com.dienmay.storefront.cart.CartServiceTest
+[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.236 s -- in com.dienmay.storefront.service.StorefrontServiceTest
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.691 s -- in com.dienmay.sales.web.ReturnWebTest
+[INFO] Tests run: 24, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.744 s -- in com.dienmay.sales.web.PosWebTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in com.dienmay.sales.SerialLookupForSaleTest
+[INFO] Tests run: 27, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.662 s -- in com.dienmay.sales.CheckoutServiceTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in com.dienmay.sales.SalesAccessTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s -- in com.dienmay.sales.ReturnAccessTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.078 s -- in com.dienmay.sales.PosQueryServiceTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.dienmay.sales.CheckoutNormalizerTest
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.217 s -- in com.dienmay.sales.ReturnServiceTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.062 s -- in com.dienmay.sales.RefundMathTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.295 s -- in com.dienmay.config.InitialAdminInitializerTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.081 s -- in com.dienmay.config.DevDataInitializerTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.692 s -- in com.dienmay.config.SecurityRulesTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.057 s -- in com.dienmay.security.LoginProtectionTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in com.dienmay.security.QueryInputTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.127 s -- in com.dienmay.security.ActiveEmployeeFilterTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in com.dienmay.security.LoginAttemptLimiterTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.036 s -- in com.dienmay.auth.AppUserDetailsServiceTest
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.495 s -- in com.dienmay.catalog.web.CatalogWebTest
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.034 s -- in com.dienmay.catalog.service.FileStorageServiceTest
+[INFO] Tests run: 23, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.079 s -- in com.dienmay.catalog.service.ProductServiceTest
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 s -- in com.dienmay.catalog.service.CategoryServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.138 s -- in com.dienmay.catalog.service.ProductAdminServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 s -- in com.dienmay.catalog.service.BrandServiceTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.718 s -- in com.dienmay.architecture.ArchitectureTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.114 s -- in com.dienmay.support.TestReportMainTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s -- in com.dienmay.support.TestConventionsTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 s -- in com.dienmay.support.TestingDocumentationTest
+[INFO] Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.568 s -- in com.dienmay.inventory.web.TransferWebTest
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.434 s -- in com.dienmay.inventory.web.InventoryWebTest
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.492 s -- in com.dienmay.inventory.web.StocktakeWebTest
+[INFO] Tests run: 25, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.211 s -- in com.dienmay.inventory.service.TransferServiceTest
+[INFO] Tests run: 22, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.124 s -- in com.dienmay.inventory.service.GoodsReceiptServiceTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.092 s -- in com.dienmay.inventory.service.StocktakeServiceTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.032 s -- in com.dienmay.inventory.service.SerialLookupServiceTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.046 s -- in com.dienmay.inventory.service.InventoryContextValidatorTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.097 s -- in com.dienmay.inventory.service.StockServiceTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s -- in com.dienmay.inventory.service.StocktakeComparisonTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s -- in com.dienmay.inventory.service.InventoryProductGuardTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.100 s -- in com.dienmay.inventory.service.StockRowInitializerTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.dienmay.inventory.service.SupplierServiceTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.030 s -- in com.dienmay.inventory.service.StockQueryServiceTest
+[INFO] Tests run: 36, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s -- in com.dienmay.inventory.serial.SerialStatusTest
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.dienmay.inventory.serial.SerialNumberRulesTest
+[INFO] Tests run: 21, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 s -- in com.dienmay.inventory.serial.SerialStateServiceTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.357 s -- in com.dienmay.integrity.IntegrityWebTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in com.dienmay.integrity.DemoClockTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.470 s -- in com.dienmay.orders.StaffOrderWebTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.100 s -- in com.dienmay.orders.OrderExpiryJobTest
+[INFO] Tests run: 130, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.057 s -- in com.dienmay.orders.StaffOrderRulesTest
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.569 s -- in com.dienmay.orders.OrderWebTest
+[INFO] Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.331 s -- in com.dienmay.orders.OrderPlacementServiceTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.132 s -- in com.dienmay.orders.StaffOrderServiceTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.032 s -- in com.dienmay.customer.CustomerServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.361 s -- in com.dienmay.customer.CustomerWebTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.385 s -- in com.dienmay.reports.ReportExcelTest
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.041 s -- in com.dienmay.reports.ReportRulesTest
+[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.498 s -- in com.dienmay.reports.ReportWebTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in com.dienmay.warranty.WarrantyMapperTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.129 s -- in com.dienmay.warranty.WarrantyTicketServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s -- in com.dienmay.warranty.WarrantyStatusPolicyTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in com.dienmay.warranty.WarrantyLookupRateLimiterTest
+[INFO] Tests run: 27, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.617 s -- in com.dienmay.warranty.WarrantyWebTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.040 s -- in com.dienmay.warranty.WarrantyQueryServiceTest
+[INFO] Tests run: 36, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s -- in com.dienmay.warranty.WarrantyTicketStatusTest
+[INFO] Tests run: 797, Failures: 0, Errors: 0, Skipped: 0
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 20.01 s -- in com.dienmay.organization.BranchWorkflowIT
+[INFO] Tests run: 39, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.71 s -- in com.dienmay.sales.ReturnWorkflowIT
+[INFO] Tests run: 69, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.132 s -- in com.dienmay.sales.CheckoutWorkflowIT
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.190 s -- in com.dienmay.sales.PosReadIntegrationIT
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.175 s -- in com.dienmay.config.ActuatorExposureIT
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.116 s -- in com.dienmay.security.LockedEmployeeSessionIT
+[INFO] Tests run: 163, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.574 s -- in com.dienmay.security.PublicInputSafetyIT
+[INFO] Tests run: 345, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.334 s -- in com.dienmay.security.SecuritySurfaceIT
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.94 s -- in com.dienmay.security.LoginProtectionIT
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.166 s -- in com.dienmay.catalog.CatalogPersistenceIT
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.025 s -- in com.dienmay.DienmayApplicationIT
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.396 s -- in com.dienmay.inventory.GoodsReceiptWorkflowIT
+[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.343 s -- in com.dienmay.inventory.InventoryPersistenceIT
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.396 s -- in com.dienmay.inventory.StocktakeWorkflowIT
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.498 s -- in com.dienmay.inventory.TransferWorkflowIT
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.253 s -- in com.dienmay.integrity.LegacySnapshotMigrationIT
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.145 s -- in com.dienmay.integrity.WholeMoneyInvariantIT
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 30.52 s -- in com.dienmay.integrity.DataIntegrityAuditIT
+[ERROR] Tests run: 16, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 9.563 s <<< FAILURE! -- in com.dienmay.orders.OrderWorkflowIT
+[ERROR] com.dienmay.orders.OrderWorkflowIT.serialInvoice_fixedBusinessClock_persistsMatchingDatesAndWarranty -- Time elapsed: 0.057 s <<< ERROR!
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.628 s -- in com.dienmay.orders.OrderFulfillmentIT
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.531 s -- in com.dienmay.customer.CustomerSecurityIntegrationIT
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.415 s -- in com.dienmay.reports.ReportQueryIntegrationIT
+[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.613 s -- in com.dienmay.warranty.WarrantyWorkflowIT
+[ERROR] Errors: 
+[ERROR]   OrderWorkflowIT.cleanup:78 » DataIntegrityViolation PreparedStatementCallback; SQL [DELETE i FROM invoice_item i JOIN invoice v ON v.id=i.invoice_id WHERE v.branch_id=?]; Cannot delete or update a parent row: a foreign key constraint fails (`dienmay_test`.`warranty`, CONSTRAINT `fk_warranty_invoice_item` FOREIGN KEY (`invoice_item_id`) REFERENCES `invoice_item` (`id`))
+[ERROR] Tests run: 776, Failures: 0, Errors: 1, Skipped: 0
+[ERROR] BUILD FAILURE
+[INFO] Total time:  02:44 min
+[INFO] Finished at: 2026-10-23T16:10:53+07:00
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-failsafe-plugin:3.5.4:verify (default) on project dienmay: 
+[ERROR] 
+[ERROR] See /Users/dinhnhatnam/NhatNam/dienmay/target/failsafe-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

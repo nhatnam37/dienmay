@@ -1,0 +1,12 @@
+Dump và restore chạy thành công trên DB demo thử riêng, không dùng DB gốc.
+SQL: 712198 byte; archive ảnh: 760490 byte (80 ảnh và thư mục gốc).
+Restore vào DB/volume MySQL mới dienmay10c_restored_mysql và volume ảnh trống dienmay10c_restored_uploads.
+So sánh bằng diff exit 0 trước khi bật lại app:
+- serial_item: 1206
+- invoice: 209
+- orders: 66
+- SUM(invoice.total_amount): 2380280000.00
+- flyway_schema_history: 16
+- 80 đường dẫn và SHA256 ảnh: khớp hoàn toàn.
+Smoke sau restore: 6 PASS, 0 FAIL; xem smoke-restored.log.
+Không đưa SQL dump, archive hoặc .env vào repo.

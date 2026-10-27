@@ -5,6 +5,7 @@ import com.dienmay.organization.entity.Branch;
 import com.dienmay.organization.entity.Employee;
 import java.time.LocalDateTime;
 
+@jakarta.persistence.EntityListeners(org.springframework.data.jpa.domain.support.AuditingEntityListener.class)
 @Entity
 @Table(name = "goods_receipt")
 public class GoodsReceipt {
@@ -34,10 +35,8 @@ public class GoodsReceipt {
     private Employee createdBy;
 
     @Column(name = "created_at", nullable = false, updatable = false)
+    @org.springframework.data.annotation.CreatedDate
     private LocalDateTime createdAt;
-
-    @PrePersist
-    void onCreate() { createdAt = LocalDateTime.now(); }
 
     public Long getId() { return id; }
     public String getCode() { return code; }

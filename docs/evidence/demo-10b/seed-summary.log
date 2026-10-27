@@ -1,0 +1,64 @@
+2026-10-23T16:09:28.123+07:00  INFO 1 --- [dienmay] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 16 migrations to schema `dienmay_demo`, now at version v15 (execution time 00:01.922s)
+2026-10-23T16:09:31.627+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.DienmayApplication           : Started DienmayApplication in 8.268 seconds (process running for 8.648)
+2026-10-23T16:09:41.756+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-01 violations=0 unknown=0 examples=[]
+2026-10-23T16:09:41.757+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-02 violations=0 unknown=0 examples=[]
+2026-10-23T16:09:41.757+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-03 violations=0 unknown=0 examples=[]
+2026-10-23T16:09:41.757+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-04 violations=0 unknown=0 examples=[]
+2026-10-23T16:09:41.757+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-05 violations=0 unknown=0 examples=[]
+2026-10-23T16:09:41.757+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-06 violations=0 unknown=0 examples=[]
+2026-10-23T16:09:41.757+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-07 violations=0 unknown=0 examples=[]
+2026-10-23T16:09:41.757+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-08 violations=0 unknown=0 examples=[]
+2026-10-23T16:09:41.757+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-09 violations=0 unknown=0 examples=[]
+2026-10-23T16:09:41.757+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-10 violations=0 unknown=0 examples=[]
+2026-10-23T16:09:41.757+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-11 violations=0 unknown=0 examples=[]
+2026-10-23T16:09:41.757+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-12 violations=0 unknown=0 examples=[]
+2026-10-23T16:09:41.759+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT branch=3
+2026-10-23T16:09:41.759+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT employee=13
+2026-10-23T16:09:41.759+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT customer=5
+2026-10-23T16:09:41.760+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT supplier=5
+2026-10-23T16:09:41.760+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT category=10
+2026-10-23T16:09:41.760+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT brand=8
+2026-10-23T16:09:41.761+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT product=80
+2026-10-23T16:09:41.761+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT goods_receipt=21
+2026-10-23T16:09:41.761+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT serial_item=1206
+2026-10-23T16:09:41.762+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT serial_history=1548
+2026-10-23T16:09:41.762+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT stock_quantity=24
+2026-10-23T16:09:41.762+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT stock_movement=361
+2026-10-23T16:09:41.762+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT goods_transfer=3
+2026-10-23T16:09:41.762+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT invoice=209
+2026-10-23T16:09:41.762+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT orders=66
+2026-10-23T16:09:41.763+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT sales_return=11
+2026-10-23T16:09:41.763+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT payment_refund=15
+2026-10-23T16:09:41.763+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT warranty=209
+2026-10-23T16:09:41.763+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B COUNT warranty_ticket=6
+2026-10-23T16:09:41.763+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS orders CANCELLED=30
+2026-10-23T16:09:41.763+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS orders COMPLETED=16
+2026-10-23T16:09:41.763+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS orders CONFIRMED=1
+2026-10-23T16:09:41.763+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS orders EXPIRED=15
+2026-10-23T16:09:41.763+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS orders PENDING_PAYMENT=1
+2026-10-23T16:09:41.763+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS orders PLACED=1
+2026-10-23T16:09:41.763+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS orders READY_FOR_PICKUP=1
+2026-10-23T16:09:41.763+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS orders SHIPPING=1
+2026-10-23T16:09:41.764+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS serial_item IN_STOCK=1002
+2026-10-23T16:09:41.764+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS serial_item IN_TRANSFER=1
+2026-10-23T16:09:41.764+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS serial_item IN_WARRANTY_REPAIR=4
+2026-10-23T16:09:41.764+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS serial_item RESERVED=5
+2026-10-23T16:09:41.764+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS serial_item SOLD=194
+2026-10-23T16:09:41.764+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS warranty_ticket CANCELLED=1
+2026-10-23T16:09:41.764+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS warranty_ticket COMPLETED=1
+2026-10-23T16:09:41.764+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS warranty_ticket IN_REPAIR=1
+2026-10-23T16:09:41.764+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS warranty_ticket RECEIVED=1
+2026-10-23T16:09:41.764+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS warranty_ticket REJECTED=1
+2026-10-23T16:09:41.764+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B STATUS warranty_ticket RETURNED=1
+2026-10-23T16:09:41.764+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B WARRANTY 990000001010018 DEMO-PHONE-01 2026-04-23 2026-07-23
+2026-10-23T16:09:41.765+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B WARRANTY 990000001010026 DEMO-PHONE-01 2026-05-20 2026-08-20
+2026-10-23T16:09:41.765+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B WARRANTY 990000002020016 DEMO-PHONE-02 2026-04-25 2026-10-25
+2026-10-23T16:09:41.765+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B WARRANTY 990000001020017 DEMO-PHONE-01 2026-08-25 2026-11-25
+2026-10-23T16:09:41.765+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B WARRANTY 990000002030015 DEMO-PHONE-02 2026-06-30 2026-12-30
+2026-10-23T16:09:41.765+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B WARRANTY 990000001010034 DEMO-PHONE-01 2026-10-09 2027-01-09
+2026-10-23T16:09:41.765+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B WARRANTY 990000003010016 DEMO-PHONE-03 2026-04-26 2027-04-26
+2026-10-23T16:09:41.765+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B WARRANTY 990000003010024 DEMO-PHONE-03 2026-07-16 2027-07-16
+2026-10-23T16:09:41.765+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B WARRANTY 990000003030014 DEMO-PHONE-03 2026-07-18 2027-07-18
+2026-10-23T16:09:41.765+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B WARRANTY 990000003010032 DEMO-PHONE-03 2026-08-15 2027-08-15
+2026-10-23T16:09:41.765+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B WARRANTY 990000003030022 DEMO-PHONE-03 2026-10-03 2027-10-03
+2026-10-23T16:09:41.765+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B hoàn tất seed=20261023, thời gian=10100 ms, audit=23.769166 ms, Clock replay=false

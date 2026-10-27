@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest({TransferController.class,SerialLookupController.class})
 @Import({SecurityConfig.class,CurrentInventoryUser.class})
-class TransferWebTest {
+class TransferWebTest extends com.dienmay.support.ActiveEmployeeWebFixture {
     @Autowired MockMvc mvc;
     @MockitoBean TransferService transfers;
     @MockitoBean SerialLookupService lookup;

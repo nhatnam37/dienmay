@@ -26,7 +26,7 @@
                 th:classappend="${product.status.name() == 'ACTIVE' ? 'text-bg-success' : 'text-bg-secondary'}"
                 th:text="${product.status.name() == 'ACTIVE' ? 'Đang kinh doanh' : 'Ngừng kinh doanh'}"></span></dd>
         </dl>
-        <h2 class="h5">Mô tả</h2><p th:text="${product.description ?: 'Chưa có mô tả.'}" style="white-space:pre-wrap"></p>
+        <h2 class="h5">Mô tả</h2><p th:text="${product.description ?: 'Chưa có mô tả.'}" class="preserve-lines"></p>
     </div>
 </div>
 <a th:href="@{/admin/catalog/products}" class="btn btn-secondary mt-3">Về danh sách</a>

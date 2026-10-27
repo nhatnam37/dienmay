@@ -36,7 +36,7 @@
     <thead><tr><th>Ảnh</th><th>SKU / Tên</th><th>Danh mục</th><th>Thương hiệu</th><th>Giá</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
     <tbody>
     <tr th:each="p : ${products.content}">
-        <td><img th:if="${p.imageUrl}" th:src="${p.imageUrl}" th:alt="${p.name}" width="64" height="64" style="object-fit:contain">
+        <td><img th:if="${p.imageUrl}" th:src="${p.imageUrl}" th:alt="${p.name}" width="64" height="64" class="image-contain">
             <span th:unless="${p.imageUrl}" class="text-muted">Chưa có ảnh</span></td>
         <td><small th:text="${p.sku}"></small><br><a th:href="@{/admin/catalog/products/{id}(id=${p.id})}" th:text="${p.name}"></a></td>
         <td th:text="${p.categoryName}"></td><td th:text="${p.brandName}"></td>

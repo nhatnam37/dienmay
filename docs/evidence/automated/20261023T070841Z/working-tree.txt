@@ -1,0 +1,176 @@
+ M README.md
+ M pom.xml
+ M scripts/smoke_check.py
+ M src/main/java/com/dienmay/catalog/service/ProductService.java
+ M src/main/java/com/dienmay/catalog/web/ProductController.java
+ M src/main/java/com/dienmay/common/web/GlobalExceptionHandler.java
+ M src/main/java/com/dienmay/config/DevDataInitializer.java
+ M src/main/java/com/dienmay/config/SecurityConfig.java
+ M src/main/java/com/dienmay/inventory/entity/StockMovement.java
+ M src/main/java/com/dienmay/inventory/repository/InventoryProductQueries.java
+ M src/main/java/com/dienmay/inventory/repository/SerialItemRepository.java
+ M src/main/java/com/dienmay/inventory/serial/SerialStateService.java
+ M src/main/java/com/dienmay/inventory/service/GoodsReceiptService.java
+ M src/main/java/com/dienmay/inventory/service/InventoryContextValidator.java
+ M src/main/java/com/dienmay/inventory/service/SerialLookupService.java
+ M src/main/java/com/dienmay/inventory/service/StockService.java
+ M src/main/java/com/dienmay/inventory/service/SupplierService.java
+ M src/main/java/com/dienmay/inventory/web/GoodsReceiptController.java
+ M src/main/java/com/dienmay/inventory/web/SupplierController.java
+ M src/main/java/com/dienmay/inventory/web/TransferController.java
+ M src/main/java/com/dienmay/organization/repository/EmployeeRepository.java
+ M src/main/java/com/dienmay/web/HomeController.java
+ M src/main/resources/application-dev.yml
+ M src/main/resources/application.yml
+ M src/main/resources/templates/catalog/brands/form.html
+ M src/main/resources/templates/catalog/categories/form.html
+ M src/main/resources/templates/catalog/products/detail.html
+ M src/main/resources/templates/catalog/products/form.html
+ M src/main/resources/templates/catalog/products/list.html
+ M src/main/resources/templates/error/403.html
+ M src/main/resources/templates/error/404.html
+ M src/main/resources/templates/fragments/layout.html
+ M src/main/resources/templates/inventory/receipts/detail.html
+ M src/main/resources/templates/inventory/serials/lookup.html
+ M src/main/resources/templates/inventory/suppliers/form.html
+ M src/main/resources/templates/login.html
+ D src/test/java/com/dienmay/DienmayApplicationTests.java
+ M src/test/java/com/dienmay/auth/AppUserDetailsServiceTest.java
+ D src/test/java/com/dienmay/catalog/CatalogPersistenceTest.java
+ M src/test/java/com/dienmay/catalog/service/BrandServiceTest.java
+ M src/test/java/com/dienmay/catalog/service/CategoryServiceTest.java
+ M src/test/java/com/dienmay/catalog/service/FileStorageServiceTest.java
+ M src/test/java/com/dienmay/catalog/service/ProductServiceTest.java
+ M src/test/java/com/dienmay/catalog/web/CatalogWebTest.java
+ M src/test/java/com/dienmay/config/DevDataInitializerTest.java
+ M src/test/java/com/dienmay/config/SecurityRulesTest.java
+ D src/test/java/com/dienmay/inventory/GoodsReceiptWorkflowTest.java
+ D src/test/java/com/dienmay/inventory/InventoryPersistenceTest.java
+ D src/test/java/com/dienmay/inventory/TransferWorkflowTest.java
+ M src/test/java/com/dienmay/inventory/serial/SerialNumberRulesTest.java
+ M src/test/java/com/dienmay/inventory/serial/SerialStateServiceTest.java
+ M src/test/java/com/dienmay/inventory/service/GoodsReceiptServiceTest.java
+ M src/test/java/com/dienmay/inventory/service/InventoryContextValidatorTest.java
+ M src/test/java/com/dienmay/inventory/service/SerialLookupServiceTest.java
+ M src/test/java/com/dienmay/inventory/service/StockServiceTest.java
+ M src/test/java/com/dienmay/inventory/service/TransferServiceTest.java
+ M src/test/java/com/dienmay/inventory/web/InventoryWebTest.java
+ M src/test/java/com/dienmay/inventory/web/TransferWebTest.java
+ M src/test/java/com/dienmay/organization/BranchServiceTest.java
+ M src/test/java/com/dienmay/organization/BranchWebTest.java
+ D src/test/java/com/dienmay/organization/BranchWorkflowTest.java
+ M src/test/java/com/dienmay/support/MySqlIntegrationTestBase.java
+?? docs/customer-storefront-6a.md
+?? docs/evidence/
+?? docs/integrity-findings.md
+?? docs/inventory-4d.md
+?? docs/manual-tests.md
+?? docs/money-schema-audit.md
+?? docs/order-fulfillment-6c.md
+?? docs/orders-6b.md
+?? docs/performance-explain.md
+?? docs/performance.md
+?? docs/pos-5b.md
+?? docs/reports-8a.md
+?? docs/reports-8b.md
+?? docs/requirements-test-map.tsv
+?? docs/sales-5a.md
+?? docs/sales-return-5c.md
+?? docs/security-findings.md
+?? docs/security-matrix-integrity.md
+?? docs/test-case-mapping.md
+?? docs/test-cases.md
+?? docs/test-results.md
+?? docs/testing-renames.md
+?? docs/testing-validation.md
+?? docs/testing.md
+?? docs/tests-not-in-catalog.md
+?? docs/warranty-7a.md
+?? docs/warranty-7b.md
+?? scripts/preflight_inventory_costs.sql
+?? scripts/run-tests-repeat.sh
+?? scripts/verify-with-evidence.sh
+?? src/main/java/com/dienmay/auth/ActiveEmployeeFilter.java
+?? src/main/java/com/dienmay/auth/login/
+?? src/main/java/com/dienmay/common/money/
+?? src/main/java/com/dienmay/common/pagination/
+?? src/main/java/com/dienmay/config/InventoryMigrationPreflight.java
+?? src/main/java/com/dienmay/config/QueryInputWebConfig.java
+?? src/main/java/com/dienmay/customer/
+?? src/main/java/com/dienmay/integrity/
+?? src/main/java/com/dienmay/inventory/dto/StocktakeCountForm.java
+?? src/main/java/com/dienmay/inventory/dto/StocktakeCountLineForm.java
+?? src/main/java/com/dienmay/inventory/dto/StocktakeDetail.java
+?? src/main/java/com/dienmay/inventory/dto/StocktakeLineView.java
+?? src/main/java/com/dienmay/inventory/dto/StocktakeProductChoice.java
+?? src/main/java/com/dienmay/inventory/dto/StocktakeSnapshotRow.java
+?? src/main/java/com/dienmay/inventory/dto/StocktakeSummary.java
+?? src/main/java/com/dienmay/inventory/dto/StocktakeValidationException.java
+?? src/main/java/com/dienmay/inventory/entity/Stocktake.java
+?? src/main/java/com/dienmay/inventory/entity/StocktakeLine.java
+?? src/main/java/com/dienmay/inventory/entity/StocktakeStatus.java
+?? src/main/java/com/dienmay/inventory/repository/StocktakeLineRepository.java
+?? src/main/java/com/dienmay/inventory/repository/StocktakeRepository.java
+?? src/main/java/com/dienmay/inventory/service/StocktakeComparison.java
+?? src/main/java/com/dienmay/inventory/service/StocktakeService.java
+?? src/main/java/com/dienmay/inventory/service/StocktakeSnapshotReader.java
+?? src/main/java/com/dienmay/inventory/web/StocktakeController.java
+?? src/main/java/com/dienmay/orders/
+?? src/main/java/com/dienmay/reports/
+?? src/main/java/com/dienmay/sales/
+?? src/main/java/com/dienmay/storefront/
+?? src/main/java/com/dienmay/warranty/
+?? src/main/resources/application-perf.yml
+?? src/main/resources/db/migration/V10__order_fulfillment.sql
+?? src/main/resources/db/migration/V11__online_payment_cash_check.sql
+?? src/main/resources/db/migration/V12__warranty_ticket.sql
+?? src/main/resources/db/migration/V13__report_indexes.sql
+?? src/main/resources/db/migration/V14__whole_inventory_cost.sql
+?? src/main/resources/db/migration/V15__invoice_warranty_snapshot.sql
+?? src/main/resources/db/migration/V5__stocktake.sql
+?? src/main/resources/db/migration/V6__sales.sql
+?? src/main/resources/db/migration/V7__sales_return.sql
+?? src/main/resources/db/migration/V8__customer.sql
+?? src/main/resources/db/migration/V9__orders.sql
+?? src/main/resources/static/
+?? src/main/resources/templates/customer/
+?? src/main/resources/templates/error/400.html
+?? src/main/resources/templates/fragments/order-status.html
+?? src/main/resources/templates/fragments/reports.html
+?? src/main/resources/templates/fragments/status.html
+?? src/main/resources/templates/fragments/storefront.html
+?? src/main/resources/templates/fragments/warranty.html
+?? src/main/resources/templates/integrity/
+?? src/main/resources/templates/inventory/stocktakes/
+?? src/main/resources/templates/orders/
+?? src/main/resources/templates/pos/
+?? src/main/resources/templates/reports/
+?? src/main/resources/templates/storefront/
+?? src/main/resources/templates/warranty/
+?? src/test/java/com/dienmay/DienmayApplicationIT.java
+?? src/test/java/com/dienmay/architecture/
+?? src/test/java/com/dienmay/catalog/CatalogPersistenceIT.java
+?? src/test/java/com/dienmay/customer/
+?? src/test/java/com/dienmay/integrity/
+?? src/test/java/com/dienmay/inventory/GoodsReceiptWorkflowIT.java
+?? src/test/java/com/dienmay/inventory/InventoryPersistenceIT.java
+?? src/test/java/com/dienmay/inventory/StocktakeWorkflowIT.java
+?? src/test/java/com/dienmay/inventory/TransferWorkflowIT.java
+?? src/test/java/com/dienmay/inventory/service/StocktakeComparisonTest.java
+?? src/test/java/com/dienmay/inventory/service/StocktakeServiceTest.java
+?? src/test/java/com/dienmay/inventory/web/StocktakeWebTest.java
+?? src/test/java/com/dienmay/orders/
+?? src/test/java/com/dienmay/organization/BranchWorkflowIT.java
+?? src/test/java/com/dienmay/reports/
+?? src/test/java/com/dienmay/sales/
+?? src/test/java/com/dienmay/security/
+?? src/test/java/com/dienmay/storefront/
+?? src/test/java/com/dienmay/support/ActiveEmployeeWebFixture.java
+?? src/test/java/com/dienmay/support/TestCase.java
+?? src/test/java/com/dienmay/support/TestCases.java
+?? src/test/java/com/dienmay/support/TestConventionsTest.java
+?? src/test/java/com/dienmay/support/TestReportMain.java
+?? src/test/java/com/dienmay/support/TestReportMainTest.java
+?? src/test/java/com/dienmay/support/TestingDocumentation.java
+?? src/test/java/com/dienmay/support/TestingDocumentationTest.java
+?? src/test/java/com/dienmay/warranty/

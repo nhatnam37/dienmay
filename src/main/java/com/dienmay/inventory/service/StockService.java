@@ -54,6 +54,48 @@ public class StockService {
                 .map(stock -> stock.getQuantity() - stock.getReservedQty()).orElse(0);
     }
 
+    @Transactional
+    public void reserve(Long branchId, Long productId, int amount, StockContext context) {
+        changeReservation(branchId, productId, amount, false, context);
+    }
+
+    @Transactional
+    public void release(Long branchId, Long productId, int amount, StockContext context) {
+        changeReservation(branchId, productId, amount, true, context);
+    }
+
+    private void changeReservation(Long branchId, Long productId, int amount, boolean release, StockContext context) {
+        if(amount<=0)throw new BusinessException("Số lượng giữ/nhả phải lớn hơn 0.");
+        contexts.validate(context);
+        Product product=products.findForUpdate(productId).orElseThrow(()->new ResourceNotFoundException("Không tìm thấy sản phẩm."));
+        requireNonSerial(product);
+        Branch branch=findBranch(branchId);
+        StockQuantity row=stocks.findLocked(branchId,productId).orElseThrow(()->new BusinessException("Không có tồn kho để giữ/nhả."));
+        if(release ? row.getReservedQty()<amount : row.getQuantity()-row.getReservedQty()<amount)
+            throw new BusinessException(release?"Số lượng nhả vượt số đang giữ.":"Không đủ tồn khả dụng để giữ hàng.");
+        row.setReservedQty(row.getReservedQty()+(release?-amount:amount));
+        stocks.save(row);
+        StockMovement movement=new StockMovement();movement.setBranch(branch);movement.setProduct(product);
+        movement.setDelta(0);movement.setReservedDelta(release?-amount:amount);
+        movement.setRefType(context.refType());movement.setRefId(context.refId());
+        movement.setActorType(context.actorType());movement.setActorId(context.actorId());movement.setNote(context.note());
+        movements.save(movement);
+    }
+
+    // Xuất hàng ĐÃ giữ: giảm tổng tồn và giữ chỗ cùng một lần khóa/ghi movement,
+    // không nhả ra tồn khả dụng ở giữa để giao dịch khác lấy mất.
+    @Transactional
+    public void consumeReservation(Long branchId,Long productId,int amount,StockContext context){
+        if(amount<=0)throw new BusinessException("Số lượng xuất phải lớn hơn 0.");
+        contexts.validate(context);
+        Product product=products.findForUpdate(productId).orElseThrow(()->new ResourceNotFoundException("Không tìm thấy sản phẩm."));requireNonSerial(product);
+        Branch branch=findBranch(branchId);
+        var row=stocks.findLocked(branchId,productId).orElseThrow(()->new BusinessException("Không tìm thấy hàng đang giữ."));
+        if(row.getReservedQty()<amount||row.getQuantity()<amount)throw new BusinessException("Không đủ hàng đang giữ để hoàn tất.");
+        row.setQuantity(row.getQuantity()-amount);row.setReservedQty(row.getReservedQty()-amount);stocks.save(row);
+        StockMovement movement=new StockMovement();movement.setBranch(branch);movement.setProduct(product);movement.setDelta(-amount);movement.setReservedDelta(-amount);movement.setRefType(context.refType());movement.setRefId(context.refId());movement.setActorType(context.actorType());movement.setActorId(context.actorId());movement.setNote(context.note());movements.save(movement);
+    }
+
     private int change(Long branchId, Long productId, int amount, boolean decrease, StockContext context) {
         if (amount <= 0) { throw new BusinessException("Số lượng thay đổi phải lớn hơn 0."); }
         contexts.validate(context);

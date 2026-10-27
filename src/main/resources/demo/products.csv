@@ -1,0 +1,81 @@
+sku;category;brand;name;price;warrantyMonths;tracksSerial;serialType;image
+DEMO-PHONE-01;Điện thoại;Apple;iPhone 13 128GB;11990000;3;true;IMEI;phone-01.png
+DEMO-PHONE-02;Điện thoại;Apple;iPhone 14 128GB;13990000;6;true;IMEI;phone-02.png
+DEMO-PHONE-03;Điện thoại;Apple;iPhone 15 128GB;16990000;12;true;IMEI;phone-03.png
+DEMO-PHONE-04;Điện thoại;Apple;iPhone 16 128GB;21990000;12;true;IMEI;phone-04.png
+DEMO-PHONE-05;Điện thoại;Samsung;Samsung Galaxy A15 128GB;4290000;12;true;IMEI;phone-05.png
+DEMO-PHONE-06;Điện thoại;Samsung;Samsung Galaxy A35 128GB;7490000;12;true;IMEI;phone-06.png
+DEMO-PHONE-07;Điện thoại;Samsung;Samsung Galaxy A55 256GB;9990000;12;true;IMEI;phone-07.png
+DEMO-PHONE-08;Điện thoại;Samsung;Samsung Galaxy S24 256GB;17990000;24;true;IMEI;phone-08.png
+DEMO-LAPTOP-01;Laptop;Dell;Dell Inspiron 15 3530;14990000;12;true;GENERIC;laptop-01.png
+DEMO-LAPTOP-02;Laptop;Dell;Dell Latitude 5440;23990000;24;true;GENERIC;laptop-02.png
+DEMO-LAPTOP-03;Laptop;Dell;Dell XPS 13 9315;29990000;24;true;GENERIC;laptop-03.png
+DEMO-LAPTOP-04;Laptop;Apple;MacBook Air M1 256GB;16990000;3;true;GENERIC;laptop-04.png
+DEMO-LAPTOP-05;Laptop;Apple;MacBook Air M2 256GB;22990000;12;true;GENERIC;laptop-05.png
+DEMO-LAPTOP-06;Laptop;Apple;MacBook Pro 14 M3 512GB;37990000;12;true;GENERIC;laptop-06.png
+DEMO-LAPTOP-07;Laptop;LG;LG gram 16 512GB;28990000;24;true;GENERIC;laptop-07.png
+DEMO-LAPTOP-08;Laptop;Samsung;Samsung Galaxy Book3 512GB;20990000;12;true;GENERIC;laptop-08.png
+DEMO-TV-01;Tivi;Sony;Sony BRAVIA 43 inch;8990000;24;true;GENERIC;tv-01.png
+DEMO-TV-02;Tivi;Sony;Sony BRAVIA 50 inch;10990000;24;true;GENERIC;tv-02.png
+DEMO-TV-03;Tivi;Sony;Sony BRAVIA 55 inch;13990000;24;true;GENERIC;tv-03.png
+DEMO-TV-04;Tivi;Sony;Sony BRAVIA 65 inch;18990000;36;true;GENERIC;tv-04.png
+DEMO-TV-05;Tivi;Samsung;Samsung Crystal UHD 43 inch;6990000;12;true;GENERIC;tv-05.png
+DEMO-TV-06;Tivi;Samsung;Samsung Crystal UHD 55 inch;9990000;24;true;GENERIC;tv-06.png
+DEMO-TV-07;Tivi;LG;LG UHD 55 inch;9490000;24;true;GENERIC;tv-07.png
+DEMO-TV-08;Tivi;LG;LG OLED 55 inch;25990000;36;true;GENERIC;tv-08.png
+DEMO-FRIDGE-01;Tủ lạnh;Samsung;Samsung Inverter 236 lít;6990000;24;true;GENERIC;fridge-01.png
+DEMO-FRIDGE-02;Tủ lạnh;Samsung;Samsung Inverter 305 lít;8990000;24;true;GENERIC;fridge-02.png
+DEMO-FRIDGE-03;Tủ lạnh;Samsung;Samsung Side by Side 655 lít;19990000;36;true;GENERIC;fridge-03.png
+DEMO-FRIDGE-04;Tủ lạnh;LG;LG Inverter 217 lít;6490000;12;true;GENERIC;fridge-04.png
+DEMO-FRIDGE-05;Tủ lạnh;LG;LG Inverter 315 lít;8990000;24;true;GENERIC;fridge-05.png
+DEMO-FRIDGE-06;Tủ lạnh;LG;LG Side by Side 635 lít;21990000;36;true;GENERIC;fridge-06.png
+DEMO-FRIDGE-07;Tủ lạnh;Panasonic;Panasonic Inverter 234 lít;7490000;24;true;GENERIC;fridge-07.png
+DEMO-FRIDGE-08;Tủ lạnh;Panasonic;Panasonic Inverter 366 lít;12990000;24;true;GENERIC;fridge-08.png
+DEMO-WASHER-01;Máy giặt;LG;LG Inverter 8 kg;6490000;24;true;GENERIC;washer-01.png
+DEMO-WASHER-02;Máy giặt;LG;LG Inverter 9 kg;7990000;24;true;GENERIC;washer-02.png
+DEMO-WASHER-03;Máy giặt;LG;LG Inverter 10 kg;10490000;36;true;GENERIC;washer-03.png
+DEMO-WASHER-04;Máy giặt;Samsung;Samsung EcoBubble 8 kg;6990000;24;true;GENERIC;washer-04.png
+DEMO-WASHER-05;Máy giặt;Samsung;Samsung EcoBubble 9 kg;8490000;24;true;GENERIC;washer-05.png
+DEMO-WASHER-06;Máy giặt;Samsung;Samsung EcoBubble 10 kg;10990000;36;true;GENERIC;washer-06.png
+DEMO-WASHER-07;Máy giặt;Panasonic;Panasonic Inverter 9 kg;8990000;24;true;GENERIC;washer-07.png
+DEMO-WASHER-08;Máy giặt;Panasonic;Panasonic Inverter 10 kg;11490000;24;true;GENERIC;washer-08.png
+DEMO-AC-01;Điều hòa;Daikin;Daikin Inverter 1 HP;9990000;12;true;GENERIC;ac-01.png
+DEMO-AC-02;Điều hòa;Daikin;Daikin Inverter 1.5 HP;12490000;24;true;GENERIC;ac-02.png
+DEMO-AC-03;Điều hòa;Daikin;Daikin Inverter 2 HP;16490000;24;true;GENERIC;ac-03.png
+DEMO-AC-04;Điều hòa;Panasonic;Panasonic Inverter 1 HP;10490000;12;true;GENERIC;ac-04.png
+DEMO-AC-05;Điều hòa;Panasonic;Panasonic Inverter 1.5 HP;13490000;24;true;GENERIC;ac-05.png
+DEMO-AC-06;Điều hòa;Panasonic;Panasonic Inverter 2 HP;17490000;36;true;GENERIC;ac-06.png
+DEMO-AC-07;Điều hòa;LG;LG Dual Inverter 1 HP;8990000;12;true;GENERIC;ac-07.png
+DEMO-AC-08;Điều hòa;LG;LG Dual Inverter 1.5 HP;11490000;24;true;GENERIC;ac-08.png
+DEMO-AUDIO-01;Loa;Sony;Sony SRS-XB100;1190000;12;true;GENERIC;audio-01.png
+DEMO-AUDIO-02;Loa;Sony;Sony ULT FIELD 1;2490000;12;true;GENERIC;audio-02.png
+DEMO-AUDIO-03;Loa;Sony;Sony HT-S100F;2490000;12;true;GENERIC;audio-03.png
+DEMO-AUDIO-04;Loa;Sony;Sony HT-S400;4490000;24;true;GENERIC;audio-04.png
+DEMO-AUDIO-05;Loa;LG;LG XBOOM Go;1990000;12;true;GENERIC;audio-05.png
+DEMO-AUDIO-06;Loa;LG;LG XBOOM XL5S;6490000;12;true;GENERIC;audio-06.png
+DEMO-AUDIO-07;Loa;Samsung;Samsung Soundbar HW-B450;2990000;12;true;GENERIC;audio-07.png
+DEMO-AUDIO-08;Loa;Samsung;Samsung Soundbar HW-Q600C;5990000;24;true;GENERIC;audio-08.png
+DEMO-KITCHEN-01;Bếp điện;Panasonic;Panasonic Bếp từ đơn 2000 W;1190000;12;true;GENERIC;kitchen-01.png
+DEMO-KITCHEN-02;Bếp điện;Panasonic;Panasonic Lò vi sóng 20 lít;1990000;12;true;GENERIC;kitchen-02.png
+DEMO-KITCHEN-03;Bếp điện;Panasonic;Panasonic Nồi cơm điện 1.8 lít;1490000;12;true;GENERIC;kitchen-03.png
+DEMO-KITCHEN-04;Bếp điện;Panasonic;Panasonic Nồi cơm điện 1 lít;1090000;12;true;GENERIC;kitchen-04.png
+DEMO-KITCHEN-05;Bếp điện;Samsung;Samsung Lò vi sóng 23 lít;2490000;12;true;GENERIC;kitchen-05.png
+DEMO-KITCHEN-06;Bếp điện;Samsung;Samsung Lò vi sóng 28 lít;3490000;24;true;GENERIC;kitchen-06.png
+DEMO-KITCHEN-07;Bếp điện;Xiaomi;Xiaomi Nồi chiên không dầu 3.5 lít;1990000;12;true;GENERIC;kitchen-07.png
+DEMO-KITCHEN-08;Bếp điện;Xiaomi;Xiaomi Nồi chiên không dầu 6 lít;2490000;12;true;GENERIC;kitchen-08.png
+DEMO-VACUUM-01;Máy hút bụi;Xiaomi;Xiaomi Robot Vacuum E10;4990000;12;true;GENERIC;vacuum-01.png
+DEMO-VACUUM-02;Máy hút bụi;Xiaomi;Xiaomi Robot Vacuum S10;6490000;12;true;GENERIC;vacuum-02.png
+DEMO-VACUUM-03;Máy hút bụi;Xiaomi;Xiaomi Robot Vacuum X10;9990000;24;true;GENERIC;vacuum-03.png
+DEMO-VACUUM-04;Máy hút bụi;Xiaomi;Xiaomi Vacuum Cleaner G10;5490000;12;true;GENERIC;vacuum-04.png
+DEMO-VACUUM-05;Máy hút bụi;LG;LG CordZero A9;8490000;24;true;GENERIC;vacuum-05.png
+DEMO-VACUUM-06;Máy hút bụi;LG;LG Hút bụi không túi 1.5 lít;1990000;12;true;GENERIC;vacuum-06.png
+DEMO-VACUUM-07;Máy hút bụi;Panasonic;Panasonic Hút bụi có túi 1400 W;1790000;12;true;GENERIC;vacuum-07.png
+DEMO-VACUUM-08;Máy hút bụi;Samsung;Samsung Jet 60;5990000;24;true;GENERIC;vacuum-08.png
+DEMO-ACCESSORY-01;Phụ kiện;Apple;Apple Sạc USB-C 20 W;490000;0;false;;accessory-01.png
+DEMO-ACCESSORY-02;Phụ kiện;Apple;Apple Cáp USB-C 1 mét;390000;0;false;;accessory-02.png
+DEMO-ACCESSORY-03;Phụ kiện;Samsung;Samsung Sạc nhanh 25 W;290000;3;false;;accessory-03.png
+DEMO-ACCESSORY-04;Phụ kiện;Samsung;Samsung Sạc nhanh 45 W;590000;6;false;;accessory-04.png
+DEMO-ACCESSORY-05;Phụ kiện;Samsung;Samsung Cáp USB-C 1 mét;190000;0;false;;accessory-05.png
+DEMO-ACCESSORY-06;Phụ kiện;Xiaomi;Xiaomi Pin dự phòng 10000 mAh;290000;6;false;;accessory-06.png
+DEMO-ACCESSORY-07;Phụ kiện;Xiaomi;Xiaomi Pin dự phòng 20000 mAh;490000;6;false;;accessory-07.png
+DEMO-ACCESSORY-08;Phụ kiện;Dell;Dell Chuột không dây;290000;12;false;;accessory-08.png

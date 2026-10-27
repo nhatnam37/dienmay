@@ -1,0 +1,6 @@
+1206
+209
+66
+554
+2380280000.00
+Các dòng: serial_item, invoice, orders, demo_seed_step, SUM(invoice.total_amount). Trước/sau bằng nhau (diff exit 0); 80 SHA256 ảnh không đổi.

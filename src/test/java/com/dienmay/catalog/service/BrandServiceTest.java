@@ -37,6 +37,7 @@ class BrandServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-BRD-01")
     void delete_brandHasProducts_rejectsRequest() {
         when(brands.findById(1L)).thenReturn(Optional.of(brand(1, "Apple")));
         when(products.countByBrandId(1L)).thenReturn(1L);

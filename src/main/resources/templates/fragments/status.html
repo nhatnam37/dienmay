@@ -1,0 +1,7 @@
+<!DOCTYPE html><html lang="vi" xmlns:th="http://www.thymeleaf.org"><body>
+<span th:fragment="serial(status)" class="badge serial-status" th:attr="data-status=${status}" th:switch="${status == null ? '' : status.name()}">
+<th:block th:case="'IN_STOCK'">Trong kho</th:block><th:block th:case="'RESERVED'">Đã giữ</th:block><th:block th:case="'SOLD'">Đã bán</th:block><th:block th:case="'IN_TRANSFER'">Đang chuyển kho</th:block><th:block th:case="'IN_WARRANTY_REPAIR'">Đang bảo hành</th:block><th:block th:case="'DAMAGED'">Hỏng</th:block><th:block th:case="*">Không xác định</th:block>
+</span>
+<span th:fragment="invoice(status)" class="badge invoice-status" th:attr="data-status=${status}" th:text="${status != null and status.name() == 'COMPLETED' ? 'Hoàn tất' : 'Đã hủy'}"></span>
+<span th:fragment="invoiceState(status,returnLabel)" class="badge invoice-status" th:attr="data-status=${status}" th:text="${status != null and status.name() == 'CANCELLED' ? 'Đã hủy' : (returnLabel != null ? returnLabel : 'Hoàn tất')}"></span>
+</body></html>

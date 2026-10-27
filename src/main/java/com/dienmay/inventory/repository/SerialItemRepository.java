@@ -10,6 +10,10 @@ import org.springframework.data.repository.query.Param;
 public interface SerialItemRepository extends JpaRepository<SerialItem, Long> {
     @org.springframework.data.jpa.repository.EntityGraph(attributePaths = {"product", "branch", "receipt"})
     java.util.Optional<SerialItem> findLookupBySerialNo(String serialNo);
+    @Query("select s.id from SerialItem s where s.serialNo=:serialNo")
+    java.util.Optional<Long> findIdentityBySerialNo(@Param("serialNo") String serialNo);
+    @Query("select s.product.id from SerialItem s where s.id=:id")
+    java.util.Optional<Long> findProductIdentity(@Param("id") Long id);
     boolean existsBySerialNo(String serialNo);
     boolean existsByProductId(Long productId);
     java.util.Optional<SerialItem> findBySerialNo(String serialNo);

@@ -4,7 +4,7 @@
 <body><nav th:replace="~{fragments/layout :: nav}"></nav>
 <main class="container pb-5"><div th:replace="~{fragments/layout :: messages}"></div>
 <h1 class="h3 mb-4" th:text="${id == null ? 'Thêm nhà cung cấp' : 'Sửa nhà cung cấp'}"></h1>
-<form method="post" th:action="@{${id == null ? '/inventory/suppliers' : '/inventory/suppliers/' + id}}" th:object="${form}" class="card card-body" style="max-width:700px">
+<form method="post" th:action="@{${id == null ? '/inventory/suppliers' : '/inventory/suppliers/' + id}}" th:object="${form}" class="card card-body form-width-wide">
 <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger"><div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div></div>
 <label for="name" class="form-label">Tên *</label><input id="name" th:field="*{name}" class="form-control" maxlength="150" required><div class="text-danger" th:errors="*{name}"></div>
 <label for="phone" class="form-label mt-3">Điện thoại</label><input id="phone" th:field="*{phone}" class="form-control" maxlength="20"><div class="text-danger" th:errors="*{phone}"></div>

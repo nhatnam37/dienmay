@@ -20,7 +20,7 @@ public class SupplierController {
     public SupplierController(SupplierService suppliers, CurrentInventoryUser current) { this.suppliers = suppliers; this.current = current; }
     @GetMapping
     public String list(@RequestParam(required = false) String keyword, @RequestParam(defaultValue = "0") int page, Model model) {
-        model.addAttribute("suppliers", suppliers.search(keyword, PageRequest.of(Math.max(0,page), 10, Sort.by("name")), current.get()));
+        model.addAttribute("suppliers", suppliers.search(keyword, com.dienmay.common.pagination.PageRequestFactory.of(Math.max(0,page), 10, Sort.by("name")), current.get()));
         model.addAttribute("keyword", keyword); return "inventory/suppliers/list";
     }
     @GetMapping("/new")

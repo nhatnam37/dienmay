@@ -1,19 +1,80 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: dienmay-mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root123
-      MYSQL_DATABASE: dienmay
-      MYSQL_USER: dienmay
-      MYSQL_PASSWORD: dienmay123
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+      MYSQL_DATABASE: ${DB_NAME:-dienmay}
+      MYSQL_USER: ${DB_USER:-dienmay}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      FLYWAY_USER: ${FLYWAY_USER:-dienmay_migration}
+      FLYWAY_PASSWORD: ${FLYWAY_PASSWORD:?Set FLYWAY_PASSWORD in .env}
       TZ: Asia/Ho_Chi_Minh
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    # V15 tạo trigger. Chỉ user migration có quyền TRIGGER/DDL; app chỉ được DML.
+    # Giữ binary log; không cấp SUPER/root cho ứng dụng để vượt lỗi MySQL 1419.
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --log-bin-trust-function-creators=1
     ports:
-      - "3307:3306"
+      - "127.0.0.1:3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      # SQL TCP bằng user app: không báo healthy khi MySQL vẫn đang init bằng socket.
+      test: ["CMD-SHELL", "MYSQL_PWD=\"$$MYSQL_PASSWORD\" mysql --protocol=TCP -h 127.0.0.1 -u\"$$MYSQL_USER\" -D\"$$MYSQL_DATABASE\" -Nse 'SELECT 1' >/dev/null 2>&1"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: ${APP_PROFILE:-prod}
+      DB_URL: jdbc:mysql://mysql:3306/${DB_NAME:-dienmay}?serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true&useSSL=false
+      DB_USER: ${DB_USER:-dienmay}
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      FLYWAY_USER: ${FLYWAY_USER:-dienmay_migration}
+      FLYWAY_PASSWORD: ${FLYWAY_PASSWORD:?Set FLYWAY_PASSWORD in .env}
+      INITIAL_ADMIN_USERNAME: ${INITIAL_ADMIN_USERNAME:-admin}
+      INITIAL_ADMIN_PASSWORD: ${INITIAL_ADMIN_PASSWORD:?Set INITIAL_ADMIN_PASSWORD in .env}
+      DEMO_SEED: ${DEMO_SEED:-false}
+      DEMO_SEED_VALUE: ${DEMO_SEED_VALUE:-20261023}
+      UPLOAD_DIR: ${UPLOAD_DIR:-/app/uploads}
+      LOGIN_PAIR_LIMIT: ${LOGIN_PAIR_LIMIT:-5}
+      LOGIN_IP_LIMIT: ${LOGIN_IP_LIMIT:-50}
+      LOGIN_WINDOW: ${LOGIN_WINDOW:-PT5M}
+      LOGIN_BLOCK_DURATION: ${LOGIN_BLOCK_DURATION:-PT5M}
+      LOGIN_CLEANUP_INTERVAL: ${LOGIN_CLEANUP_INTERVAL:-PT1M}
+      LOGIN_MAX_ENTRIES: ${LOGIN_MAX_ENTRIES:-100000}
+      LOGIN_TRUST_FORWARDED_FOR: ${LOGIN_TRUST_FORWARDED_FOR:-false}
+      LOGIN_TRUSTED_PROXY_ADDRESSES: ${LOGIN_TRUSTED_PROXY_ADDRESSES:-}
+      QUERY_MAX_PAGE: ${QUERY_MAX_PAGE:-10000}
+      QUERY_MAX_SIZE: ${QUERY_MAX_SIZE:-50}
+      QUERY_MAX_KEYWORD_LENGTH: ${QUERY_MAX_KEYWORD_LENGTH:-100}
+      REPORT_EXPORT_MAX_ROWS: ${REPORT_EXPORT_MAX_ROWS:-50000}
+      REPORT_LOW_STOCK_THRESHOLD: ${REPORT_LOW_STOCK_THRESHOLD:-5}
+      WARRANTY_LOOKUP_RATE_PER_MINUTE: ${WARRANTY_LOOKUP_RATE_PER_MINUTE:-20}
+      ORDER_EXPIRY_ENABLED: ${ORDER_EXPIRY_ENABLED:-true}
+      SESSION_COOKIE_SECURE: ${SESSION_COOKIE_SECURE:-false}
+      FORWARD_HEADERS_STRATEGY: ${FORWARD_HEADERS_STRATEGY:-NONE}
+      JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS:--XX:MaxRAMPercentage=70.0 -Duser.timezone=Asia/Ho_Chi_Minh}
+    ports:
+      - "127.0.0.1:8081:8081"
+    volumes:
+      - uploads:/app/uploads
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    stop_grace_period: 30s
 volumes:
   mysql_data:
+  uploads:

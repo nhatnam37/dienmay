@@ -46,6 +46,8 @@ class AppUserDetailsServiceTest {
     }
 
     // TC-AUTH-01: tài khoản hợp lệ có đúng thông tin và quyền.
+    @com.dienmay.support.TestCase("TC-AUTH-01")
+    @org.junit.jupiter.api.DisplayName("tài khoản hợp lệ có đúng thông tin và quyền.")
     @Test
     void loadUser_whenExists_returnsUserWithRoleAuthority() {
         Employee employee = employee(true);
@@ -64,6 +66,8 @@ class AppUserDetailsServiceTest {
     }
 
     // TC-AUTH-02: tài khoản không tồn tại.
+    @com.dienmay.support.TestCase("TC-AUTH-02")
+    @org.junit.jupiter.api.DisplayName("tài khoản không tồn tại.")
     @Test
     void loadUser_whenNotFound_throwsUsernameNotFound() {
         when(employeeRepository.findWithRoleAndBranchByUsername("khongco"))
@@ -74,6 +78,8 @@ class AppUserDetailsServiceTest {
     }
 
     // TC-AUTH-03: tài khoản bị khóa được đánh dấu disabled.
+    @com.dienmay.support.TestCase("TC-AUTH-03")
+    @org.junit.jupiter.api.DisplayName("tài khoản bị khóa được đánh dấu disabled.")
     @Test
     void loadUser_whenInactive_returnsDisabledUser() {
         Employee employee = employee(false);

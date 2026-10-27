@@ -1,0 +1,232 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "348.95"
+    },
+    "ordering_operation": {
+      "using_filesort": false,
+      "windowing": {
+        "windows": [
+          {
+            "name": "<unnamed window>",
+            "definition_position": 1,
+            "using_temporary_table": true,
+            "frame_buffer": {
+              "using_temporary_table": true,
+              "optimized_frame_evaluation": true
+            },
+            "functions": [
+              "sum"
+            ]
+          },
+          {
+            "name": "<unnamed window>",
+            "definition_position": 2,
+            "last_executed_window": true,
+            "frame_buffer": {
+              "using_temporary_table": true,
+              "optimized_frame_evaluation": true
+            },
+            "functions": [
+              "sum"
+            ]
+          }
+        ],
+        "nested_loop": [
+          {
+            "table": {
+              "table_name": "s",
+              "access_type": "index",
+              "key": "PRIMARY",
+              "used_key_parts": [
+                "id"
+              ],
+              "key_length": "8",
+              "rows_examined_per_scan": 1,
+              "rows_produced_per_join": 1,
+              "filtered": "100.00",
+              "cost_info": {
+                "read_cost": "0.25",
+                "eval_cost": "0.10",
+                "prefix_cost": "0.35",
+                "data_read_per_join": "280"
+              },
+              "used_columns": [
+                "id",
+                "branch_id",
+                "status"
+              ]
+            }
+          },
+          {
+            "table": {
+              "table_name": "c",
+              "access_type": "ref",
+              "possible_keys": [
+                "<auto_key0>"
+              ],
+              "key": "<auto_key0>",
+              "used_key_parts": [
+                "serial_item_id"
+              ],
+              "key_length": "8",
+              "ref": [
+                "audit_0da494474d7444c083635204a7bad048.s.id"
+              ],
+              "rows_examined_per_scan": 996,
+              "rows_produced_per_join": 996,
+              "filtered": "100.00",
+              "cost_info": {
+                "read_cost": "249.00",
+                "eval_cost": "99.60",
+                "prefix_cost": "348.95",
+                "data_read_per_join": "108K"
+              },
+              "used_columns": [
+                "serial_item_id",
+                "broken",
+                "last_status",
+                "last_branch"
+              ],
+              "attached_condition": "<if>(found_match(c), ((`c`.`serial_item_id` is null) or (`c`.`broken` = 1) or (not((`c`.`last_status` <=> `audit_0da494474d7444c083635204a7bad048`.`s`.`status`))) or (not((`c`.`last_branch` <=> `audit_0da494474d7444c083635204a7bad048`.`s`.`branch_id`)))), true)",
+              "materialized_from_subquery": {
+                "using_temporary_table": true,
+                "dependent": false,
+                "cacheable": true,
+                "query_block": {
+                  "select_id": 3,
+                  "cost_info": {
+                    "query_cost": "11203.00"
+                  },
+                  "grouping_operation": {
+                    "using_temporary_table": true,
+                    "using_filesort": false,
+                    "table": {
+                      "table_name": "ordered",
+                      "access_type": "ALL",
+                      "rows_examined_per_scan": 99560,
+                      "rows_produced_per_join": 99560,
+                      "filtered": "100.00",
+                      "cost_info": {
+                        "read_cost": "1247.00",
+                        "eval_cost": "9956.00",
+                        "prefix_cost": "11203.00",
+                        "data_read_per_join": "28M"
+                      },
+                      "used_columns": [
+                        "serial_item_id",
+                        "from_status",
+                        "to_status",
+                        "from_branch_id",
+                        "to_branch_id",
+                        "rn",
+                        "n",
+                        "previous_status",
+                        "previous_branch"
+                      ],
+                      "materialized_from_subquery": {
+                        "using_temporary_table": true,
+                        "dependent": false,
+                        "cacheable": true,
+                        "query_block": {
+                          "select_id": 4,
+                          "cost_info": {
+                            "query_cost": "209683.50"
+                          },
+                          "windowing": {
+                            "windows": [
+                              {
+                                "name": "<unnamed window>",
+                                "definition_position": 1,
+                                "using_temporary_table": true,
+                                "using_filesort": true,
+                                "filesort_key": [
+                                  "`serial_item_id`",
+                                  "`changed_at`",
+                                  "`id`"
+                                ],
+                                "functions": [
+                                  "row_number"
+                                ]
+                              },
+                              {
+                                "name": "<unnamed window>",
+                                "definition_position": 3,
+                                "using_temporary_table": true,
+                                "frame_buffer": {
+                                  "using_temporary_table": true,
+                                  "optimized_frame_evaluation": true
+                                },
+                                "functions": [
+                                  "lag"
+                                ]
+                              },
+                              {
+                                "name": "<unnamed window>",
+                                "definition_position": 4,
+                                "using_temporary_table": true,
+                                "frame_buffer": {
+                                  "using_temporary_table": true,
+                                  "optimized_frame_evaluation": true
+                                },
+                                "functions": [
+                                  "lag"
+                                ]
+                              },
+                              {
+                                "name": "<unnamed window>",
+                                "definition_position": 2,
+                                "last_executed_window": true,
+                                "using_filesort": true,
+                                "filesort_key": [
+                                  "`serial_item_id`"
+                                ],
+                                "frame_buffer": {
+                                  "using_temporary_table": true,
+                                  "optimized_frame_evaluation": true
+                                },
+                                "functions": [
+                                  "count"
+                                ]
+                              }
+                            ],
+                            "cost_info": {
+                              "sort_cost": "199120.00"
+                            },
+                            "table": {
+                              "table_name": "serial_history",
+                              "access_type": "ALL",
+                              "rows_examined_per_scan": 99560,
+                              "rows_produced_per_join": 99560,
+                              "filtered": "100.00",
+                              "cost_info": {
+                                "read_cost": "607.50",
+                                "eval_cost": "9956.00",
+                                "prefix_cost": "10563.50",
+                                "data_read_per_join": "37M"
+                              },
+                              "used_columns": [
+                                "id",
+                                "serial_item_id",
+                                "from_status",
+                                "to_status",
+                                "from_branch_id",
+                                "to_branch_id",
+                                "changed_at"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

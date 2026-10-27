@@ -3,6 +3,7 @@ package com.dienmay.inventory.entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@jakarta.persistence.EntityListeners(org.springframework.data.jpa.domain.support.AuditingEntityListener.class)
 @Entity
 @Table(name = "supplier")
 public class Supplier {
@@ -23,10 +24,8 @@ public class Supplier {
     private boolean active = true;
 
     @Column(name = "created_at", nullable = false, updatable = false)
+    @org.springframework.data.annotation.CreatedDate
     private LocalDateTime createdAt;
-
-    @PrePersist
-    void onCreate() { createdAt = LocalDateTime.now(); }
 
     public Long getId() { return id; }
     public String getName() { return name; }

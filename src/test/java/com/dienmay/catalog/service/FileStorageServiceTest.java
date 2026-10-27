@@ -20,6 +20,7 @@ class FileStorageServiceTest {
     void setUp() { storage = new FileStorageService(directory.toString()); }
 
     @Test
+    @com.dienmay.support.TestCase("TC-UPL-01")
     void store_invalidExtension_rejectsFile() {
         assertThatThrownBy(() -> storage.store(new MockMultipartFile("image", "test.svg", "image/svg+xml", png)))
                 .isInstanceOf(BusinessException.class);
@@ -38,6 +39,7 @@ class FileStorageServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-UPL-02")
     void store_fileAboveTwoMegabytes_rejectsFile() throws Exception {
         byte[] bytes = new byte[(int) FileStorageService.MAX_BYTES + 1];
         assertThatThrownBy(() -> storage.store(new MockMultipartFile("image", "large.png", "image/png", bytes)))
@@ -46,6 +48,7 @@ class FileStorageServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-UPL-03")
     void store_originalName_usesUuidInsteadOfOriginalName() throws Exception {
         String url = storage.store(new MockMultipartFile("image", "my-secret-original.png", "image/png", png));
         assertThat(url).matches("/uploads/[0-9a-f-]{36}\\.png");
@@ -54,6 +57,7 @@ class FileStorageServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-UPL-03")
     void store_traversalOriginalName_staysInsideUploadDirectory() throws Exception {
         String url = storage.store(new MockMultipartFile("image", "../x.png", "image/png", png));
         Path saved = directory.resolve(url.substring(9)).normalize();

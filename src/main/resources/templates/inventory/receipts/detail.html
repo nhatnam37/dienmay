@@ -4,7 +4,7 @@
 <body><nav th:replace="~{fragments/layout :: nav}"></nav>
 <main class="container pb-5"><div th:replace="~{fragments/layout :: messages}"></div>
 <h1 class="h3" th:text="${detail.receipt.code}"></h1><dl class="row mt-3"><dt class="col-md-2">Chi nhánh</dt><dd class="col-md-4" th:text="${detail.receipt.branchName}"></dd><dt class="col-md-2">Nhà cung cấp</dt><dd class="col-md-4" th:text="${detail.receipt.supplierName}"></dd><dt class="col-md-2">Người nhập</dt><dd class="col-md-4" th:text="${detail.receipt.createdByName}"></dd><dt class="col-md-2">Ngày nhập</dt><dd class="col-md-4" th:text="${#temporals.format(detail.receipt.createdAt,'dd/MM/yyyy HH:mm')}"></dd></dl>
-<p th:text="${detail.note}" style="white-space:pre-wrap"></p>
+<p th:text="${detail.note}" class="preserve-lines"></p>
 <div class="table-responsive"><table class="table table-bordered align-middle"><thead><tr><th>SKU / Sản phẩm</th><th>Số lượng</th><th>Đơn giá</th><th>Thành tiền</th><th>Serial</th></tr></thead><tbody>
 <tr th:each="item : ${detail.items}"><td><b th:text="${item.sku}"></b><br><span th:text="${item.productName}"></span></td><td th:text="${item.quantity}"></td><td th:text="${#numbers.formatDecimal(item.unitCost,1,'POINT',0,'COMMA') + ' đ'}"></td><td th:text="${#numbers.formatDecimal(item.unitCost * item.quantity,1,'POINT',0,'COMMA') + ' đ'}"></td><td><div th:each="s : ${item.serials}"><code th:text="${s.serialNo}"></code> <small th:text="${s.status}"></small></div><span th:if="${#lists.isEmpty(item.serials)}">—</span></td></tr>
 </tbody><tfoot><tr><th colspan="3">Tổng tiền</th><th colspan="2" th:text="${#numbers.formatDecimal(detail.total,1,'POINT',0,'COMMA') + ' đ'}"></th></tr></tfoot></table></div>

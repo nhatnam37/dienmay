@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional(readOnly = true)
 public class GoodsReceiptService {
+    private final Clock clock;
     private final GoodsReceiptRepository receipts;
     private final GoodsReceiptItemRepository items;
     private final SupplierRepository suppliers;
@@ -38,7 +39,8 @@ public class GoodsReceiptService {
     public GoodsReceiptService(GoodsReceiptRepository receipts, GoodsReceiptItemRepository items,
             SupplierRepository suppliers, ProductRepository products, SerialItemRepository serials,
             SerialStateService serialState, SerialNumberRules rules, StockService stock,
-            BranchRepository branches, EmployeeRepository employees, InventoryAccess access) {
+            BranchRepository branches, EmployeeRepository employees, InventoryAccess access, Clock clock) {
+        this.clock=clock;
         this.receipts = receipts; this.items = items; this.suppliers = suppliers; this.products = products;
         this.serials = serials; this.serialState = serialState; this.rules = rules; this.stock = stock;
         this.branches = branches; this.employees = employees; this.access = access;
@@ -118,7 +120,7 @@ public class GoodsReceiptService {
         receipt.setCode("TMP-" + UUID.randomUUID()); // Unique placeholder, chưa commit ra ngoài.
         receipt.setSupplier(supplier); receipt.setBranch(branch); receipt.setCreatedBy(employee); receipt.setNote(form.getNote());
         receipt = receipts.saveAndFlush(receipt);
-        receipt.setCode("PN-" + LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")).format(DateTimeFormatter.BASIC_ISO_DATE)
+        receipt.setCode("PN-" + LocalDate.now(clock).format(DateTimeFormatter.BASIC_ISO_DATE)
                 + "-" + String.format(Locale.ROOT, "%05d", receipt.getId()));
         for (Prepared line : prepared) {
             GoodsReceiptItem item = new GoodsReceiptItem();
@@ -147,10 +149,12 @@ public class GoodsReceiptService {
     private BigDecimal parseCost(String value, int row, List<String> errors) {
         try {
             BigDecimal cost = new BigDecimal(value == null ? "" : value.strip());
-            if (cost.signum() < 0 || cost.scale() > 2 || cost.precision() - cost.scale() > 13) { throw new NumberFormatException(); }
-            return cost;
+            return com.dienmay.common.money.WholeMoneyValidator.nonNegative(cost,"Đơn giá nhập");
         } catch (NumberFormatException exception) {
-            errors.add("Dòng " + row + ": đơn giá phải không âm, tối đa 13 số nguyên và 2 số thập phân.");
+            errors.add("Dòng " + row + ": đơn giá phải là số nguyên đồng không âm, tối đa 13 chữ số.");
+            return BigDecimal.ZERO;
+        } catch (BusinessException exception) {
+            errors.add("Dòng " + row + ": " + exception.getMessage());
             return BigDecimal.ZERO;
         }
     }

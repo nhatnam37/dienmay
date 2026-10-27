@@ -1,0 +1,7 @@
+# Testcontainers cấp URL/user/password bằng DynamicPropertySource; không trỏ về dev.
+spring:
+  thymeleaf:
+    cache: false
+app:
+  order:
+    expiry-enabled: false

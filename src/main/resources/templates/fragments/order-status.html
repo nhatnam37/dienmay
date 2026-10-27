@@ -1,0 +1,1 @@
+<!DOCTYPE html><html lang="vi" xmlns:th="http://www.thymeleaf.org"><body><span th:fragment="status(value)" class="badge" th:classappend="${value.name()=='COMPLETED'?'text-bg-success':(value.name()=='CANCELLED'||value.name()=='EXPIRED'?'text-bg-secondary':'text-bg-primary')}" th:text="${value.label}"></span></body></html>

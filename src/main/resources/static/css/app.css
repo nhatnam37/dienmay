@@ -1,0 +1,91 @@
+:root {
+    --color-primary: #185adb;
+    --color-accent: #6941c6;
+    --color-success: #18794e;
+    --color-warning: #976500;
+    --color-danger: #b42318;
+    --color-surface: #fff;
+    --color-background: #f5f7fb;
+    --color-text: #182230;
+    --color-muted: #667085;
+    --font-base: system-ui, -apple-system, "Segoe UI", sans-serif;
+    --bs-primary: var(--color-primary);
+    --bs-success: var(--color-success);
+    --bs-danger: var(--color-danger);
+}
+body { font-family: var(--font-base); color: var(--color-text); }
+.btn-primary { --bs-btn-bg: var(--color-primary); --bs-btn-border-color: var(--color-primary); --bs-btn-hover-bg: color-mix(in srgb, var(--color-primary), #000 15%); --bs-btn-hover-border-color: var(--bs-btn-hover-bg); }
+.btn-success { --bs-btn-bg: var(--color-success); --bs-btn-border-color: var(--color-success); --bs-btn-hover-bg: color-mix(in srgb, var(--color-success), #000 15%); --bs-btn-hover-border-color: var(--bs-btn-hover-bg); }
+.text-danger, .pos-feedback { color: var(--color-danger) !important; }
+.form-width-medium { max-width: 650px; }
+.form-width-wide { max-width: 700px; }
+.preserve-lines { white-space: pre-wrap; }
+.login-container { max-width: 400px; margin-top: 100px; }
+.image-contain { object-fit: contain; }
+.pos-body { background: var(--color-background); }
+.pos-shell { max-width: 1600px; }
+.pos-shell .card { border-color: #e4e7ec; border-radius: .75rem; background: var(--color-surface); }
+.pos-total { color: var(--color-primary); }
+.pos-feedback { min-height: 1.5em; }
+.payment-line .form-label { display: block; }
+.payment-line [hidden], [hidden] { display: none !important; }
+.cart-quantity { width: 6rem; }
+.invoice-paper { max-width: 900px; margin: auto; }
+.invoice-totals { min-width: 280px; }
+.serial-status, .invoice-status { background: var(--color-muted); }
+.serial-status[data-status="IN_STOCK"], .invoice-status[data-status="COMPLETED"] { background: var(--color-success); }
+.serial-status[data-status="RESERVED"], .serial-status[data-status="IN_TRANSFER"] { background: var(--color-warning); }
+.serial-status[data-status="IN_WARRANTY_REPAIR"] { background: var(--color-accent); }
+.serial-status[data-status="DAMAGED"], .invoice-status[data-status="CANCELLED"] { background: var(--color-danger); }
+@page { size: A5 portrait; margin: 10mm; }
+@media print {
+    body { background: #fff; font-size: 10pt; color: #000; }
+    .navbar, .no-print, body > nav { display: none !important; }
+    #invoice-page { padding: 0 !important; margin: 0; width: 100%; max-width: none; }
+    .invoice-paper { border: 0; padding: 0; max-width: none; box-shadow: none; }
+    .table-responsive { overflow: visible; }
+    .invoice-paper table { width: 100%; font-size: 9pt; }
+    .invoice-paper tr, .invoice-totals { break-inside: avoid; }
+    .invoice-paper thead { display: table-header-group; }
+    .badge { color: #000 !important; background: none !important; border: 1px solid #999; }
+    a { color: #000; text-decoration: none; }
+}
+
+/* Storefront dùng cùng biến màu/font; không ghi style trong từng trang. */
+.storefront-body { background: var(--color-background); }
+.store-nav, .store-footer { background: var(--color-surface); }
+.store-nav .navbar-brand, .store-price { color: var(--color-primary); }
+.store-hero { background: color-mix(in srgb, var(--color-primary) 9%, var(--color-surface)); }
+.store-product { border-radius: .8rem; overflow: hidden; }
+.store-image-link { display: flex; min-height: 210px; align-items: center; justify-content: center; background: var(--color-surface); text-decoration: none; }
+.store-product-image { width: 100%; height: 210px; object-fit: contain; padding: 1rem; }
+.store-detail-image { width: 100%; height: 380px; object-fit: contain; }
+.store-detail-placeholder { min-height: 380px; display: grid; place-items: center; }
+.store-no-image { color: var(--color-muted); }
+
+/* Bảo hành dùng cùng biến màu/font của storefront và quản trị. */
+.warranty-public { max-width: 720px; }
+.warranty-status { background: var(--color-primary); white-space: normal; text-align: left; }
+.warranty-status[data-status="IN_REPAIR"] { background: var(--color-accent); }
+.warranty-status[data-status="COMPLETED"], .warranty-status[data-status="RETURNED"] { background: var(--color-success); }
+.warranty-status[data-status="REJECTED"] { background: var(--color-danger); }
+.warranty-status[data-status="CANCELLED"] { background: var(--color-muted); }
+.warranty-coverage { background: var(--color-muted); }
+.warranty-coverage[data-valid="true"] { background: var(--color-success); }
+.warranty-timeline { border-left: 2px solid var(--color-primary); padding-left: 1.25rem; }
+.warranty-timeline > li { padding-bottom: 1.25rem; overflow-wrap: anywhere; }
+.warranty-timeline > li:last-child { padding-bottom: 0; }
+.warranty-receipt { max-width: 800px; }
+.warranty-signatures { min-height: 100px; margin-top: 2rem; }
+.warranty-shell dd { overflow-wrap: anywhere; }
+@media print {
+    .warranty-receipt { width: 100%; max-width: none; border: 0; }
+    .warranty-receipt dl { break-inside: avoid; }
+}
+
+/* Báo cáo: thay biến màu tại :root để đổi cả bảng và Chart.js. */
+.report-negative, .report-negative td { color: var(--color-warning) !important; }
+.report-canvas { height: 300px; position: relative; }
+.report-chart-error { min-height: 1.5rem; margin-top: .75rem; }
+.report-shell .card { border-color: color-mix(in srgb, var(--color-muted) 25%, var(--color-surface)); }
+.report-shell tfoot { font-weight: 600; }

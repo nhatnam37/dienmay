@@ -7,6 +7,7 @@ import com.dienmay.inventory.entity.GoodsReceipt;
 import java.time.LocalDateTime;
 import java.math.BigDecimal;
 
+@jakarta.persistence.EntityListeners(org.springframework.data.jpa.domain.support.AuditingEntityListener.class)
 @Entity
 @Table(name = "serial_item")
 public class SerialItem {
@@ -45,16 +46,12 @@ public class SerialItem {
     private Long version;
 
     @Column(name = "created_at", nullable = false, updatable = false)
+    @org.springframework.data.annotation.CreatedDate
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
+    @org.springframework.data.annotation.LastModifiedDate
     private LocalDateTime updatedAt;
-
-    @PrePersist
-    void onCreate() { createdAt = LocalDateTime.now(); updatedAt = createdAt; }
-
-    @PreUpdate
-    void onUpdate() { updatedAt = LocalDateTime.now(); }
 
     public Long getId() { return id; }
     public Product getProduct() { return product; }

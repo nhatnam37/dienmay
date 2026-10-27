@@ -1,0 +1,351 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "6.95"
+    },
+    "ordering_operation": {
+      "using_filesort": true,
+      "cost_info": {
+        "sort_cost": "4.00"
+      },
+      "windowing": {
+        "windows": [
+          {
+            "name": "<unnamed window>",
+            "definition_position": 1,
+            "using_temporary_table": true,
+            "frame_buffer": {
+              "using_temporary_table": true,
+              "optimized_frame_evaluation": true
+            },
+            "functions": [
+              "sum"
+            ]
+          },
+          {
+            "name": "<unnamed window>",
+            "definition_position": 2,
+            "last_executed_window": true,
+            "frame_buffer": {
+              "using_temporary_table": true,
+              "optimized_frame_evaluation": true
+            },
+            "functions": [
+              "sum"
+            ]
+          }
+        ],
+        "table": {
+          "table_name": "q",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 4,
+          "rows_produced_per_join": 4,
+          "filtered": "100.00",
+          "cost_info": {
+            "read_cost": "2.55",
+            "eval_cost": "0.40",
+            "prefix_cost": "2.95",
+            "data_read_per_join": "512"
+          },
+          "used_columns": [
+            "object_type",
+            "object_id",
+            "invoice_id",
+            "kind"
+          ],
+          "materialized_from_subquery": {
+            "using_temporary_table": true,
+            "dependent": false,
+            "cacheable": true,
+            "query_block": {
+              "union_result": {
+                "using_temporary_table": false,
+                "query_specifications": [
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 2,
+                      "cost_info": {
+                        "query_cost": "1.05"
+                      },
+                      "nested_loop": [
+                        {
+                          "table": {
+                            "table_name": "s",
+                            "access_type": "index",
+                            "possible_keys": [
+                              "idx_serial_status_reserved_until"
+                            ],
+                            "key": "idx_serial_status_reserved_until",
+                            "used_key_parts": [
+                              "status",
+                              "reserved_until"
+                            ],
+                            "key_length": "91",
+                            "rows_examined_per_scan": 1,
+                            "rows_produced_per_join": 1,
+                            "filtered": "100.00",
+                            "using_index": true,
+                            "cost_info": {
+                              "read_cost": "0.25",
+                              "eval_cost": "0.10",
+                              "prefix_cost": "0.35",
+                              "data_read_per_join": "280"
+                            },
+                            "used_columns": [
+                              "id",
+                              "status"
+                            ],
+                            "attached_condition": "((`audit_0da494474d7444c083635204a7bad048`.`s`.`status` = 'RESERVED') or (`audit_0da494474d7444c083635204a7bad048`.`s`.`status` <> 'RESERVED'))"
+                          }
+                        },
+                        {
+                          "table": {
+                            "table_name": "h",
+                            "access_type": "ref",
+                            "possible_keys": [
+                              "<auto_key0>"
+                            ],
+                            "key": "<auto_key0>",
+                            "used_key_parts": [
+                              "serial_item_id"
+                            ],
+                            "key_length": "8",
+                            "ref": [
+                              "audit_0da494474d7444c083635204a7bad048.s.id"
+                            ],
+                            "rows_examined_per_scan": 2,
+                            "rows_produced_per_join": 2,
+                            "filtered": "100.00",
+                            "cost_info": {
+                              "read_cost": "0.50",
+                              "eval_cost": "0.20",
+                              "prefix_cost": "1.05",
+                              "data_read_per_join": "48"
+                            },
+                            "used_columns": [
+                              "serial_item_id",
+                              "n"
+                            ],
+                            "attached_condition": "<if>(found_match(h), (((`audit_0da494474d7444c083635204a7bad048`.`s`.`status` = 'RESERVED') and (coalesce(`h`.`n`,0) <> 1)) or ((`audit_0da494474d7444c083635204a7bad048`.`s`.`status` <> 'RESERVED') and (coalesce(`h`.`n`,0) > 0))), true)",
+                            "materialized_from_subquery": {
+                              "using_temporary_table": true,
+                              "dependent": false,
+                              "cacheable": true,
+                              "query_block": {
+                                "select_id": 3,
+                                "cost_info": {
+                                  "query_cost": "1.80"
+                                },
+                                "grouping_operation": {
+                                  "using_temporary_table": true,
+                                  "using_filesort": false,
+                                  "nested_loop": [
+                                    {
+                                      "table": {
+                                        "table_name": "l",
+                                        "access_type": "ALL",
+                                        "possible_keys": [
+                                          "uk_order_item_serial",
+                                          "idx_order_serial_serial"
+                                        ],
+                                        "rows_examined_per_scan": 1,
+                                        "rows_produced_per_join": 1,
+                                        "filtered": "100.00",
+                                        "cost_info": {
+                                          "read_cost": "1.00",
+                                          "eval_cost": "0.10",
+                                          "prefix_cost": "1.10",
+                                          "data_read_per_join": "48"
+                                        },
+                                        "used_columns": [
+                                          "id",
+                                          "order_item_id",
+                                          "serial_item_id",
+                                          "released_at"
+                                        ],
+                                        "attached_condition": "(`audit_0da494474d7444c083635204a7bad048`.`l`.`released_at` is null)"
+                                      }
+                                    },
+                                    {
+                                      "table": {
+                                        "table_name": "x",
+                                        "access_type": "eq_ref",
+                                        "possible_keys": [
+                                          "PRIMARY",
+                                          "uk_order_item_product"
+                                        ],
+                                        "key": "PRIMARY",
+                                        "used_key_parts": [
+                                          "id"
+                                        ],
+                                        "key_length": "8",
+                                        "ref": [
+                                          "audit_0da494474d7444c083635204a7bad048.l.order_item_id"
+                                        ],
+                                        "rows_examined_per_scan": 1,
+                                        "rows_produced_per_join": 1,
+                                        "filtered": "100.00",
+                                        "cost_info": {
+                                          "read_cost": "0.25",
+                                          "eval_cost": "0.10",
+                                          "prefix_cost": "1.45",
+                                          "data_read_per_join": "48"
+                                        },
+                                        "used_columns": [
+                                          "id",
+                                          "order_id"
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "table": {
+                                        "table_name": "o",
+                                        "access_type": "eq_ref",
+                                        "possible_keys": [
+                                          "PRIMARY",
+                                          "idx_order_status_expires"
+                                        ],
+                                        "key": "PRIMARY",
+                                        "used_key_parts": [
+                                          "id"
+                                        ],
+                                        "key_length": "8",
+                                        "ref": [
+                                          "audit_0da494474d7444c083635204a7bad048.x.order_id"
+                                        ],
+                                        "rows_examined_per_scan": 1,
+                                        "rows_produced_per_join": 1,
+                                        "filtered": "100.00",
+                                        "cost_info": {
+                                          "read_cost": "0.25",
+                                          "eval_cost": "0.10",
+                                          "prefix_cost": "1.80",
+                                          "data_read_per_join": "3K"
+                                        },
+                                        "used_columns": [
+                                          "id",
+                                          "status"
+                                        ],
+                                        "attached_condition": "(`audit_0da494474d7444c083635204a7bad048`.`o`.`status` in ('PENDING_PAYMENT','PLACED','CONFIRMED','SHIPPING','READY_FOR_PICKUP'))"
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 4,
+                      "cost_info": {
+                        "query_cost": "1.80"
+                      },
+                      "nested_loop": [
+                        {
+                          "table": {
+                            "table_name": "l",
+                            "access_type": "ALL",
+                            "possible_keys": [
+                              "uk_order_item_serial"
+                            ],
+                            "rows_examined_per_scan": 1,
+                            "rows_produced_per_join": 1,
+                            "filtered": "100.00",
+                            "cost_info": {
+                              "read_cost": "1.00",
+                              "eval_cost": "0.10",
+                              "prefix_cost": "1.10",
+                              "data_read_per_join": "48"
+                            },
+                            "used_columns": [
+                              "id",
+                              "order_item_id",
+                              "released_at"
+                            ],
+                            "attached_condition": "(`audit_0da494474d7444c083635204a7bad048`.`l`.`released_at` is null)"
+                          }
+                        },
+                        {
+                          "table": {
+                            "table_name": "x",
+                            "access_type": "eq_ref",
+                            "possible_keys": [
+                              "PRIMARY",
+                              "uk_order_item_product"
+                            ],
+                            "key": "PRIMARY",
+                            "used_key_parts": [
+                              "id"
+                            ],
+                            "key_length": "8",
+                            "ref": [
+                              "audit_0da494474d7444c083635204a7bad048.l.order_item_id"
+                            ],
+                            "rows_examined_per_scan": 1,
+                            "rows_produced_per_join": 1,
+                            "filtered": "100.00",
+                            "cost_info": {
+                              "read_cost": "0.25",
+                              "eval_cost": "0.10",
+                              "prefix_cost": "1.45",
+                              "data_read_per_join": "48"
+                            },
+                            "used_columns": [
+                              "id",
+                              "order_id"
+                            ]
+                          }
+                        },
+                        {
+                          "table": {
+                            "table_name": "o",
+                            "access_type": "eq_ref",
+                            "possible_keys": [
+                              "PRIMARY",
+                              "idx_order_status_expires"
+                            ],
+                            "key": "PRIMARY",
+                            "used_key_parts": [
+                              "id"
+                            ],
+                            "key_length": "8",
+                            "ref": [
+                              "audit_0da494474d7444c083635204a7bad048.x.order_id"
+                            ],
+                            "rows_examined_per_scan": 1,
+                            "rows_produced_per_join": 1,
+                            "filtered": "100.00",
+                            "cost_info": {
+                              "read_cost": "0.25",
+                              "eval_cost": "0.10",
+                              "prefix_cost": "1.80",
+                              "data_read_per_join": "3K"
+                            },
+                            "used_columns": [
+                              "id",
+                              "status"
+                            ],
+                            "attached_condition": "(`audit_0da494474d7444c083635204a7bad048`.`o`.`status` in ('CANCELLED','EXPIRED','COMPLETED'))"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -8,8 +8,9 @@ import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.*;
 
 class InventoryContextValidatorTest {
+    private final com.dienmay.customer.repository.CustomerRepository customers = mock(com.dienmay.customer.repository.CustomerRepository.class);
     private final EmployeeRepository employees = mock(EmployeeRepository.class);
-    private final InventoryContextValidator validator = new InventoryContextValidator(employees);
+    private final InventoryContextValidator validator = new InventoryContextValidator(employees, customers);
 
     @Test
     void validate_existingEmployee_acceptsActor() {
@@ -37,9 +38,15 @@ class InventoryContextValidatorTest {
     }
 
     @Test
-    void validate_customerWithId_defersExistenceCheck() {
+    void validate_existingCustomer_acceptsActor() {
+        when(customers.existsById(99L)).thenReturn(true);
         validator.validate(new StockContext("ONLINE_ORDER", 1L, ActorType.CUSTOMER, 99L, null));
         verifyNoInteractions(employees);
+    }
+
+    @Test
+    void validate_missingCustomer_rejectsActor(){
+        assertThatThrownBy(()->validator.validate(new StockContext("ORDER",1L,ActorType.CUSTOMER,99L,null))).isInstanceOf(BusinessException.class);
     }
 
     @Test

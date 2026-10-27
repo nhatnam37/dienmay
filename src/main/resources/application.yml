@@ -6,7 +6,7 @@ spring:
   application:
     name: dienmay
   profiles:
-    active: dev
+    default: dev
   jpa:
     open-in-view: false
     hibernate:
@@ -20,6 +20,35 @@ spring:
     locations: classpath:db/migration
 
 app:
+  web:
+    query:
+      max-page: ${QUERY_MAX_PAGE:10000}
+      max-size: ${QUERY_MAX_SIZE:50}
+      max-keyword-length: ${QUERY_MAX_KEYWORD_LENGTH:100}
+  security:
+    login:
+      pair-limit: ${LOGIN_PAIR_LIMIT:5}
+      ip-limit: ${LOGIN_IP_LIMIT:50}
+      window: ${LOGIN_WINDOW:PT5M}
+      block-duration: ${LOGIN_BLOCK_DURATION:PT5M}
+      cleanup-interval: ${LOGIN_CLEANUP_INTERVAL:PT1M}
+      max-entries: ${LOGIN_MAX_ENTRIES:100000}
+      trust-forwarded-for: ${LOGIN_TRUST_FORWARDED_FOR:false}
+      trusted-proxy-addresses: ${LOGIN_TRUSTED_PROXY_ADDRESSES:}
+  report:
+    export-max-rows: ${REPORT_EXPORT_MAX_ROWS:50000}
+    low-stock-threshold: ${REPORT_LOW_STOCK_THRESHOLD:5}
+  warranty:
+    lookup-rate-per-minute: ${WARRANTY_LOOKUP_RATE_PER_MINUTE:20}
+  order:
+    hold-minutes: 15
+    placed-hold-hours: 24
+    expiry-enabled: ${ORDER_EXPIRY_ENABLED:true}
+    expiry-delay-ms: 60000
+  pos:
+    max-cashier-discount-percent: 5
+    cancel-same-day-only: true
+    return-window-days: 7
   upload-dir: ${UPLOAD_DIR:./uploads}
 
 server:
@@ -27,3 +56,22 @@ server:
     include-stacktrace: never
     include-message: never
     include-binding-errors: never
+
+# Chỉ tạo health endpoint, không bật env/beans/heapdump hoặc discovery links.
+management:
+  endpoints:
+    access:
+      default: none
+    web:
+      exposure:
+        include: health
+      discovery:
+        enabled: false
+    jmx:
+      exposure:
+        exclude: '*'
+  endpoint:
+    health:
+      access: read-only
+      show-details: never
+      show-components: never

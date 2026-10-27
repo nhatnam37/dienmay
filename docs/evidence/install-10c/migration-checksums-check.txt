@@ -1,0 +1,15 @@
+src/main/resources/db/migration/V10__order_fulfillment.sql: OK
+src/main/resources/db/migration/V11__online_payment_cash_check.sql: OK
+src/main/resources/db/migration/V12__warranty_ticket.sql: OK
+src/main/resources/db/migration/V13__report_indexes.sql: OK
+src/main/resources/db/migration/V14__whole_inventory_cost.sql: OK
+src/main/resources/db/migration/V15__invoice_warranty_snapshot.sql: OK
+src/main/resources/db/migration/V1__init_organization.sql: OK
+src/main/resources/db/migration/V2__catalog.sql: OK
+src/main/resources/db/migration/V3__inventory_core.sql: OK
+src/main/resources/db/migration/V4__transfer.sql: OK
+src/main/resources/db/migration/V5__stocktake.sql: OK
+src/main/resources/db/migration/V6__sales.sql: OK
+src/main/resources/db/migration/V7__sales_return.sql: OK
+src/main/resources/db/migration/V8__customer.sql: OK
+src/main/resources/db/migration/V9__orders.sql: OK

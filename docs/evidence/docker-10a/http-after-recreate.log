@@ -1,0 +1,10 @@
+PASS: health anonymous 200 chỉ có status UP
+PASS: prod từ chối mật khẩu admin demo
+PASS: đăng nhập admin mới bằng env, có CSRF
+PASS: trang staff truy cập được sau đăng nhập
+PASS: ADMIN bị chặn /actuator
+PASS: ADMIN bị chặn /actuator/env
+PASS: ADMIN bị chặn /actuator/beans
+PASS: ADMIN bị chặn /actuator/heapdump
+PASS: ADMIN bị chặn /actuator/health/db
+PASS: storefront công khai 200

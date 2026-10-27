@@ -1,0 +1,413 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "5.20"
+    },
+    "ordering_operation": {
+      "using_filesort": true,
+      "windowing": {
+        "windows": [
+          {
+            "name": "<unnamed window>",
+            "definition_position": 1,
+            "using_temporary_table": true,
+            "frame_buffer": {
+              "using_temporary_table": true,
+              "optimized_frame_evaluation": true
+            },
+            "functions": [
+              "sum"
+            ]
+          },
+          {
+            "name": "<unnamed window>",
+            "definition_position": 2,
+            "last_executed_window": true,
+            "frame_buffer": {
+              "using_temporary_table": true,
+              "optimized_frame_evaluation": true
+            },
+            "functions": [
+              "sum"
+            ]
+          }
+        ],
+        "table": {
+          "table_name": "q",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 24,
+          "rows_produced_per_join": 24,
+          "filtered": "100.00",
+          "cost_info": {
+            "read_cost": "2.80",
+            "eval_cost": "2.40",
+            "prefix_cost": "5.20",
+            "data_read_per_join": "3K"
+          },
+          "used_columns": [
+            "object_type",
+            "object_id",
+            "invoice_id",
+            "kind"
+          ],
+          "materialized_from_subquery": {
+            "using_temporary_table": true,
+            "dependent": false,
+            "cacheable": true,
+            "query_block": {
+              "union_result": {
+                "using_temporary_table": false,
+                "query_specifications": [
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 2,
+                      "cost_info": {
+                        "query_cost": "1.10"
+                      },
+                      "table": {
+                        "table_name": "goods_receipt_item",
+                        "access_type": "ALL",
+                        "rows_examined_per_scan": 1,
+                        "rows_produced_per_join": 1,
+                        "filtered": "100.00",
+                        "cost_info": {
+                          "read_cost": "1.00",
+                          "eval_cost": "0.10",
+                          "prefix_cost": "1.10",
+                          "data_read_per_join": "40"
+                        },
+                        "used_columns": [
+                          "id",
+                          "unit_cost"
+                        ],
+                        "attached_condition": "(`audit_0da494474d7444c083635204a7bad048`.`goods_receipt_item`.`unit_cost` <> floor(`audit_0da494474d7444c083635204a7bad048`.`goods_receipt_item`.`unit_cost`))"
+                      }
+                    }
+                  },
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 3,
+                      "cost_info": {
+                        "query_cost": "0.35"
+                      },
+                      "table": {
+                        "table_name": "serial_item",
+                        "access_type": "ALL",
+                        "rows_examined_per_scan": 1,
+                        "rows_produced_per_join": 1,
+                        "filtered": "100.00",
+                        "cost_info": {
+                          "read_cost": "0.25",
+                          "eval_cost": "0.10",
+                          "prefix_cost": "0.35",
+                          "data_read_per_join": "280"
+                        },
+                        "used_columns": [
+                          "id",
+                          "cost_price"
+                        ],
+                        "attached_condition": "(`audit_0da494474d7444c083635204a7bad048`.`serial_item`.`cost_price` <> floor(`audit_0da494474d7444c083635204a7bad048`.`serial_item`.`cost_price`))"
+                      }
+                    }
+                  },
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 4,
+                      "cost_info": {
+                        "query_cost": "1.10"
+                      },
+                      "table": {
+                        "table_name": "product",
+                        "access_type": "ALL",
+                        "rows_examined_per_scan": 1,
+                        "rows_produced_per_join": 1,
+                        "filtered": "100.00",
+                        "cost_info": {
+                          "read_cost": "1.00",
+                          "eval_cost": "0.10",
+                          "prefix_cost": "1.10",
+                          "data_read_per_join": "2K"
+                        },
+                        "used_columns": [
+                          "id",
+                          "price"
+                        ],
+                        "attached_condition": "(`audit_0da494474d7444c083635204a7bad048`.`product`.`price` <> floor(`audit_0da494474d7444c083635204a7bad048`.`product`.`price`))"
+                      }
+                    }
+                  },
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 5,
+                      "cost_info": {
+                        "query_cost": "0.35"
+                      },
+                      "table": {
+                        "table_name": "invoice",
+                        "access_type": "ALL",
+                        "rows_examined_per_scan": 1,
+                        "rows_produced_per_join": 1,
+                        "filtered": "100.00",
+                        "cost_info": {
+                          "read_cost": "0.25",
+                          "eval_cost": "0.10",
+                          "prefix_cost": "0.35",
+                          "data_read_per_join": "944"
+                        },
+                        "used_columns": [
+                          "id",
+                          "subtotal",
+                          "discount_amount",
+                          "total_amount"
+                        ],
+                        "attached_condition": "((`audit_0da494474d7444c083635204a7bad048`.`invoice`.`subtotal` <> floor(`audit_0da494474d7444c083635204a7bad048`.`invoice`.`subtotal`)) or (`audit_0da494474d7444c083635204a7bad048`.`invoice`.`discount_amount` <> floor(`audit_0da494474d7444c083635204a7bad048`.`invoice`.`discount_amount`)) or (`audit_0da494474d7444c083635204a7bad048`.`invoice`.`total_amount` <> floor(`audit_0da494474d7444c083635204a7bad048`.`invoice`.`total_amount`)))"
+                      }
+                    }
+                  },
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 6,
+                      "cost_info": {
+                        "query_cost": "0.35"
+                      },
+                      "table": {
+                        "table_name": "invoice_item",
+                        "access_type": "ALL",
+                        "rows_examined_per_scan": 1,
+                        "rows_produced_per_join": 1,
+                        "filtered": "100.00",
+                        "cost_info": {
+                          "read_cost": "0.25",
+                          "eval_cost": "0.10",
+                          "prefix_cost": "0.35",
+                          "data_read_per_join": "72"
+                        },
+                        "used_columns": [
+                          "id",
+                          "unit_price",
+                          "line_total"
+                        ],
+                        "attached_condition": "((`audit_0da494474d7444c083635204a7bad048`.`invoice_item`.`unit_price` <> floor(`audit_0da494474d7444c083635204a7bad048`.`invoice_item`.`unit_price`)) or (`audit_0da494474d7444c083635204a7bad048`.`invoice_item`.`line_total` <> floor(`audit_0da494474d7444c083635204a7bad048`.`invoice_item`.`line_total`)))"
+                      }
+                    }
+                  },
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 7,
+                      "cost_info": {
+                        "query_cost": "0.35"
+                      },
+                      "table": {
+                        "table_name": "payment",
+                        "access_type": "ALL",
+                        "rows_examined_per_scan": 1,
+                        "rows_produced_per_join": 1,
+                        "filtered": "100.00",
+                        "cost_info": {
+                          "read_cost": "0.25",
+                          "eval_cost": "0.10",
+                          "prefix_cost": "0.35",
+                          "data_read_per_join": "496"
+                        },
+                        "used_columns": [
+                          "id",
+                          "amount",
+                          "cash_received",
+                          "change_given"
+                        ],
+                        "attached_condition": "((`audit_0da494474d7444c083635204a7bad048`.`payment`.`amount` <> floor(`audit_0da494474d7444c083635204a7bad048`.`payment`.`amount`)) or (`audit_0da494474d7444c083635204a7bad048`.`payment`.`cash_received` <> floor(`audit_0da494474d7444c083635204a7bad048`.`payment`.`cash_received`)) or (`audit_0da494474d7444c083635204a7bad048`.`payment`.`change_given` <> floor(`audit_0da494474d7444c083635204a7bad048`.`payment`.`change_given`)))"
+                      }
+                    }
+                  },
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 8,
+                      "cost_info": {
+                        "query_cost": "0.35"
+                      },
+                      "table": {
+                        "table_name": "sales_return",
+                        "access_type": "ALL",
+                        "rows_examined_per_scan": 1,
+                        "rows_produced_per_join": 1,
+                        "filtered": "100.00",
+                        "cost_info": {
+                          "read_cost": "0.25",
+                          "eval_cost": "0.10",
+                          "prefix_cost": "0.35",
+                          "data_read_per_join": "1K"
+                        },
+                        "used_columns": [
+                          "id",
+                          "refund_total"
+                        ],
+                        "attached_condition": "(`audit_0da494474d7444c083635204a7bad048`.`sales_return`.`refund_total` <> floor(`audit_0da494474d7444c083635204a7bad048`.`sales_return`.`refund_total`))"
+                      }
+                    }
+                  },
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 9,
+                      "cost_info": {
+                        "query_cost": "0.35"
+                      },
+                      "table": {
+                        "table_name": "sales_return_item",
+                        "access_type": "ALL",
+                        "rows_examined_per_scan": 1,
+                        "rows_produced_per_join": 1,
+                        "filtered": "100.00",
+                        "cost_info": {
+                          "read_cost": "0.25",
+                          "eval_cost": "0.10",
+                          "prefix_cost": "0.35",
+                          "data_read_per_join": "56"
+                        },
+                        "used_columns": [
+                          "id",
+                          "refund_amount"
+                        ],
+                        "attached_condition": "(`audit_0da494474d7444c083635204a7bad048`.`sales_return_item`.`refund_amount` <> floor(`audit_0da494474d7444c083635204a7bad048`.`sales_return_item`.`refund_amount`))"
+                      }
+                    }
+                  },
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 10,
+                      "cost_info": {
+                        "query_cost": "0.35"
+                      },
+                      "table": {
+                        "table_name": "payment_refund",
+                        "access_type": "ALL",
+                        "rows_examined_per_scan": 1,
+                        "rows_produced_per_join": 1,
+                        "filtered": "100.00",
+                        "cost_info": {
+                          "read_cost": "0.25",
+                          "eval_cost": "0.10",
+                          "prefix_cost": "0.35",
+                          "data_read_per_join": "48"
+                        },
+                        "used_columns": [
+                          "id",
+                          "amount"
+                        ],
+                        "attached_condition": "(`audit_0da494474d7444c083635204a7bad048`.`payment_refund`.`amount` <> floor(`audit_0da494474d7444c083635204a7bad048`.`payment_refund`.`amount`))"
+                      }
+                    }
+                  },
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 11,
+                      "cost_info": {
+                        "query_cost": "0.35"
+                      },
+                      "table": {
+                        "table_name": "orders",
+                        "access_type": "ALL",
+                        "rows_examined_per_scan": 1,
+                        "rows_produced_per_join": 1,
+                        "filtered": "100.00",
+                        "cost_info": {
+                          "read_cost": "0.25",
+                          "eval_cost": "0.10",
+                          "prefix_cost": "0.35",
+                          "data_read_per_join": "3K"
+                        },
+                        "used_columns": [
+                          "id",
+                          "subtotal",
+                          "total_amount"
+                        ],
+                        "attached_condition": "((`audit_0da494474d7444c083635204a7bad048`.`orders`.`subtotal` <> floor(`audit_0da494474d7444c083635204a7bad048`.`orders`.`subtotal`)) or (`audit_0da494474d7444c083635204a7bad048`.`orders`.`total_amount` <> floor(`audit_0da494474d7444c083635204a7bad048`.`orders`.`total_amount`)))"
+                      }
+                    }
+                  },
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 12,
+                      "cost_info": {
+                        "query_cost": "0.35"
+                      },
+                      "table": {
+                        "table_name": "order_item",
+                        "access_type": "ALL",
+                        "rows_examined_per_scan": 1,
+                        "rows_produced_per_join": 1,
+                        "filtered": "100.00",
+                        "cost_info": {
+                          "read_cost": "0.25",
+                          "eval_cost": "0.10",
+                          "prefix_cost": "0.35",
+                          "data_read_per_join": "48"
+                        },
+                        "used_columns": [
+                          "id",
+                          "unit_price",
+                          "line_total"
+                        ],
+                        "attached_condition": "((`audit_0da494474d7444c083635204a7bad048`.`order_item`.`unit_price` <> floor(`audit_0da494474d7444c083635204a7bad048`.`order_item`.`unit_price`)) or (`audit_0da494474d7444c083635204a7bad048`.`order_item`.`line_total` <> floor(`audit_0da494474d7444c083635204a7bad048`.`order_item`.`line_total`)))"
+                      }
+                    }
+                  },
+                  {
+                    "dependent": false,
+                    "cacheable": true,
+                    "query_block": {
+                      "select_id": 13,
+                      "cost_info": {
+                        "query_cost": "0.35"
+                      },
+                      "table": {
+                        "table_name": "order_payment",
+                        "access_type": "ALL",
+                        "rows_examined_per_scan": 1,
+                        "rows_produced_per_join": 1,
+                        "filtered": "100.00",
+                        "cost_info": {
+                          "read_cost": "0.25",
+                          "eval_cost": "0.10",
+                          "prefix_cost": "0.35",
+                          "data_read_per_join": "1K"
+                        },
+                        "used_columns": [
+                          "id",
+                          "amount"
+                        ],
+                        "attached_condition": "(`audit_0da494474d7444c083635204a7bad048`.`order_payment`.`amount` <> floor(`audit_0da494474d7444c083635204a7bad048`.`order_payment`.`amount`))"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

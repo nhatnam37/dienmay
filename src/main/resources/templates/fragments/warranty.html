@@ -1,0 +1,6 @@
+<!DOCTYPE html><html lang="vi" xmlns:th="http://www.thymeleaf.org"><body>
+<span th:fragment="status(value)" class="badge warranty-status" th:attr="data-status=${value}" th:text="${value.label}"></span>
+<span th:fragment="coverage(valid,days)" class="badge warranty-coverage" th:attr="data-valid=${valid}" th:text="${valid ? 'Còn hạn (còn '+days+' ngày)' : 'Hết hạn'}"></span>
+<ol th:fragment="timeline(events)" class="warranty-timeline list-unstyled mt-3"><li th:each="event : ${events}"><span th:replace="~{fragments/warranty :: status(${event.status})}"></span><time class="d-block small text-secondary mt-1" th:text="${#temporals.format(event.changedAt,'dd/MM/yyyy HH:mm:ss')}"></time></li></ol>
+<ol th:fragment="staffTimeline(events)" class="warranty-timeline list-unstyled"><li th:each="event : ${events}"><span th:replace="~{fragments/warranty :: status(${event.to})}"></span><time class="ms-2 small text-secondary" th:text="${#temporals.format(event.changedAt,'dd/MM/yyyy HH:mm:ss')}"></time><div class="small mt-1" th:text="${'Thực hiện: '+event.actorName}"></div><div class="preserve-lines text-secondary" th:text="${event.note}"></div></li></ol>
+</body></html>

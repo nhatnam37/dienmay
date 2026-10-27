@@ -2,9 +2,14 @@ package com.dienmay.organization.entity;
 
 import jakarta.persistence.*;
 
+@EntityListeners(org.springframework.data.jpa.domain.support.AuditingEntityListener.class)
 @Entity
 @Table(name = "employee")
 public class Employee {
+
+    @org.springframework.data.annotation.CreatedDate
+    @Column(name="created_at",nullable=false,updatable=false)
+    private java.time.LocalDateTime createdAt;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

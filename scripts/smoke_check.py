@@ -1,11 +1,12 @@
 """Kiểm tra HTTP khi ứng dụng dev đã chạy: python3 scripts/smoke_check.py."""
+import os
 import re
 import urllib.error
 import urllib.parse
 import urllib.request
 from http.cookiejar import CookieJar
 
-BASE = 'http://localhost:8081'
+BASE = os.environ.get('DIENMAY_BASE_URL', 'http://localhost:8081')
 
 
 def request(client, path, data=None):
@@ -29,14 +30,14 @@ def client():
 
 
 browser = client()
-status, url, html = request(browser, '/')
+status, url, html = request(browser, '/staff')
 assert status == 200 and url.endswith('/login'), (status, url)
 print('OK: chưa đăng nhập → /login')
 
 for username, password, role in [('admin', 'Admin@123', 'ADMIN'), ('cashier01', 'Cashier@123', 'CASHIER')]:
     status, url, html = request(browser, '/login')
     status, url, html = request(browser, '/login', {'username': username, 'password': password, '_csrf': token(html)})
-    assert status == 200 and url == BASE + '/', (username, status, url)
+    assert status == 200 and url == BASE + '/staff', (username, status, url)
     assert 'ROLE_' + role in html and username in html
     assert ('Trang quản trị' in html) == (role == 'ADMIN')
     print('OK: đăng nhập', username, 'và hiển thị quyền')
@@ -51,7 +52,7 @@ for username, password, role in [('admin', 'Admin@123', 'ADMIN'), ('cashier01', 
     print('OK: /abc → trang 404')
     status, url, html = request(browser, '/logout', {'_csrf': csrf})
     assert status == 200 and '/login?logout' in url and 'Bạn đã đăng xuất.' in html
-    status, url, html = request(browser, '/')
+    status, url, html = request(browser, '/staff')
     assert url.endswith('/login')
     print('OK: đăng xuất', username)
 

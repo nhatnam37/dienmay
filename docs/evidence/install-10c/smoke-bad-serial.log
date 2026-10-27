@@ -1,0 +1,9 @@
+PASS: health UP
+PASS: trang chủ công khai HTTP 200
+PASS: đăng nhập nhân viên demo và mở /staff
+FAIL: tra bảo hành (HTTP 200; kiểm tra Serial có hồ sơ, giới hạn tần suất)
+PASS: mở báo cáo dashboard sau xác thực
+PASS: đăng xuất staff
+Kết quả: 5 PASS, 1 FAIL
+
+Exit code: 1

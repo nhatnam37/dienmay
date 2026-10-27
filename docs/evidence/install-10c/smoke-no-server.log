@@ -1,0 +1,6 @@
+FAIL: health (HTTP 000; ứng dụng phải khởi động/nạp xong)
+FAIL: trang chủ (HTTP 000)
+FAIL: không đọc được form/CSRF đăng nhập staff
+FAIL: không đọc được form/CSRF tra bảo hành
+FAIL: báo cáo (HTTP 000; không tính redirect sang login là PASS)
+Kết quả: 0 PASS, 5 FAIL

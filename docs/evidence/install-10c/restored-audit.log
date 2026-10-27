@@ -1,0 +1,13 @@
+app-1  | 2026-10-23T16:43:42.751+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-01 violations=0 unknown=0 examples=[]
+app-1  | 2026-10-23T16:43:42.751+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-02 violations=0 unknown=0 examples=[]
+app-1  | 2026-10-23T16:43:42.751+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-03 violations=0 unknown=0 examples=[]
+app-1  | 2026-10-23T16:43:42.751+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-04 violations=0 unknown=0 examples=[]
+app-1  | 2026-10-23T16:43:42.751+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-05 violations=0 unknown=0 examples=[]
+app-1  | 2026-10-23T16:43:42.751+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-06 violations=0 unknown=0 examples=[]
+app-1  | 2026-10-23T16:43:42.751+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-07 violations=0 unknown=0 examples=[]
+app-1  | 2026-10-23T16:43:42.751+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-08 violations=0 unknown=0 examples=[]
+app-1  | 2026-10-23T16:43:42.751+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-09 violations=0 unknown=0 examples=[]
+app-1  | 2026-10-23T16:43:42.752+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-10 violations=0 unknown=0 examples=[]
+app-1  | 2026-10-23T16:43:42.752+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-11 violations=0 unknown=0 examples=[]
+app-1  | 2026-10-23T16:43:42.752+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B INV-12 violations=0 unknown=0 examples=[]
+app-1  | 2026-10-23T16:43:42.766+07:00  INFO 1 --- [dienmay] [           main] com.dienmay.demo.DemoDataLoader          : DEMO10B hoàn tất seed=20261023, thời gian=93 ms, audit=33.11075 ms, Clock replay=false

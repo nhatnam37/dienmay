@@ -25,7 +25,8 @@ class SerialLookupServiceTest {
     @Mock EmployeeRepository employees;
     @Mock GoodsReceiptRepository receipts;
     @Mock GoodsTransferRepository transfers;
-    SerialLookupService service(){return new SerialLookupService(serials,histories,employees,receipts,transfers,new SerialNumberRules());}
+    @Mock StocktakeRepository stocktakes;
+    SerialLookupService service(){return new SerialLookupService(serials,histories,employees,receipts,transfers,new SerialNumberRules(),stocktakes);}
     @Test void lookup_cashier_rejectsBeforeQuery(){
         assertThatThrownBy(()->service().lookup("ABC-123",new InventoryActor(1L,1L,Set.of("ROLE_CASHIER")))).isInstanceOf(org.springframework.security.access.AccessDeniedException.class);verifyNoInteractions(serials,histories);
     }
@@ -42,4 +43,10 @@ class SerialLookupServiceTest {
         assertThat(view.branchName()).isEqualTo("Chi nhánh khác");assertThat(view.history()).extracting(SerialTimelineEntry::actorName).containsExactly("Hệ thống","Khách hàng #99");
         assertThat(view.history()).allMatch(event->event.documentUrl()==null);verify(employees,times(1)).findAllById(any());
     }
+    @Test void lookup_warrantyHistory_linksToTicket(){
+        var product=new Product();product.setSku("SKU");product.setName("Máy");var branch=new Branch();ReflectionTestUtils.setField(branch,"name","HQ");var receipt=new GoodsReceipt();ReflectionTestUtils.setField(receipt,"id",1L);receipt.setCode("PN-1");var serial=new SerialItem();ReflectionTestUtils.setField(serial,"id",2L);serial.setSerialNo("SERIAL-1");serial.setProduct(product);serial.setBranch(branch);serial.setReceipt(receipt);
+        when(serials.findLookupBySerialNo("SERIAL-1")).thenReturn(Optional.of(serial));var event=new SerialHistory();event.setActorType(ActorType.SYSTEM);event.setRefType("WARRANTY_TICKET");event.setRefId(8L);event.setToStatus(SerialStatus.IN_WARRANTY_REPAIR);when(histories.findAllBySerialItemIdOrderByChangedAtAscIdAsc(2L)).thenReturn(List.of(event));
+        assertThat(service().lookup("SERIAL-1",new InventoryActor(1L,1L,Set.of("ROLE_ADMIN"))).history().getFirst().documentUrl()).isEqualTo("/staff/warranty/tickets/8");
+    }
+
 }

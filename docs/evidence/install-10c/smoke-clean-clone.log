@@ -1,0 +1,7 @@
+PASS: health UP
+PASS: trang chủ công khai HTTP 200
+PASS: đăng nhập nhân viên demo và mở /staff
+PASS: tra cứu bảo hành công khai có hồ sơ (POST + CSRF)
+PASS: mở báo cáo dashboard sau xác thực
+PASS: đăng xuất staff
+Kết quả: 6 PASS, 0 FAIL

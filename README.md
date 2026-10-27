@@ -1,144 +1,106 @@
-# dienmay
+# Hệ thống quản lý chuỗi cửa hàng điện máy
 
-Project Maven dùng Spring Boot 3.5.16, Java 21, đóng gói JAR.
+Quản lý nhiều chi nhánh, nhân viên và quyền truy cập theo vai trò/chi nhánh.<br>
+Quản lý sản phẩm, nhà cung cấp, nhập/chuyển/kiểm kê kho và vòng đời Serial/IMEI.<br>
+Bán tại quầy POS, đặt hàng online, giữ hàng, hóa đơn, đổi trả và hoàn tiền.<br>
+Theo dõi bảo hành, báo cáo doanh thu/tồn kho và kiểm tra toàn vẹn dữ liệu.<br>
+Java 21, Spring Boot 3, Maven, MySQL 8, Flyway, Thymeleaf/Bootstrap 5; không Lombok.
 
-- Group ID: `com.dienmay`
-- Artifact ID: `dienmay`
-- Package: `com.dienmay`
-- Dependency: Spring Web, Thymeleaf, Spring Data JPA, Spring Security,
-  Validation, MySQL Driver, Flyway Migration và Spring Boot DevTools.
-- Không dùng Lombok.
+## Yêu cầu máy
 
-## Biên dịch
+- JDK **21** cho dev/test; Maven Wrapper có sẵn, không cần cài Maven riêng.
+- Docker Desktop đang chạy (hoặc Docker Engine + Compose v2 trên Linux), Git, Bash và curl.
+- Internet lần đầu để tải image/phụ thuộc; Bootstrap/Chart.js trên giao diện dùng CDN.
+- Gợi ý 8 GB RAM và 10 GB đĩa trống trở lên; đây là khuyến nghị, chưa đo máy cấu hình tối thiểu. Chỉ chạy Docker thì không cần JDK trên máy host.
+- Windows: dùng WSL2/Git Bash cho script `.sh`, `mvnw.cmd` trong PowerShell cho Maven.
 
-Dùng JDK 21 và chạy:
+## Chạy bằng Docker: một lệnh sau cấu hình lần đầu
 
-```sh
-./mvnw -DskipTests package
+Đứng ở thư mục có `pom.xml` và `docker-compose.yml`. Chọn **một** cấu hình:
+
+```bash
+# Demo trên DB/volume riêng; không ghi đè .env đã có.
+cp .env.demo.example .env
+# Mở .env: tự đặt DB_PASSWORD, MYSQL_ROOT_PASSWORD, FLYWAY_PASSWORD khác nhau.
+# Giữ APP_PROFILE=demo, DB_NAME=dienmay_demo, DEMO_SEED=true.
+docker compose up --build -d --wait --wait-timeout 600
 ```
 
-## Chạy ứng dụng
+Compose cũng hỗ trợ `docker compose up` (tự build khi chưa có image); lệnh trên build lại khi mã đổi và chờ health UP. `.env` không đưa vào Git. Với prod, dùng `.env.example` thay cho bản demo và đặt thêm INITIAL_ADMIN_PASSWORD đủ mạnh (≥16 ký tự, hoa/thường/số/ký tự đặc biệt). Prod không tạo tài khoản mẫu.
 
-Khởi động Docker Desktop, rồi chạy tại thư mục gốc project:
+Mở **http://localhost:8081**. Cổng host: app **8081**, MySQL **3307** (trong mạng Compose: `app:8081`, `mysql:3306`). DB/ảnh nằm trong volume có tên. `docker compose down` giữ dữ liệu; **`down -v` xóa DB và ảnh** của project tương ứng. Đừng dùng nó với DB đang làm việc.
 
-```sh
+Kiểm tra sau khi lên:
+
+```bash
+./scripts/smoke-test.sh
+```
+
+Script dành cho demo, báo PASS/FAIL từng mục, exit 0 khi tất cả đạt. Không cần Python. Tài khoản/Serial khác có thể truyền qua `SMOKE_STAFF_USER`, `SMOKE_STAFF_PASSWORD`, `SMOKE_SERIAL`, `SMOKE_BASE_URL`; không hard-code mật khẩu prod vào script. Xem [cài đặt và xử lý lỗi](docs/huong-dan-cai-dat.md).
+
+## URL và tài khoản demo
+
+| URL | Khu vực / quyền |
+|---|---|
+| `/`, `/products`, `/cart` | Cửa hàng, sản phẩm, giỏ hàng công khai |
+| `/register`, `/customer/login` | Đăng ký / đăng nhập khách |
+| `/account`, `/checkout`, `/account/orders` | Hồ sơ, đặt hàng, đơn của khách đã đăng nhập |
+| `/warranty`, `/warranty/track` | Tra bảo hành công khai, không lộ thông tin cá nhân |
+| `/login`, `/staff` | Đăng nhập / trang chủ nhân viên |
+| `/admin`, `/admin/catalog/products`, `/admin/integrity` | Quản trị ADMIN |
+| `/inventory/receipts`, `/inventory/transfers`, `/inventory/stocktakes` | Kho theo quyền và chi nhánh |
+| `/pos`, `/pos/invoices`, `/staff/orders` | Quầy bán / hóa đơn / xử lý đơn online |
+| `/staff/warranty`, `/reports/dashboard` | Bảo hành / báo cáo theo quyền |
+| `/actuator/health` | Health công khai; các endpoint Actuator khác bị chặn |
+
+| Tài khoản demo | Mật khẩu | Phạm vi |
+|---|---|---|
+| admin | Admin@123 | ADMIN toàn chuỗi |
+| manager01 / manager02 / manager03 | Manager@123 | Quản lý HQ / CN2 / CN3 |
+| cashier01 / cashier02 / cashier03 | Cashier@123 | Thu ngân HQ / CN2 / CN3 |
+| warehouse01 / warehouse02 / warehouse03 | Warehouse@123 | Kho HQ / CN2 / CN3 |
+| warranty01 / warranty02 / warranty03 | Warranty@123 | Bảo hành HQ / CN2 / CN3 |
+| khach1@dienmay.example.test … khach5@dienmay.example.test | Customer@123 | Khách giả lập |
+
+Mật khẩu trên chỉ tồn tại khi chủ động nạp demo. IMEI mẫu tra bảo hành: `990000002020016`. [Chi tiết dữ liệu, tài khoản, ảnh và lịch sử sáu tháng](docs/demo.md). Thanh toán/hoàn tiền online hiện mô phỏng, không tích hợp cổng thu tiền thật.
+
+## Dev trong VS Code
+
+Cài Extension Pack for Java và Spring Boot Extension Pack, chọn **Java 21**, mở thư mục repo rồi Terminal → New Terminal. Chỉ bật MySQL trong Compose để tránh app Docker chiếm 8081:
+
+```bash
 docker compose up -d mysql
-docker compose logs -f mysql
+# Đặt SPRING_DATASOURCE_URL/USERNAME/PASSWORD, FLYWAY_USER/PASSWORD và
+# INITIAL_ADMIN_PASSWORD theo .env; mẫu đầy đủ tại docs/huong-dan-cai-dat.md.
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
-Chờ MySQL báo `ready for connections`, sau đó thoát xem log bằng Ctrl+C.
-Compose tạo database `dienmay`, user `dienmay`, mật khẩu dev `dienmay123`,
-cổng host `3307` (cổng MySQL trong container là `3306`). Dữ liệu lưu trong volume `mysql_data`.
+Spring Boot chạy Maven **không tự đọc `.env`**. Dev không tự nạp demo; không dùng thông tin DB mặc định cũ khi đã tạo mật khẩu khác trong Compose. Muốn chạy demo bằng Maven phải dùng profile demo và DB hậu tố `_demo`, xem hướng dẫn cài đặt. Debug qua Spring Boot Dashboard/Run Java với cùng biến môi trường; dừng app trước khi chạy thêm instance.
 
-`application.yml` bật profile `dev`, tắt Hibernate tự tạo/sửa bảng và bật
-Flyway tại `classpath:db/migration`. `application-dev.yml` chứa kết nối
-MySQL, tắt cache Thymeleaf và bật log SQL. Các mật khẩu mẫu chỉ dùng cho dev.
-Migration `V1__init_organization.sql` tạo các bảng `role`, `branch`, `employee`,
-các ràng buộc unique và khóa ngoại, đồng thời thêm 5 vai trò nhân viên và
-chi nhánh trụ sở `HQ`. Vai trò `CUSTOMER` không nằm trong bảng `role`.
-Flyway tự áp dụng migration khi ứng dụng khởi động và kết nối được MySQL.
+## Test và hiệu năng
 
-Sau khi cấu hình database:
-
-```sh
-./mvnw spring-boot:run
+```bash
+./mvnw test                    # unit/web, không cần DB dev
+./mvnw clean verify            # thêm MySQL Testcontainers + JaCoCo; cần Docker
+./mvnw exec:java@test-report   # sinh tài liệu từ XML lần chạy hiện có
 ```
 
-Test `contextLoads` mặc định cũng cần kết nối database đã cấu hình.
+Testcontainers dùng DB/cổng ngẫu nhiên riêng. JaCoCo: `target/site/jacoco/index.html`; kết quả đã ghi nhận ở [test-results.md](docs/test-results.md). Lưu cả metadata bằng `./scripts/verify-with-evidence.sh`.
 
-Dừng MySQL và giữ dữ liệu bằng `docker compose down`.
+Benchmark dùng **profile Spring `perf`**, không phải Maven `-Pperf`. Cần DB riêng đúng tên `dienmay_report_perf`; không trỏ DB demo/dev/prod:
 
-## Cấu trúc package
-
-Package gốc `com.dienmay` chứa `DienmayApplication`. Các package con gồm
-`config`, `auth`, `organization.entity`, `organization.repository`, `web`.
-Các entity `Role`, `Branch`, `Employee` đã ánh xạ JPA theo migration V1.
-Các repository đã kế thừa `JpaRepository`: tìm vai trò/chi nhánh theo mã,
-kiểm tra username và tìm nhân viên kèm vai trò, chi nhánh bằng `join fetch`.
-Đã cấu hình xác thực nhân viên bằng `AppUserDetailsService`, BCrypt và
-phân quyền `/admin/**` cho ADMIN. `AppUserDetails` lưu mã nhân viên, mã chi
-nhánh và họ tên. Tài khoản không active bị chặn đăng nhập.
-`DevDataInitializer` chỉ chạy với profile `dev`, tạo tài khoản còn thiếu tại
-chi nhánh `HQ`, mã hóa mật khẩu bằng BCrypt lúc chạy và giữ nguyên tài khoản
-đã tồn tại:
-
-| Tên đăng nhập | Mật khẩu dev | Vai trò |
-| --- | --- | --- |
-| `admin` | `Admin@123` | `ADMIN` |
-| `cashier01` | `Cashier@123` | `CASHIER` |
-
-Controller đã ánh xạ `/login` → `login`, `/` → `home`, `/admin` → `admin/index`.
-Đã có các template Thymeleaf `login.html`, `home.html`, `admin/index.html`,
-`error/403.html`, `error/404.html` với Bootstrap 5.3.3 từ CDN. Form đăng nhập
-và đăng xuất dùng POST với `th:action` để Spring tích hợp CSRF. Trang chủ
-hiển thị họ tên, tài khoản, quyền và chỉ hiện liên kết quản trị cho ADMIN.
-Dependency `spring-security-test` dùng scope `test`.
-
-## Kiểm tra local
-
-Máy hiện có dịch vụ chiếm cổng 3306 và 8080, nên project dùng MySQL tại
-`localhost:3307` và ứng dụng dev tại `http://localhost:8081`.
-Sau khi ứng dụng chạy, kiểm tra các luồng HTTP bằng:
-
-```sh
-python3 scripts/smoke_check.py
+```bash
+# Đặt PERF_JDBC_URL, PERF_DB_USER, PERF_DB_PASSWORD, FLYWAY_USER/PASSWORD cho DB benchmark.
+./mvnw spring-boot:run -Dspring-boot.run.profiles=perf \
+  -Dspring-boot.run.arguments="--app.report.perf.seed=true --app.report.perf.benchmark=true --app.report.perf.output=/tmp/dienmay-performance.md"
 ```
 
-## Test tự động
+Lệnh seed perf cố ý dùng dữ liệu SQL tổng hợp, tách khỏi demo; cần tài khoản phù hợp để Flyway/benchmark tạo chỉ mục thử nghiệm. [Lệnh chuẩn bị DB, điều kiện an toàn và giới hạn phép đo](docs/performance.md), [hướng dẫn test đầy đủ](docs/testing.md). Chưa có Maven profile `stress` hoặc `security-scan`, không coi cảnh báo profile không tồn tại là đã chạy kiểm thử đó.
 
-- `AppUserDetailsServiceTest`: TC-AUTH-01–03, kiểm tra tài khoản hợp lệ,
-  tài khoản không tồn tại và tài khoản bị khóa; dùng Mockito, không cần DB.
-- `SecurityRulesTest`: TC-AUTH-04–06, kiểm tra chuyển hướng đăng nhập,
-  CASHIER nhận 403 và ADMIN được vào trang quản trị; dùng MockMvc, không cần DB.
-- `DevDataInitializerTest`: BCrypt và không ghi đè tài khoản có sẵn.
-- `DienmayApplicationTests`: nạp toàn bộ ứng dụng, cần MySQL đang chạy.
+## Tài liệu
 
-Chạy riêng 6 test mới (không cần MySQL):
-
-```sh
-./mvnw -Dtest=AppUserDetailsServiceTest,SecurityRulesTest test
-```
-
-Chạy toàn bộ test (Docker Desktop phải hoạt động; test DB dùng Testcontainers):
-
-```sh
-docker compose up -d
-./mvnw test
-```
-
-Xem kết quả trong terminal và các file `target/surefire-reports/*.txt`.
-Trong VS Code, mở file test và dùng nút Run Test phía trên phương thức
-nếu đã bật extension Test Runner for Java.
-
-## Catalog (bước 3A)
-
-Đã có schema V2, entity/repository, Form/View DTO, mapper viết tay và service
-cho danh mục, thương hiệu, sản phẩm; chưa có controller/giao diện catalog.
-Xem [luồng xử lý, lệnh chạy và danh sách test](docs/catalog-3a.md).
-
-## Catalog web ADMIN (bước 3B)
-
-Đã có giao diện danh mục, thương hiệu, sản phẩm và upload ảnh.
-Xem [thiết kế, test và hướng dẫn kiểm tra thủ công](docs/catalog-3b.md).
-
-## Inventory nền tảng (bước 4A)
-
-Đã có V3, Serial state machine/history, tồn số lượng/movement, actor đa loại
-và guard khóa thay đổi cấu hình Serial. Chưa có controller/UI kho.
-Xem [thiết kế, lệnh chạy và danh sách test](docs/inventory-4a.md).
-
-## Inventory nhập kho (bước 4B)
-
-Đã có nhà cung cấp, phiếu nhập nhiều dòng, kiểm tra Serial theo lô, phân quyền
-chi nhánh và màn hình tồn kho. Xem [luồng nghiệp vụ, kết quả test và checklist trình duyệt](docs/inventory-4b.md).
-
-## Inventory chuyển kho và tra Serial (bước 4C)
-
-Đã có V4, phiếu nháp/xuất/nhận/hủy, khóa Serial theo ID, test đồng thời
-và tra vòng đời Serial xuyên chi nhánh cho bảo hành.
-Xem [thiết kế, giải thích khóa và checklist kiểm tra](docs/inventory-4c.md).
-
-## Quản lý chi nhánh
-
-ADMIN vào **Chi nhánh → Thêm chi nhánh** để tạo đích chuyển kho ngay trên giao diện.
-Xem [hướng dẫn thử chuyển kho từ đầu](docs/organization-branches.md).
+- [Cài đặt từ máy sạch, lỗi thường gặp, backup/restore](docs/huong-dan-cai-dat.md)
+- [Kiến trúc, bảo mật và quyết định thiết kế](docs/kien-truc.md)
+- [Bằng chứng clone sạch và smoke 10C](docs/kiem-tra-khoi-10c.md)
+- [Clock và 12 bất biến](docs/clock-and-integrity-10b.md), [ma trận phân quyền](docs/security-matrix-integrity.md)
+- Các tài liệu bước 3–9 trong `docs/` là lịch sử phát triển; mô tả “chưa có UI/service” tại một bước không mô tả trạng thái hiện tại.

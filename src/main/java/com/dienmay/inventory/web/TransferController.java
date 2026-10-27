@@ -24,7 +24,7 @@ public class TransferController {
     public String list(@RequestParam(required = false) TransferStatus status, @RequestParam(defaultValue = "ALL") String direction,
             @RequestParam(required = false) Long branchId, @RequestParam(defaultValue = "0") int page, Model model) {
         InventoryActor actor = current.get();
-        var pageable = PageRequest.of(Math.max(0,page), 10, Sort.by("id").descending());
+        var pageable = com.dienmay.common.pagination.PageRequestFactory.of(Math.max(0,page), 10, Sort.by("id").descending());
         try { model.addAttribute("transfers", transfers.search(status, direction, branchId, pageable, actor)); }
         catch (BusinessException exception) { model.addAttribute("error", exception.getMessage()); model.addAttribute("transfers", Page.empty(pageable)); }
         model.addAttribute("status", status); model.addAttribute("direction", direction); model.addAttribute("branchId", branchId);

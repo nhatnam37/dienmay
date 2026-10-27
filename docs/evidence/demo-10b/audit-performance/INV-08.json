@@ -1,0 +1,63 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "10563.50"
+    },
+    "ordering_operation": {
+      "using_filesort": false,
+      "windowing": {
+        "windows": [
+          {
+            "name": "<unnamed window>",
+            "definition_position": 1,
+            "using_temporary_table": true,
+            "frame_buffer": {
+              "using_temporary_table": true,
+              "optimized_frame_evaluation": true
+            },
+            "functions": [
+              "sum"
+            ]
+          },
+          {
+            "name": "<unnamed window>",
+            "definition_position": 2,
+            "last_executed_window": true,
+            "frame_buffer": {
+              "using_temporary_table": true,
+              "optimized_frame_evaluation": true
+            },
+            "functions": [
+              "sum"
+            ]
+          }
+        ],
+        "table": {
+          "table_name": "h",
+          "access_type": "index",
+          "key": "PRIMARY",
+          "used_key_parts": [
+            "id"
+          ],
+          "key_length": "8",
+          "rows_examined_per_scan": 20,
+          "rows_produced_per_join": 99560,
+          "filtered": "100.00",
+          "cost_info": {
+            "read_cost": "607.50",
+            "eval_cost": "9956.00",
+            "prefix_cost": "10563.50",
+            "data_read_per_join": "37M"
+          },
+          "used_columns": [
+            "id",
+            "from_status",
+            "to_status"
+          ],
+          "attached_condition": "((case when (((`audit_0da494474d7444c083635204a7bad048`.`h`.`from_status` is null) and (`audit_0da494474d7444c083635204a7bad048`.`h`.`to_status` = 'IN_STOCK')) or ((`audit_0da494474d7444c083635204a7bad048`.`h`.`from_status` = 'IN_STOCK') and (`audit_0da494474d7444c083635204a7bad048`.`h`.`to_status` = 'RESERVED')) or ((`audit_0da494474d7444c083635204a7bad048`.`h`.`from_status` = 'IN_STOCK') and (`audit_0da494474d7444c083635204a7bad048`.`h`.`to_status` = 'SOLD')) or ((`audit_0da494474d7444c083635204a7bad048`.`h`.`from_status` = 'IN_STOCK') and (`audit_0da494474d7444c083635204a7bad048`.`h`.`to_status` = 'IN_TRANSFER')) or ((`audit_0da494474d7444c083635204a7bad048`.`h`.`from_status` = 'IN_STOCK') and (`audit_0da494474d7444c083635204a7bad048`.`h`.`to_status` = 'DAMAGED')) or ((`audit_0da494474d7444c083635204a7bad048`.`h`.`from_status` = 'RESERVED') and (`audit_0da494474d7444c083635204a7bad048`.`h`.`to_status` = 'IN_STOCK')) or ((`audit_0da494474d7444c083635204a7bad048`.`h`.`from_status` = 'RESERVED') and (`audit_0da494474d7444c083635204a7bad048`.`h`.`to_status` = 'SOLD')) or ((`audit_0da494474d7444c083635204a7bad048`.`h`.`from_status` = 'SOLD') and (`audit_0da494474d7444c083635204a7bad048`.`h`.`to_status` = 'IN_STOCK')) or ((`audit_0da494474d7444c083635204a7bad048`.`h`.`from_status` = 'SOLD') and (`audit_0da494474d7444c083635204a7bad048`.`h`.`to_status` = 'IN_WARRANTY_REPAIR')) or ((`audit_0da494474d7444c083635204a7bad048`.`h`.`from_status` = 'IN_TRANSFER') and (`audit_0da494474d7444c083635204a7bad048`.`h`.`to_status` = 'IN_STOCK')) or ((`audit_0da494474d7444c083635204a7bad048`.`h`.`from_status` = 'IN_WARRANTY_REPAIR') and (`audit_0da494474d7444c083635204a7bad048`.`h`.`to_status` = 'SOLD'))) then 0 else 1 end) = 1)"
+        }
+      }
+    }
+  }
+}

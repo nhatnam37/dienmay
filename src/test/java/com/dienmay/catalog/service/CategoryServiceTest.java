@@ -37,6 +37,7 @@ class CategoryServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-CAT-02")
     void create_duplicateName_rejectsRequest() {
         when(categories.existsByName("TIVI")).thenReturn(true);
         assertThatThrownBy(() -> service.create(categoryForm(" TIVI ", null)))
@@ -45,6 +46,7 @@ class CategoryServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-CAT-03")
     void update_selfAsParent_rejectsRequest() {
         when(categories.findById(1L)).thenReturn(Optional.of(category(1, "Tivi", null)));
         assertThatThrownBy(() -> service.update(1L, categoryForm("Tivi", 1L)))
@@ -53,6 +55,7 @@ class CategoryServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-CAT-04")
     void update_descendantAsParent_rejectsRequest() {
         Category root = category(1, "Gốc", null);
         Category child = category(2, "Con", root);
@@ -65,6 +68,7 @@ class CategoryServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-CAT-05")
     void delete_categoryHasProducts_rejectsRequest() {
         when(categories.findById(1L)).thenReturn(Optional.of(category(1, "Tivi", null)));
         when(products.countByCategoryId(1L)).thenReturn(1L);
@@ -74,6 +78,7 @@ class CategoryServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-CAT-06")
     void delete_categoryHasChildren_rejectsRequest() {
         when(categories.findById(1L)).thenReturn(Optional.of(category(1, "Tivi", null)));
         when(categories.existsByParentId(1L)).thenReturn(true);
@@ -83,6 +88,7 @@ class CategoryServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-CAT-07")
     void delete_emptyCategory_deletesSuccessfully() {
         Category empty = category(1, "Tivi", null);
         when(categories.findById(1L)).thenReturn(Optional.of(empty));
@@ -92,6 +98,7 @@ class CategoryServiceTest {
     }
 
     @Test
+    @com.dienmay.support.TestCase("TC-CAT-01")
     void create_validParent_returnsViewWithParentName() {
         Category parent = category(1, "Điện tử", null);
         when(categories.findById(1L)).thenReturn(Optional.of(parent));
