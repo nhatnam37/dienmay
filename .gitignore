@@ -44,3 +44,7 @@ build/
 
 # Dump MySQL và ảnh sao lưu chứa dữ liệu riêng.
 /backup/
+
+# XML Failsafe được sinh bởi verify và script lưu bằng chứng; giữ bản trên máy,
+# chỉ commit báo cáo tóm tắt/metadata nhỏ, không thêm các XML thô mới.
+/docs/evidence/automated/*/failsafe-reports/TEST-*.xml
